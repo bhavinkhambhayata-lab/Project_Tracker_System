@@ -1,0 +1,136 @@
+﻿@model Tracker_System.Models.ImprestDetailsModel
+
+@{
+    ViewBag.Title = "ImprestDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("~/Views/MenuPages/_HomeSideBar.cshtml")
+@*@using (Html.BeginForm())
+    {
+        <section class="content MatrixDocType" DocTypeCode="SO">
+            <div class="box">
+                <div class="box-header with-border PDHeaderpx">
+                    <div class="Headertxt">
+                        <center><h4><b>ImprestDetails</b></h4></center>
+                    </div>
+                    <div id="div_ResultMessage" class="AlertmsgDiv">
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="box-body">
+                    <input type="hidden" id="_HelpCode" name="_HelpCode" value="SO" />
+                    <div class="col-md-12 form-group">
+                        <div class="clearfix"></div>
+                        <div class="form-group"></div>
+                        <div id="tabs" class="nav-tabs-custom">
+                            <ul class="nav nav-tabs">
+                                <li id="lnkDetail" class="active"><a href="#tabDetail" data-toggle="tab"><b>Detail</b></a></li>
+                                <li id="lnkList" class="active"><a href="#tabList" data-toggle="tab"><b>List</b></a></li>
+                                <li id="lnkOtherRpt" class="active"><a href="#tabOtherRpt" data-toggle="tab"><b>Other Rpt</b></a></li>
+                                <li id="lnkCommesion" class="active"><a href="#tabCommesion" data-toggle="tab"><b>Commercial</b></a></li>
+                                <li id="lnkHODApproval" class="active"><a href="#lnkHODApproval" data-toggle="tab"><b>HOD Approval</b></a></li>
+                                <li id="lnkMktHead" class="active"><a href="#lnkMktHead" data-toggle="tab"><b>Mkt Head</b></a></li>
+                                <li id="lnkDirectorApproval" class="active"><a href="#lnkDirectorApproval" data-toggle="tab"><b>Director's Approval</b></a></li>
+                                <li id="lnkSubmittedAccount" class="active"><a href="#lnkSubmittedAccount" data-toggle="tab"><b>Submitted-Account</b></a></li>
+                                <li id="lnkConfirmationSent" class="active"><a href="#lnkConfirmationSent" data-toggle="tab"><b>Confirmation Sent</b></a></li>
+                                <li id="lnkConfirmationReceived" class="active"><a href="#lnkConfirmationReceived" data-toggle="tab"><b>Confirmation Received</b></a></li>
+                            </ul>
+                        </div>
+                        <div class="tab-content">
+                            <div id="tabDetail" class="tab-pane">
+                                <div class="form-group">
+                                    <div class="col-md-12 form-group">
+                                        <div class="col-md-4">
+                                            <div class="col-md-12 form-group">
+                                                <div class="col-md-4 PDtop6px">DivisionName</div>
+                                                <div class="col-md-7 has-warning">@Html.DropDownListFor(model => model.DivisionID, new SelectList(Model.lstDivision, "ID", "Name"), "-- Select --", new { Class = "form-control" })</div>
+                                            </div>
+                                            <div class="col-md-12 form-group">
+                                                <div class="col-md-4 PDtop6px">EmployeeName</div>
+                                                <div class="col-md-6">@Html.TextBoxFor(model => model.EmployeeName, new { Class = "form-control" })</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="col-md-12 form-group">
+                                                <div class="col-md-4 PDtop6px">CompanyName</div>
+                                                <div class="col-md-7 has-warning">@Html.DropDownListFor(model => model.CompanyID, new SelectList(Model.lstCompany, "ID", "Name"), "-- Select --", new { Class = "form-control" })</div>
+                                            </div>
+                                            <div class="col-md-12 form-group">
+                                                <div class="col-md-4 PDtop6px">DesignationName</div>
+                                                <div class="col-md-6">@Html.TextBoxFor(model => model.DesignationName, new { Class = "form-control" })</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="col-md-12 form-group">
+                                                <div class="col-md-3 PDtop6px">No</div>
+                                                <div class="col-md-6 has-warning">@Html.DropDownListFor(model => model.No, new SelectList(Model.ImprestDetailsList, "", "No"), new { Class = "form-control", disabled = "true" })</div>
+                                            </div>
+                                            <div class="col-md-12 form-group">
+                                                <div class="col-md-3 PDtop6px">RegionName</div>
+                                                <div class="col-md-3">@Html.TextBoxFor(model => model.RegionName, new { Class = "form-control", maxlength = "500" })</div>
+                                                <div class="col-md-3 PDtop6px">RegionName</div>
+                                                <div class="col-md-3">@Html.TextBoxFor(model => model.RegionName, new { Class = "form-control", maxlength = "500" })</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-4"></div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="form-group H100px"></div>
+
+                    </div>
+                    <div class="clearfix"></div>
+
+                </div>
+            </div>
+        </section>
+    }
+    <script type="text/javascript">
+
+        $('#EmployeeName').autocomplete({
+            source: function (request, response) {
+                debugger
+                var autocompleteUrl = ITX3ResolveUrl('ImprestDetails/EmployeeAutoComplete');
+                $.ajax({
+                    url: autocompleteUrl,
+                    data: JSON.stringify({ EmployeeName: $('#EmployeeName').val() }),
+                    data: ($.parseJSON(JSON.stringify({ EmployeeName: $('#EmployeeName').val() }))),
+                    type: 'GET',
+                    cache: false,
+                    dataType: 'json',
+                    success: function (json) {
+                        response($.map(json, function (data, id) {
+                            return {
+                                value: data.split('ᴌ')[0],
+                            };
+                        }));
+                    },
+                    error: function (xmlHttpRequest, textStatus, errorThrown) {
+                        console.log('some error occured', textStatus, errorThrown);
+                    }
+                });
+            },
+            minLength: 1,
+            select: function (event, ui) {
+                $('#EmployeeName').val(ui.item.value);
+                return false;
+            }
+        });
+    </script>
+    <script src="~/Scripts/jquery-3.6.0.js"></script>
+    <script src="~/Scripts/jquery-1.7.1.min.js"></script>
+    <script src="~/Scripts/jquery-1.7.1.js"></script>
+    <script src="/Scripts/jquery-ui-1.8.20.min.js"></script>
+    <script src="/Scripts/jquery-1.7.1.js"></script>
+    <script src="/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="/Scripts/jquery.validate.js"></script>
+    <script src="/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/autocomplete-0.3.0.js"></script>
+    <script src="~/Scripts/autocomplete-0.3.0.min.js"></script>*@
+
+

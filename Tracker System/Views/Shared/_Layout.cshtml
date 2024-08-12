@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/Styles/style.css" rel="stylesheet" />
+    <link href="~/Styles/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Styles/bootstrap.css" rel="stylesheet" />
+    <link href="~/Styles/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Styles/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Styles/owl.carousel.min.css" rel="stylesheet" />
+    <link href="~/Styles/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="~/Styles/style.css" rel="stylesheet" />
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Dashboard - NiceAdmin Bootstrap Template</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+  
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="container body-content">  
+        
+        @RenderBody()
+    </div>
+</body>
+</html>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@RenderSection("scripts", required: false)
