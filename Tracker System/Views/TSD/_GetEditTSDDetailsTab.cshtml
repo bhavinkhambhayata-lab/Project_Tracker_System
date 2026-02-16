@@ -787,6 +787,8 @@
             success: function (res) {
                 if (res.success) {
                     alert("TSD details saved successfully");
+                    editTsdDetailRowId = '';
+                    GetData('tabDetails');
                 } else {
                     alert(res.message);
                 }
@@ -820,6 +822,7 @@
 
                 if (res.success === true) {
                     alert(res.message);
+                    $('#lnkList').click();
 
                 } else {
                     alert(res.message);

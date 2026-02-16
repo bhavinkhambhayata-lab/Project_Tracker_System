@@ -973,10 +973,10 @@
             return;
         }
 
-        if ($("#IsCommercial").prop("checked") && !$("#PaymentCycle").val()) {
-            alert("Please select Payment Cycle");
-            return;
-        }
+        //if ($("#IsCommercial").prop("checked") && !$("#PaymentCycle").val()) {
+        //    alert("Please select Payment Cycle");
+        //    return;
+        //}
 
         if ($("#IsCrossCheck").prop("checked") && !$("#CrossCheckingDate").val()) {
             alert("Please select Cross Check Receipt Date");
@@ -1119,6 +1119,8 @@
             success: function (res) {
                 if (res.success) {
                     alert("Impress details saved successfully");
+                    editImpressDetailRowId = '';
+                    GetData('tabDetails');
                 } else {
                     alert(res.message);
                 }
@@ -1169,11 +1171,11 @@
                     return;
                 }
 
-                if (!$("#PaymentCycle").val()) {
-                    alert("Please select Payment Cycle first");
-                    $(this).prop("checked", false);
-                    return;
-                }
+                //if (!$("#PaymentCycle").val()) {
+                //    alert("Please select Payment Cycle first");
+                //    $(this).prop("checked", false);
+                //    return;
+                //}
 
                 $("#IsCommercial").prop("disabled", true);
                 $("#CommercialDate").prop("disabled", true);
