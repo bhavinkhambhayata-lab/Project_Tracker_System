@@ -1,0 +1,1309 @@
+﻿<style>
+    .card {
+        border: 1px solid #cfcfcf;
+        margin-bottom: 10px;
+    }
+
+    .card-header {
+        padding: 6px 10px;
+        font-size: 13px;
+        font-weight: 600;
+        background-color: #f5f5f5;
+    }
+
+    .card-body {
+        padding: 8px 10px;
+    }
+
+    .form-label {
+        font-size: 12px;
+        font-weight: 600;
+        margin-bottom: 2px;
+    }
+
+    .form-control {
+        font-size: 12px;
+        height: 28px;
+        padding: 3px 6px;
+    }
+
+        .form-control[readonly] {
+            background-color: #f3f3f3;
+        }
+
+    .btn-imprest {
+        min-width: 80px;
+        padding: 4px 14px;
+        font-size: 12px;
+    }
+</style>
+
+@model Tracker_System.Models.TSDDetailsViewModel
+
+<div class="container-fluid">
+
+    <div class="card mt-4">
+        <div class="card-header">1. Details</div>
+        <div class="card-body mt-4">
+            <input type="hidden" id="RowID" value="@Model.RowID" />
+            <div class="row mb-2">
+                <div class="col-2">
+                    <div class="row align-items-center">
+                        <div class="col-3">
+                            <label class="form-label">Company</label>
+                        </div>
+                        <div class="col-9">
+                            <select id="CompanyID" name="CompanyID" class="form-control" style="min-width:150px;" disabled>
+                                <option value="">-- Select Company --</option>
+
+                                @foreach (var c in Model.CompanyList)
+                                {
+                                    <option value="@c.ID" data-shortname="@c.ShortName" selected>
+                                        @c.Name
+                                    </option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <label class="form-label">TSD Refund No</label>
+                        </div>
+                        <div class="col-7">
+                            @Html.TextBoxFor(m => m.No,
+                                                    new { @class = "form-control", @readonly = "readonly" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-2">
+                    <div class="row align-items-center">
+                        <div class="col-3">
+                            <label class="form-label">City</label>
+                        </div>
+                        <div class="col-9">
+
+                            @Html.TextBoxFor(m => m.City,
+                                new { @class = "form-control", @id = "City", @readonly = "readonly" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="row align-items-center">
+                        <div class="col-3">
+                            <label class="form-label">Region</label>
+                        </div>
+                        <div class="col-9">
+                            @Html.TextBoxFor(m => m.Region,
+                                                    new { @class = "form-control", @id = "Region", @readonly = "readonly" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-2">
+                    <div class="row align-items-center">
+                        <div class="col-4">
+                            <label class="form-label">TSD Amount</label>
+                        </div>
+                        <div class="col-8">
+                            @Html.TextBoxFor(m => m.TSDAmount,
+                                        new { @class = "form-control", @disabled = "disabled" })
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row mt-3 mb-2">
+
+                <div class="col-2">
+                    <div class="row align-items-center">
+                        <div class="col-3">
+                            <label class="form-label">Brand</label>
+                        </div>
+                        <div class="col-9">
+                            @Html.DropDownListFor(m => m.BrandID,
+                                                    new SelectList(Model.BrandList, "ID", "Name"),
+                                                    "-- Select --",
+                                                    new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="row align-items-center">
+                        <div class="col-1">
+                            <label class="form-label">Name</label>
+                        </div>
+                        <div class="col-7">
+                            @Html.TextBoxFor(m => m.EmployeeName,
+                                                new
+                                                     {
+                                                    @class = "form-control",
+                                                    @id = "Name",
+                                                    autocomplete = "off"
+                                                })
+
+                            <!-- Search dropdown -->
+                            <ul id="lstSearch"
+                                class="list-group position-absolute w-100"
+                                style="display: none; z-index: 1000; max-height: 600px; overflow-y: auto; overflow-x: hidden;"></ul>
+                        </div>
+                        <div class="col-2">
+                            @Html.TextBoxFor(m => m.TableName,
+                                            new { @class = "form-control mt-2", @id = "TableName", @readonly = "readonly" })
+                        </div>
+                        <div class="col-2">
+                            @Html.TextBoxFor(m => m.MasterCode,
+                                                new { @class = "form-control mt-2", @id = "MasterCode", @readonly = "readonly" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <div class="row align-items-center">
+                        <div class="col-2">
+                            <label class="form-label">Regarding</label>
+                        </div>
+                        <div class="col-10">
+                            @Html.TextBoxFor(m => m.Regarding,
+                                                        new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-2">
+            <div class="card">
+                <div class="card-header">2. Commercial</div>
+
+                <div class="card-body mt-3">
+
+                    <div class="row align-items-center mt-3">
+                        <div class="col">
+                            <label class="form-label">Receipt Date</label>
+                        </div>
+                        <div class="col">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        @Html.CheckBoxFor(m => m.IsCommercial,
+                                            new
+                                                 {
+                                                @class = "tsd-date-check",
+                                                data_target = "commercial",
+
+                                            })
+                                    </div>
+                                </div>
+
+                                @Html.TextBoxFor(m => m.CommercialReceiptDate,
+                                    new
+                                    {
+                                        @class = "form-control tsd-all-dates",
+                                        //type = "date",
+                                        placeholder = "dd/mm/yy",
+                                        data_section = "commercial"
+
+                                    })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row align-items-center mt-3">
+                        <div class="col">
+                            <label class="form-label mt-1">No. of Days</label>
+                        </div>
+                        <div class="col">
+                            @Html.TextBoxFor(m => m.CommercialNoOfDays,
+                                            new
+                                                 {
+                                                @class = "form-control",
+                                                @readonly = "readonly",
+                                                data_section = "commercial"
+                                            })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-2">
+            <div class="card">
+                <div class="card-header">3. Sent for Marketing Head's Approval</div>
+                <div class="card-body mt-3">
+
+                    <div class="row align-items-center mt-3">
+                        <div class="col">
+                            <label class="form-label">Receipt Date</label>
+                        </div>
+                        <div class="col">
+                            <div class="input-group">
+                                <div class="input-group-text">
+                                    @Html.CheckBoxFor(m => m.IsMKT,
+                                        new { @class = "tsd-date-check", data_target = "mkt", disabled = "disabled" })
+                                </div>
+
+                                @Html.TextBoxFor(m => m.MktReceiptDate,
+                                    new
+                                         {
+                                        @class = "form-control tsd-all-dates",
+                                        //type = "date",
+                                        data_section = "mkt",
+                                        placeholder = "dd/mm/yy",
+                                        disabled = "disabled"
+                                    })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row align-items-center mt-3">
+                        <div class="col">
+                            <label class="form-label mt-1">No. of Days</label>
+                        </div>
+                        <div class="col">
+                            @Html.TextBoxFor(m => m.MktNoOfDays,
+                                        new { @class = "form-control", @readonly = "readonly", data_section = "mkt" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-2">
+            <div class="card">
+                <div class="card-header">4. Sent for CMO's Approval</div>
+                <div class="card-body mt-3">
+
+                    <div class="row align-items-center mt-3">
+                        <div class="col">
+                            <label class="form-label">Receipt Date</label>
+                        </div>
+                        <div class="col">
+                            <div class="input-group">
+                                <div class="input-group-text">
+                                    @Html.CheckBoxFor(m => m.IsDirector,
+                                        new { @class = "tsd-date-check", data_target = "director", disabled = "disabled" })
+                                </div>
+
+                                @Html.TextBoxFor(m => m.DirectorReceiptDate,
+                                    new
+                                         {
+                                        @class = "form-control tsd-all-dates",
+                                        //type = "date",
+                                        data_section = "director",
+                                        placeholder = "dd/mm/yy",
+                                        disabled = "disabled"
+                                    })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row align-items-center mt-3">
+                        <div class="col">
+                            <label class="form-label mt-1">No. of Days</label>
+                        </div>
+                        <div class="col">
+                            @Html.TextBoxFor(m => m.DirectorNoOfDays,
+                                        new { @class = "form-control", @readonly = "readonly", data_section = "director" })
+                        </div>
+                    </div>
+
+
+                    <div class="row align-items-center mt-3">
+                        <div class="col">
+                            <label class="form-label mt-1">Refund Amount</label>
+                        </div>
+                        <div class="col">
+                            @Html.TextBoxFor(m => m.TotalRefundAmount,
+                                        new { @class = "form-control", disabled = "disabled" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-2">
+            <div class="card">
+                <div class="card-header">5. Submitted In Account</div>
+                <div class="card-body mt-3">
+
+                    <div class="row align-items-center mt-3">
+                        <div class="col">
+                            <label class="form-label">Sent Date</label>
+                        </div>
+                        <div class="col">
+                            <div class="input-group">
+                                <div class="input-group-text">
+                                    @Html.CheckBoxFor(m => m.IsSubmitted,
+                                        new { @class = "tsd-date-check", data_target = "submitted", disabled = "disabled" })
+                                </div>
+
+                                @Html.TextBoxFor(m => m.SubmittedDate,
+                                    new
+                                         {
+                                        @class = "form-control tsd-all-dates",
+                                        //type = "date",
+                                        data_section = "submitted",
+                                        placeholder = "dd/mm/yy",
+                                        disabled = "disabled"
+                                    })
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row align-items-center mt-3">
+                        <div class="col">
+                            <label class="form-label mt-1">No. of Days</label>
+                        </div>
+                        <div class="col">
+                            @Html.TextBoxFor(m => m.SubmittedNoOfDays,
+                                            new { @class = "form-control", @readonly = "readonly", data_section = "submitted" })
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="row align-items-center mt-3">
+                        <div class="col">
+                            <label class="form-label mt-1">Total Days</label>
+                        </div>
+                        <div class="col">
+                            @Html.TextBoxFor(m => m.TotalDays,
+                                            new { @class = "form-control", @readonly = "readonly", data_section = "all-total-days" })
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-2">
+            <div class="card">
+                <div class="card-header">6. Payment</div>
+                <div class="card-body mt-3">
+
+                    <div class="row align-items-center mt-3">
+                        <div class="col">
+                            <label class="form-label">Payment Date</label>
+                        </div>
+                        <div class="col">
+                            <div class="input-group">
+                                <div class="input-group-text">
+                                    @Html.CheckBoxFor(m => m.IsPayment,
+                                        new { @class = "tsd-date-check", data_target = "payment", disabled = "disabled" })
+                                </div>
+
+                                @Html.TextBoxFor(m => m.PaymentDate,
+                                    new
+                                         {
+                                        @class = "form-control tsd-all-dates",
+                                        //type = "date",
+                                        data_section = "payment",
+                                        placeholder = "dd/mm/yy",
+                                        disabled = "disabled"
+                                    })
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="row align-items-center mt-3">
+                        <div class="col">
+                            <label class="form-label mt-1">Cheque No</label>
+                        </div>
+                        <div class="col">
+                            @Html.TextBoxFor(m => m.ChequeNumber,
+                                        new
+                                             {
+                                            @class = "form-control",
+                                            data_section = "payment",
+                                            disabled = "disabled"
+                                        })
+                        </div>
+                    </div>
+
+
+
+                    <div class="row align-items-center mt-3">
+                        <div class="col">
+                            <label class="form-label mt-1">Amount</label>
+                        </div>
+                        <div class="col">
+                            @Html.TextBoxFor(m => m.PaymentAmount,
+                                        new
+                                             {
+                                            @class = "form-control",
+                                            data_section = "payment",
+                                            disabled = "disabled"
+                                        })
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-2">
+            <div class="card">
+                <div class="card-header">7. Couriered On</div>
+                <div class="card-body mt-3">
+
+                    <div class="row align-items-center mt-3">
+                        <div class="col">
+                            <label class="form-label">Sent Date</label>
+                        </div>
+                        <div class="col">
+                            <div class="input-group">
+                                <div class="input-group-text">
+                                    @Html.CheckBoxFor(m => m.IsCourier,
+                                        new { @class = "tsd-date-check", data_target = "courier", disabled = "disabled" })
+                                </div>
+
+                                @Html.TextBoxFor(m => m.CourierSentDate,
+                                    new
+                                         {
+                                        @class = "form-control tsd-all-dates",
+                                        //type = "date",
+                                        data_section = "courier",
+                                        placeholder = "dd/mm/yy",
+                                        disabled = "disabled"
+                                    })
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="row align-items-center mt-3">
+                        <div class="col">
+                            <label class="form-label mt-1">No. of Days</label>
+                        </div>
+                        <div class="col">
+                            @Html.TextBoxFor(m => m.CourierNoOfDays,
+                                        new { @class = "form-control", @readonly = "readonly", data_section = "courier" })
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="row align-items-center mt-3">
+                        <div class="col">
+                            <label class="form-label">Confirmation Receipt Date</label>
+                        </div>
+                        <div class="col">
+                            <div class="input-group">
+                                <div class="input-group-text">
+                                    @Html.CheckBoxFor(m => m.IsConfm,
+                                        new { @class = "tsd-date-check", data_target = "courier-confir", disabled = "disabled" })
+                                </div>
+
+                                @Html.TextBoxFor(m => m.ConfirmationReceiptDate,
+                                    new
+                                         {
+                                        @class = "form-control tsd-all-dates",
+                                        //type = "date",
+                                        data_section = "courier-confir",
+                                        placeholder = "dd/mm/yy",
+                                        disabled = "disabled"
+                                    })
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body mt-4">
+            <div class="row align-items-center mt-3">
+                <div class="col-1">
+                    <label class="form-label">Remarks</label>
+                </div>
+                <div class="col-11">
+                    @Html.TextAreaFor(m => m.Remarks,
+                                    new { @class = "form-control", rows = "2" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-2 mb-3">
+        <button type="button" class="btn-cancel" onclick="SaveTSDDetail()">Save</button>
+        <button type="button" class="btn-cancel" onclick="ExitAddTSDDetailPage()">Exit</button>
+        @*<button type="button" class="btn btn-secondary btn-imprest me-2">Refresh</button>*@
+        @*<button type="button" class="btn btn-secondary btn-imprest">Exit</button>*@
+    </div>
+</div>
+
+<script>
+    $('#Name').on('keyup', function () {
+
+        var name = $(this).val();
+        var companyAndBrandRowId = $('#BrandID').val();
+
+        // 🔴 Brand not selected → STOP SEARCH
+        if (!companyAndBrandRowId || companyAndBrandRowId === "0") {
+            $('#lstSearch').empty().hide();
+            alert('Please select Brand first');
+            return;
+        }
+
+        if (name === '') {
+            $('#lstSearch').empty().hide();
+            $('#TableName').val('');
+            $('#MasterCode').val('');
+            $('#City').val('');
+            $('#Region').val('');
+            $('#TSDAmount').val('');
+            return;
+        }
+        ///TSD/SearchNameOnlyCustomer
+
+        $.get('@Url.Action("SearchNameOnlyCustomer","TSD")', {
+            companyAndBrandRowId: companyAndBrandRowId,
+            name: name
+        }, function (data) {
+
+            $('#lstSearch').empty();
+
+            if (!data || data.length === 0) {
+                $('#lstSearch').hide();
+                return;
+            }
+
+            $.each(data, function (i, item) {
+                $('#lstSearch').append(
+                    `<li class="list-group-item list-group-item-action"
+                     data-id="${item.MasterCode}" data-tablename="${item.TableName}">
+                     ${item.Name}
+                 </li>`
+                );
+            });
+
+            $('#lstSearch').show();
+        });
+    });
+
+
+    // =====================
+    // Select from list
+    // =====================
+    $(document).on('click', '#lstSearch li', function () {
+
+        var companyAndBrandRowId = $('#BrandID').val();
+
+        if (!companyAndBrandRowId || companyAndBrandRowId === "0") {
+            $('#lstSearch').hide();
+            alert('Please select Brand first');
+            return;
+        }
+
+        var masterCode = $(this).data('id');
+
+        // 🔥 CLEAN TEXT
+        var displayText = $(this).text().trim();
+        var tableName = $(this).data('tablename');
+
+        $('#MasterCode').val(masterCode);
+        $('#TableName').val(tableName);
+
+        ///TSD/GetNameDetailsOnlyCustomer
+
+        $.get('@Url.Action("GetNameDetailsOnlyCustomer","TSD")', {
+            companyAndBrandRowId: companyAndBrandRowId,
+            name: $('#Name').val(),
+            masterCode: masterCode
+        }, function (data) {
+
+            if (data) {
+                $('#Name').val(data.ShortName);
+                $('#City').val(data.City);
+                $('#Region').val(data.Region);
+                $('#TSDAmount').val(data.TSDAmount);
+            }
+        });
+
+        $('#lstSearch').hide();
+    });
+
+</script>
+
+
+<script>
+    function ExitAddTSDDetailPage() {
+        $('#lnkList').click();
+    }
+    function getTodayDateDDMMYYYY() {
+        var d = new Date();
+        var day = ("0" + d.getDate()).slice(-2);
+        var month = ("0" + (d.getMonth() + 1)).slice(-2);
+        var year = d.getFullYear();
+        return day + "/" + month + "/" + year;
+    }
+
+    function SaveTSDDetail() {
+
+        if (!$("#CompanyID").val()) {
+            alert("Please select Company");
+            return;
+        }
+
+        if (!$("#BrandID").val()) {
+            alert("Please select Brand");
+            return;
+        }
+
+        if (!$("#Name").val()) {
+            alert("Please enter Name");
+            return;
+        }
+
+        if ($("#IsCommercial").prop("checked") && !$("#CommercialReceiptDate").val()) {
+            alert("Please select Commercial Receipt Date");
+            return;
+        }
+
+        //if ($("#IsHOD").prop("checked") && !$("#HODReceiptDate").val()) {
+        //    alert("Please select HOD Receipt Date");
+        //    return;
+        //}
+
+        if ($("#IsMKT").prop("checked") && !$("#MktReceiptDate").val()) {
+            alert("Please select MKT Receipt Date");
+            return;
+        }
+
+        if ($("#IsDirector").prop("checked") && !$("#DirectorReceiptDate").val()) {
+            alert("Please select CMO Receipt Date");
+            return;
+        }
+
+        if ($("#IsDirector").prop("checked")) {
+            if (!$("#TotalRefundAmount").val() || parseFloat($("#TotalRefundAmount").val()) <= 0) {
+                alert("Please enter valid Refund Amount");
+                return;
+            }
+        }
+
+        if ($("#IsSubmitted").prop("checked") && !$("#SubmittedDate").val()) {
+            alert("Please select Submitted Date");
+            return;
+        }
+
+
+        if ($("#IsPayment").prop("checked")) {
+
+            if (!$("#PaymentDate").val()) {
+                alert("Please select Payment Date");
+                return;
+            }
+
+            if (!$("#ChequeNumber").val()) {
+                alert("Please enter Cheque Number");
+                return;
+            }
+
+            if (!$("#PaymentAmount").val() || parseFloat($("#PaymentAmount").val()) <= 0) {
+                alert("Please enter valid Payment Amount");
+                return;
+            }
+        }
+
+        if ($("#IsCourier").prop("checked")) {
+
+            if (!$("#CourierSentDate").val()) {
+                alert("Please select Courier Sent Date");
+                return;
+            }
+        }
+
+        if ($("#IsConfm").prop("checked")) {
+
+            if (!$("#ConfirmationReceiptDate").val()) {
+                alert("Please select Confirmation Receipt Date");
+                return;
+            }
+        }
+
+        postSaveTSD();
+    }
+
+
+    function postSaveTSD() {
+
+        var model = {
+            RowID: $("#RowID").val(),
+            No: $('#No').val(),
+            CompanyID: $("#CompanyID").val(),
+            CompanyName: $('#CompanyID option:selected').data('shortname') || '',
+            BrandID: $("#BrandID").val(),
+            Name: $("#Name").val(),
+            TableName: $("#TableName").val(),
+            MasterCode: $("#MasterCode").val(),
+            City: $("#City").val(),
+            Region: $("#Region").val(),
+            Regarding: $("#Regarding").val(),
+            TSDAmount: $("#TSDAmount").val(),
+
+            IsCommercial: $("#IsCommercial").prop("checked"),
+            //IsHOD: $("#IsHOD").prop("checked"),
+            IsMkt: $("#IsMKT").prop("checked"),
+            IsDirector: $("#IsDirector").prop("checked"),
+            IsSubmitted: $("#IsSubmitted").prop("checked"),
+            IsPayment: $("#IsPayment").prop("checked"),
+            IsCourier: $("#IsCourier").prop("checked"),
+            IsConfirmation: $("#IsConfm").prop("checked"),
+
+            CommercialReceiptDate: $("#CommercialReceiptDate").val(),
+            CommercialNoOfDays: $("#CommercialNoOfDays").val(),
+
+            //HODReceiptDate: $("#HODReceiptDate").val(),
+            //HODNoOfDays: $("#HODNoOfDays").val(),
+
+            MktReceiptDate: $("#MktReceiptDate").val(),
+            MktNoOfDays: $("#MktNoOfDays").val(),
+
+            DirectorReceiptDate: $("#DirectorReceiptDate").val(),
+            DirectorNoOfDays: $("#DirectorNoOfDays").val(),
+            TotalRefundAmount: $("#TotalRefundAmount").val(),
+
+            SubmittedDate: $("#SubmittedDate").val(),
+            SubmittedNoOfDays: $("#SubmittedNoOfDays").val(),
+
+            PaymentDate: $("#PaymentDate").val(),
+            PaymentAmount: $("#PaymentAmount").val(),
+            ChequeNumber: $("#ChequeNumber").val(),
+
+            CourierSentDate: $("#CourierSentDate").val(),
+            CourierNoOfDays: $("#CourierNoOfDays").val(),
+
+            ConfirmationReceiptDate: $("#ConfirmationReceiptDate").val(),
+            TotalDays: $("#TotalDays").val(),
+            Remarks: $("#Remarks").val()
+        };
+
+        $.ajax({
+            //url: "/TSD/SaveTSDDetail",
+            url: '@Url.Action("SaveTSDDetail","TSD")',
+            type: "POST",
+            data: JSON.stringify(model),
+            contentType: "application/json",
+            success: function (res) {
+                if (res.success) {
+                    alert("TSD details saved successfully");
+                } else {
+                    alert(res.message);
+                }
+            },
+            error: function () {
+                alert("Something went wrong while saving data");
+            }
+        });
+    }
+
+    $(document).ready(function () {
+
+        $("#CommercialNoOfDays").val("0");
+        $("#MktNoOfDays").val("0");
+        $("#DirectorNoOfDays").val("0");
+        $("#SubmittedNoOfDays").val("0");
+        $("#CourierNoOfDays").val("0");
+
+        // ===== INITIAL STATE =====
+        $("#IsMKT, #IsDirector, #IsSubmitted, #IsPayment, #IsCourier, #IsConfm")
+            .prop("checked", false)
+            .prop("disabled", true);
+
+        $("#MktReceiptDate, #DirectorReceiptDate, #SubmittedDate, #PaymentDate, #CourierSentDate, #ConfirmationReceiptDate")
+            .prop("disabled", true)
+            .val("");
+
+        allDatePickerLoad();
+
+        // ===== COMMERCIAL =====
+        $("#IsCommercial").change(function () {
+            if (this.checked) {
+                $("#IsMKT").prop("disabled", false);
+                $("#MktReceiptDate").prop("disabled", false);
+            } else {
+                $("#CommercialReceiptDate").val("");
+                $("#MktReceiptDate").val("");
+                $("#IsMKT").prop("checked", false).prop("disabled", true);
+                $("#MktReceiptDate").prop("disabled", true);
+
+                calculateAllDays();
+            }
+        });
+
+        // ===== MARKETING =====
+        $("#IsMKT").change(function () {
+            if (this.checked) {
+
+                if (!$("#CommercialReceiptDate").val()) {
+                    alert("Please select Commercial Receipt Date first");
+                    $(this).prop("checked", false);
+                    return;
+                }
+
+                $("#IsCommercial").prop("disabled", true);
+                $("#CommercialReceiptDate").prop("disabled", true);
+
+                $("#IsDirector").prop("disabled", false);
+                $("#DirectorReceiptDate").prop("disabled", false);
+
+                $("#TotalRefundAmount").prop("disabled", false);
+            } else {
+                $("#MktReceiptDate").val("");
+
+                $("#IsCommercial").prop("disabled", false);
+                $("#CommercialReceiptDate").prop("disabled", false);
+
+                $("#IsDirector").prop("checked", false).prop("disabled", true);
+                $("#DirectorReceiptDate").prop("disabled", true);
+
+                $("#TotalRefundAmount").val("0").prop("disabled", true);
+
+                calculateAllDays();
+            }
+        });
+
+        // ===== DIRECTOR =====
+        $("#IsDirector").change(function () {
+            if (this.checked) {
+                if (!$("#MktReceiptDate").val()) {
+                    alert("Please select MKT Receipt Date first");
+                    $(this).prop("checked", false);
+                    return;
+                }
+
+                $("#IsMKT").prop("disabled", true);
+                $("#MktReceiptDate").prop("disabled", true);
+
+                $("#IsSubmitted").prop("disabled", false);
+                $("#SubmittedDate").prop("disabled", false);
+            } else {
+                $("#DirectorReceiptDate").val("");
+
+                $("#IsMKT").prop("disabled", false);
+                $("#MktReceiptDate").prop("disabled", false);
+
+                $("#IsSubmitted").prop("checked", false).prop("disabled", true);
+                $("#SubmittedDate").prop("disabled", true);
+
+                calculateAllDays();
+            }
+        });
+
+        // ===== SUBMITTED =====
+        $("#IsSubmitted").change(function () {
+            if (this.checked) {
+
+                if (!$("#DirectorReceiptDate").val()) {
+                    alert("Please select CMO Receipt Date first");
+                    $(this).prop("checked", false);
+                    return;
+                }
+
+                var refundAmt = $("#TotalRefundAmount").val();
+                if (!refundAmt || parseFloat(refundAmt) <= 0) {
+                    alert("Please enter valid Refund Amount");
+                    $(this).prop("checked", false);
+                    return;
+                }
+
+                $("#IsDirector").prop("disabled", true);
+                $("#DirectorReceiptDate").prop("disabled", true);
+
+                $("#IsPayment").prop("disabled", false);
+                $("#PaymentDate").prop("disabled", false);
+
+                $("#TotalRefundAmount").prop("disabled", true);
+
+                $("#ChequeNumber").prop("disabled", false);
+                $("#PaymentAmount").prop("disabled", false);
+
+            } else {
+                $("#SubmittedDate").val("");
+
+                $("#IsDirector").prop("disabled", false);
+                $("#DirectorReceiptDate").prop("disabled", false);
+
+                $("#IsPayment").prop("checked", false).prop("disabled", true);
+                $("#PaymentDate").prop("disabled", true);
+
+                $("#TotalRefundAmount").prop("disabled", false);
+
+                $("#ChequeNumber").val("").prop("disabled", true);
+                $("#PaymentAmount").val("0").prop("disabled", true);
+
+                calculateAllDays();
+            }
+        });
+
+        // ===== PAYMENT =====
+        $("#IsPayment").change(function () {
+            if (this.checked) {
+
+                if (!$("#SubmittedDate").val()) {
+                    alert("Please select Submitted Date first");
+                    $(this).prop("checked", false);
+                    return;
+                }
+
+                $("#IsSubmitted").prop("disabled", true);
+                $("#SubmittedDate").prop("disabled", true);
+
+                $("#IsCourier").prop("disabled", false);
+                $("#CourierSentDate").prop("disabled", false);
+            } else {
+                $("#PaymentDate").val("");
+
+                $("#IsSubmitted").prop("disabled", false);
+                $("#SubmittedDate").prop("disabled", false);
+
+                $("#IsCourier").prop("checked", false).prop("disabled", true);
+                $("#CourierSentDate").prop("disabled", true);
+
+                calculateAllDays();
+            }
+        });
+
+        // ===== COURIER =====
+        $("#IsCourier").change(function () {
+            if (this.checked) {
+
+                if (!$("#PaymentDate").val()) {
+                    alert("Please select Payment Date first");
+                    $(this).prop("checked", false);
+                    return;
+                }
+
+                if (!$("#ChequeNumber").val()) {
+                    alert("Please enter Cheque Number");
+                    $(this).prop("checked", false);
+                    return;
+                }
+
+                var payAmt = $("#PaymentAmount").val();
+                if (!payAmt || parseFloat(payAmt) <= 0) {
+                    alert("Please enter valid Payment Amount");
+                    $(this).prop("checked", false);
+                    return;
+                }
+
+                $("#IsPayment").prop("disabled", true);
+                $("#PaymentDate").prop("disabled", true);
+
+                $("#IsConfm").prop("disabled", false);
+                $("#ConfirmationReceiptDate").prop("disabled", false);
+
+                $("#ChequeNumber").prop("disabled", true);
+                $("#PaymentAmount").prop("disabled", true);
+
+            } else {
+                $("#CourierSentDate").val("");
+
+                $("#IsPayment").prop("disabled", false);
+                $("#PaymentDate").prop("disabled", false);
+
+                $("#IsConfm").prop("checked", false).prop("disabled", true);
+                $("#ConfirmationReceiptDate").prop("disabled", true);
+
+                $("#ChequeNumber").prop("disabled", false);
+                $("#PaymentAmount").prop("disabled", false);
+
+                calculateAllDays();
+            }
+        });
+
+        // ===== CONFIRMATION =====
+        $("#IsConfm").change(function () {
+            if (this.checked) {
+
+                if (!$("#CourierSentDate").val()) {
+                    alert("Please select Courier Sent Date first");
+                    $(this).prop("checked", false);
+                    return;
+                }
+
+                $("#IsCourier").prop("disabled", true);
+                $("#CourierSentDate").prop("disabled", true);
+            } else {
+                $("#ConfirmationReceiptDate").val("");
+
+                $("#IsCourier").prop("disabled", false);
+                $("#CourierSentDate").prop("disabled", false);
+
+                calculateAllDays();
+            }
+        });
+
+        function parseDMY(dateStr) {
+            if (!dateStr) return null;
+
+            var parts = dateStr.split("/");
+            var day = parseInt(parts[0], 10);
+            var month = parseInt(parts[1], 10) - 1;
+            var year = parseInt(parts[2], 10);
+
+
+            if (year < 100) {
+                year = 2000 + year;
+            }
+
+            var d = new Date(year, month, day);
+            d.setHours(0, 0, 0, 0);
+            return d;
+        }
+
+
+        function diffDays(d1, d2) {
+            if (!d1 || !d2) return 0;
+            var diff = (d2 - d1) / (1000 * 60 * 60 * 24);
+            return diff < 0 ? 0 : Math.round(diff);
+        }
+
+        function calculateAllDays() {
+
+            var commercial = parseDMY($("#CommercialReceiptDate").val());
+            var mkt = parseDMY($("#MktReceiptDate").val());
+            var director = parseDMY($("#DirectorReceiptDate").val());
+            var submitted = parseDMY($("#SubmittedDate").val());
+            var payment = parseDMY($("#PaymentDate").val());
+            var courier = parseDMY($("#CourierSentDate").val());
+            var confirmCourier = parseDMY($("#ConfirmationReceiptDate").val());
+
+            // Day differences as per new flow
+            var cDays = diffDays(commercial, mkt);          // Commercial → MKT
+            var mDays = diffDays(mkt, director);            // MKT → Director
+            var dDays = diffDays(director, submitted);      // Director → Submitted
+            var pDays = diffDays(submitted, payment);       // Submitted → Payment
+            var couDays = diffDays(courier, confirmCourier);// Courier → Confirmation
+
+            // Set values
+            $("#CommercialNoOfDays").val(cDays);
+            $("#MktNoOfDays").val(mDays);
+            $("#DirectorNoOfDays").val(dDays);
+            $("#SubmittedNoOfDays").val(pDays);
+            $("#CourierNoOfDays").val(couDays);
+
+            // Total till Payment (same logic as before)
+            var total = cDays + mDays + dDays + pDays;
+            $("#TotalDays").val(total);
+        }
+
+
+        function allDatePickerLoad() {
+            var todayDate = getToday();
+
+            // COMMERCIAL (>= Today)
+            $("#CommercialReceiptDate").datepicker({
+                format: "dd/mm/yy",
+                changeMonth: true,
+                changeYear: true,
+                onRender: function (date) {
+
+                    normalizeDate(date);
+
+                    if (date < todayDate) {
+                        return 'disabled';
+                    }
+                    return '';
+                }
+            }).on("changeDate", function () {
+                calculateAllDays();
+                $("#IsCommercial").prop("checked", true).trigger("change");
+                $("#MktReceiptDate").datepicker('update');
+            });
+
+
+            // ================= MKT (>= Commercial) =================
+            $("#MktReceiptDate").datepicker({
+                format: "dd/mm/yy",
+                changeMonth: true,
+                changeYear: true,
+                onRender: function (date) {
+
+                    normalizeDate(date);
+
+                    var commercial = normalizeDate(
+                        parseDMY($("#CommercialReceiptDate").val())
+                    );
+
+                    if (commercial && date < commercial) {
+                        return 'disabled';
+                    }
+                    return '';
+                }
+            }).on("changeDate", function () {
+                calculateAllDays();
+                $("#IsMKT").prop("checked", true).trigger("change");
+                $("#DirectorReceiptDate").datepicker('update');
+            });
+
+
+            // ================= DIRECTOR (>= MKT) =================
+            $("#DirectorReceiptDate").datepicker({
+                format: "dd/mm/yy",
+                changeMonth: true,
+                changeYear: true,
+                onRender: function (date) {
+
+                    normalizeDate(date);
+
+                    var mkt = normalizeDate(
+                        parseDMY($("#MktReceiptDate").val())
+                    );
+
+                    if (mkt && date < mkt) {
+                        return 'disabled';
+                    }
+                    return '';
+                }
+            }).on("changeDate", function () {
+                calculateAllDays();
+                $("#IsDirector").prop("checked", true).trigger("change");
+                $("#SubmittedDate").datepicker('update');
+            });
+
+
+            // ================= SUBMITTED (>= Director) =================
+            $("#SubmittedDate").datepicker({
+                format: "dd/mm/yy",
+                changeMonth: true,
+                changeYear: true,
+                onRender: function (date) {
+
+                    normalizeDate(date);
+
+                    var director = normalizeDate(
+                        parseDMY($("#DirectorReceiptDate").val())
+                    );
+
+                    if (director && date < director) {
+                        return 'disabled';
+                    }
+                    return '';
+                }
+            }).on("changeDate", function () {
+                calculateAllDays();
+                $("#IsSubmitted").prop("checked", true).trigger("change");
+                $("#PaymentDate").datepicker('update');
+            });
+
+
+            // ================= PAYMENT (>= Submitted) =================
+            $("#PaymentDate").datepicker({
+                format: "dd/mm/yy",
+                changeMonth: true,
+                changeYear: true,
+                onRender: function (date) {
+
+                    normalizeDate(date);
+
+                    var submitted = normalizeDate(
+                        parseDMY($("#SubmittedDate").val())
+                    );
+
+                    if (submitted && date < submitted) {
+                        return 'disabled';
+                    }
+                    return '';
+                }
+            }).on("changeDate", function () {
+                calculateAllDays();
+                $("#IsPayment").prop("checked", true).trigger("change");
+                $("#CourierSentDate").datepicker('update');
+            });
+
+
+            // ================= COURIER SENT (>= Payment) =================
+            $("#CourierSentDate").datepicker({
+                format: "dd/mm/yy",
+                changeMonth: true,
+                changeYear: true,
+                onRender: function (date) {
+
+                    normalizeDate(date);
+
+                    var payment = normalizeDate(
+                        parseDMY($("#PaymentDate").val())
+                    );
+
+                    if (payment && date < payment) {
+                        return 'disabled';
+                    }
+                    return '';
+                }
+            }).on("changeDate", function () {
+                calculateAllDays();
+                $("#IsCourier").prop("checked", true).trigger("change");
+                $("#ConfirmationReceiptDate").datepicker('update');
+            });
+
+
+            // ================= CONFIRMATION RECEIPT (>= Courier) =================
+            $("#ConfirmationReceiptDate").datepicker({
+                format: "dd/mm/yy",
+                changeMonth: true,
+                changeYear: true,
+                onRender: function (date) {
+
+                    normalizeDate(date);
+
+                    var courier = normalizeDate(
+                        parseDMY($("#CourierSentDate").val())
+                    );
+
+                    if (courier && date < courier) {
+                        return 'disabled';
+                    }
+                    return '';
+                }
+            }).on("changeDate", function () {
+                calculateAllDays();
+                $("#IsConfm").prop("checked", true).trigger("change");
+            });
+        }
+
+
+        function normalizeDate(d) {
+            if (!d) return null;
+            d.setHours(0, 0, 0, 0);
+            return d;
+        }
+
+        function getToday() {
+            return normalizeDate(new Date());
+        }
+
+    });
+
+</script>
+
+
+
+
+
+

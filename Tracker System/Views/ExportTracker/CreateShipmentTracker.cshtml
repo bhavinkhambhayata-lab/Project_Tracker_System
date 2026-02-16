@@ -1,0 +1,1011 @@
+﻿@model Tracker_System.Models.Shipmenttracker
+@{
+    ViewBag.Title = "CreateShipmentTracker";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@*<style>
+        .tr-yellow {
+            background-color: yellow !important;
+        }
+
+        .tr-green {
+            background-color: #ccffcc !important; /* light green */
+        }
+    </style>*@
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(model => model.UserName)
+    @Html.HiddenFor(model => model.Password)
+    <section>
+        <div class="box" style="width:auto;">
+            <div class="box-body" style="width:auto;">
+                <div class="clearfix"> <div id="Accountpage" style=" text-align: end; margin-left: 169rem; margin-top:-14px;"></div></div>
+               
+  
+             
+                        <div class="box">
+
+                            <div class="col-md-12 form-group" id="invoiceNoSearchSectionList" style="margin-top: 6px !important; white-space: nowrap; display: flex; margin-left: 0; ">
+                               
+
+
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="form-group"></div>
+                            <div class="box-body">
+                                <div class="col-md-12 form-group" style=" margin-left: -13px !important; margin-top: -28px!important;">
+                                    <div class="table-responsive">
+
+                                        <div id="loadingMessage1" style="text-align:center; padding:20px; font-size:16px; display:none;">
+                                            <span><i class="fa fa-spinner fa-spin" style="font-size:100px"></i> Loading data, please wait...</span>
+                                        </div>
+
+                                        <table id="TblshipmenttrackerInfo" class="table table-bordered table-striped mt-1">
+                                            <thead >
+                                                <tr style="white-space: nowrap;" class="coma">
+
+                                                    <th style="text-align: center;"><b>Sr No</b></th>
+
+                                                    <th title="InvoiceNo"><b>InvoiceNo</b></th>
+                                                    <th title="InvDate"><b>InvDate</b></th>
+                                                    <th title="No.  Of FCL/ LCL"><b>No.  Of <br /> FCL / LCL</b></th>
+                                                    <th title="Bill To Name"><b>Bill To Name </b></th>
+                                                    <th title="Ship To Name"><b>Ship To Name</b></th>
+                                                    <th title="Mode of Dishcharge"><b>Mode</b></th>
+
+                                                    <th title="Lading Port /Airport"><b>Lading Port / <br />Airport</b></th>
+                                                    <th title="Port /Airport "><b>Port / <br />Airport </b></th>
+                                                    @*<th title="Select All"><b>select All</b></th>*@
+                                                    <th title="Vessel/Airlines"><b>Vessel / Airlines </b></th>
+                                                    <th title="ETD"><b>ETD</b></th>
+                                                    <th title="ETA"><b>ETA</b></th>
+                                                    <th title="Transit Time"><b>Transit Time</b></th>
+                                                    <th title="BL Express /Regular/AWB"><b>BL Express / Regular / <br />AWB </b></th>
+                                                    <th title="Action"><b>Action</b></th>
+                                                    <th title="Docs to Account . Date"><b>Docs to Account. <br />Date </b></th>
+                                                    <th title="Docs sent to Customer Date "><b>Docs sent to <br />Customer Date </b></th>
+
+
+
+
+
+
+
+                                                </tr>
+                                                <tr class="comb">
+                                                    <th><input type="text" class="column-search srno-search" data-column="0" style="width: 2rem !important;"></th>
+
+                                                    <th><input type="text" class="column-search Invoice_No-search" data-column="1"></th>
+                                                    <th><input type="text" class="column-search Invoice_Date-search" data-column="2"></th>
+                                                    <th><input type="text" class="column-search Bill_To_Name-search" data-column="3" style="width: 5rem !important;"></th>
+                                                    <th><input type="text" class="column-search Ship_To_Name-search" data-column="4" style="width: 10rem !important;"></th>
+
+                                                    <th><input type="text" class="column-search Port_of_Loading-search" data-column="5" style="width: 9rem;"></th>
+                                                    <th><input type="text" class="column-search Port_of_discharge-search" data-column="6" style="width: 4rem;"></th>
+                                                    <th><input type="text" class="column-search Mode_of_Dishcharge-search" data-column="7" style="width: 8rem;"></th>
+                                                    <th><input type="text" class="column-search Type-search" data-column="8" style="width: 9rem"></th>
+                                                    @*<th><input type="text" class="column-search Type-search" data-column="9" style="width: 3rem"></th>*@
+                                                    <th><input type="text" class="column-search Type-search" data-column="9" style="width: 19rem"></th>
+                                                    <th><input type="text" class="column-search Type-search" data-column="10" style="width: 6rem"></th>
+                                                    <th><input type="text" class="column-search Type-search" data-column="11" style="width: 6rem"></th>
+                                                    <th><input type="text" class="column-search Type-search" data-column="12" style="width: 6rem"></th>
+                                                    <th><input type="text" class="column-search Type-search" data-column="13" style="width: 12rem"></th>
+                                                    <th><input type="text" class="column-search Country-search" data-column="15" style=" width: 5rem;"></th>
+                                                    <th><input type="text" class="column-search Country-search" data-column="16" style=" width: 9rem;"></th>
+                                                    <th><input type="text" class="column-search Inco_Terms-search" data-column="17" style=" width: 8rem;"></th>
+
+                                                </tr>
+
+                                            </thead>
+
+                                            <tbody class="ExportInfotbody"></tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                 
+
+
+            </div>
+        </div>
+    </section>
+}
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<script src="~/Scripts/bootstrap.bundle.min.js"></script>
+<script src="~/assets/bootstrap-select/bootstrap-select.min.js"></script>
+<link href="~/Content/Css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="~/Content/plugins/datatables/jquery.dataTables.min.css" rel="stylesheet" />
+
+<link href="~/assets/bootstrap-select/bootstrap-select.min.css" rel="stylesheet" />
+
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+<link href="~/Content/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<link href="~/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+<link href="~/Content/boxicons/css/boxicons.min.css" rel="stylesheet" />
+<link href="~/Content/quill/quill.snow.css" rel="stylesheet" />
+<link href="~/Content/quill/quill.bubble.css" rel="stylesheet" />
+<link href="~/Content/remixicon/remixicon.css" rel="stylesheet" />
+<link href="~/Content/simple-datatables/style.css" rel="stylesheet" />
+<script src="~/Content/echarts/echarts.min.js"></script>
+<script src="~/Content/quill/quill.js"></script>
+<script src="~/Content/simple-datatables/simple-datatables.js"></script>
+<script src="~/Content/tinymce/tinymce.min.js"></script>
+<script src="~/Content/php-email-form/validate.js"></script>
+
+<script src="~/Scripts/main.js"></script>
+<link href="~/Scripts/style.css" rel="stylesheet" />
+<link href="~/Styles/style.css" rel="stylesheet" />
+
+<script src="~/Scripts/jquery-3.7.1.min.js"></script>
+<script src="~/Scripts/jquery.min.js"></script>
+<link href="~/Content/themes/base/minified/jquery.ui.tabs.min.css" rel="stylesheet" />
+<link href="~/Content/themes/redmond/minified/jquery.ui.tabs.min.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-2.1.4.min.js"></script>
+<script src="~/Scripts/jquery.datetimepicker.js"></script>
+<script src="~/Content/SiteCss/js/jquery.datetimepicker.js"></script>
+<link href="~/Content/SiteCss/css/jquery.datetimepicker.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-1.7.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+
+<link href="~/Content/Css/TSCommon.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap.bundle.js"></script>
+
+<script src="~/WebFormScripts/ExtOperation.js"></script>
+<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+<link href="~/Content/themes/redmond/minified/jquery-ui.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-1.12.4.min.js"></script>
+
+<link href="~/Scripts/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Styles/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/assets/css/style.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Styles/bootstrap.css" rel="stylesheet" />
+<link href="~/Styles/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Scripts/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
+
+<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+<link href="~/Content/themes/redmond/minified/jquery-ui.min.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-ui.js"></script>
+<script src="~/Content/plugins/datatables/jquery.dataTables.min.js"></script>
+
+<script src="~/Scripts/ext-all.js"></script>
+<link href="~/Styles/ext-all.css" rel="stylesheet" />
+<link href="~/Content/Css/ext.css" rel="stylesheet" />
+
+
+<script type="text/javascript">
+
+
+    function parseDate(dateStr) {
+        // Expecting format: DD/MM/YYYY
+        const parts = dateStr.split('/');
+        return new Date(parts[2], parts[1] - 1, parts[0]); // year, monthIndex, day
+    }
+
+    function calculateTransitForRow(row) {
+        debugger
+        const etdValtxt = $(row).find('.cc-etd').val();
+        const etaValtxt = $(row).find('.cc-eta').val();
+
+        if (etdValtxt && etaValtxt) {
+            const etd = parseDate(etdValtxt);
+            const eta = parseDate(etaValtxt);
+
+            const diffTime = eta - etd; // milliseconds
+            const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
+
+            $(row).find('.CO_Transit_Time').text(diffDays >= 0 ? diffDays : '');
+        } else {
+            $(row).find('.CO_Transit_Time').text('');
+        }
+    }
+
+
+
+$(document).ready(function () {
+
+    getgriddetails();
+
+    // ✅ Works when user types or pastes in ETA/ETD field
+    $(document).on('change', '.cc-date', function () {
+        debugger
+        const $row = $(this).closest('tr');
+        calculateTransitForRow($row);
+
+    });
+
+
+    // When initializing your datepicker, handle date selection
+    $(document).on('focus', '.cc-date', function () {
+        debugger
+        const $input = $(this);
+
+        // Save the old value before opening datepicker
+        $input.data('oldDate', $input.val());
+
+        // Initialize datepicker only once
+        if (!$input.data('datepicker')) {
+            $input.datepicker({
+                dateFormat: 'dd/mm/yy',
+                showAnim: 'fadeIn',
+                changeMonth: true,
+                changeYear: true,
+                onSelect: function (dateText) {
+                    const $row = $(this).closest('tr');
+                    const oldDate = $(this).data('oldDate');
+
+                    // ✅ Only call function if date actually changed
+                    if (oldDate !== dateText) {
+                        calculateTransitForRow($row);
+                    }
+                }
+            });
+        }
+    });
+
+    $(document).on('change keyup blur', '.cc-date', function () {
+        const $row = $(this).closest('tr');
+        calculateTransitForRow($row);
+
+    });
+
+    // ✅ Function to calculate transit days
+
+    $('#TblshipmenttrackerInfo').on('click', '.edit-btn', function (e) {
+    e.preventDefault();
+    const $btn = $(this);
+    const $row = $btn.closest('tr');
+
+    if ($btn.hasClass('editing')) {
+        // ---- SAVE MODE ----
+        const updatedData = {
+            Invoice_No: $row.find('.InvoiceNo').text().trim(),
+            Vessel_Airlines: $row.find('.CO_Vessel_Airlines input').val().trim(),
+            ETD: $row.find('.CO_ETD input').val().trim(),
+            ETA: $row.find('.CO_ETA input').val().trim(),
+            Transit_Time: $row.find('.cc-transit').length
+                ? $row.find('.cc-transit').text().trim()
+                : $row.find('.CO_Transit_Time').text().trim(),
+            BL_Express: $row.find('.CO_BL_Express input').val().trim()
+        };
+
+        $.ajax({
+            url: '@Url.Action("GetShipmentDataUpdate", "ExportTracker")',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ rowsData: [updatedData] }),
+            success: function () {
+                alert('Row updated successfully.');
+
+                // Replace inputs with updated text values
+                $row.find('.CO_Vessel_Airlines').text(updatedData.Vessel_Airlines);
+                $row.find('.CO_ETD').text(updatedData.ETD);
+                $row.find('.CO_ETA').text(updatedData.ETA);
+                $row.find('.CO_Transit_Time').text(updatedData.Transit_Time);
+                $row.find('.CO_BL_Express').text(updatedData.BL_Express);
+
+                // Remove save/cancel buttons and restore edit icon
+                $row.find('.edit-btn, .cancel-btn').closest('td').remove();
+                const editTdHtml = `
+                    <td style="text-align:center;">
+                        <button type="button" class="edit-btn icon-btn" title="Edit">
+                            <i class="fa fa-pencil" style="margin-left:5px;"></i>
+                        </button>
+                    </td>`;
+                $row.find('.CO_BL_Express').after(editTdHtml);
+            },
+            error: function () {
+                alert('Error updating row.');
+            }
+        });
+
+    } else {
+        // ---- EDIT MODE ----
+        $btn.addClass('editing')
+            .html('<i class="fa fa-check" title="Save" style="margin-left:2px; color:green"></i>');
+
+        if ($row.find('.cancel-btn').length === 0) {
+            $btn.after(`
+                <button type="button" class="cancel-btn btn btn-sm" title="Cancel" style="margin-left:24px;color:red">
+                    <i class="fa fa-times"></i>
+                </button>`);
+        }
+
+        // ---- Editable fields setup ----
+        $row.find('.CO_Vessel_Airlines, .CO_ETD, .CO_ETA, .CO_BL_Express').each(function () {
+            const $cell = $(this);
+            const text = $cell.text().trim();
+            $cell.data('original', text);
+            // ✅ ETD / ETA fields (with datepicker)
+            if ($cell.hasClass('CO_ETD') || $cell.hasClass('CO_ETA')) {
+                const dateClass = $cell.hasClass('CO_ETD') ? 'cc-etd' : 'cc-eta';
+                $cell.html(`
+                    <input type="text"
+                        class="form-control form-control-sm text-center datepicker cc-date ${dateClass}"
+                        value="${text}" style="width:90px;">
+                `);
+
+                const $input = $cell.find('.datepicker');
+                $input.datepicker({
+                    dateFormat: 'dd/mm/yy',
+                    showAnim: 'fadeIn',
+                    changeMonth: true,
+                    changeYear: true,
+                    onSelect: function () {
+                        calculateTransitForRow($row);
+                    }
+                }).on('change keyup', function () {
+                    const etdVal = $row.find('.cc-etd').val();
+                    const etaVal = $row.find('.cc-eta').val();
+                    if (etdVal && etaVal) {
+                        calculateTransitForRow($row);
+                    }
+                });
+
+            // ✅ Vessel Airlines (228px)
+            } else if ($cell.hasClass('CO_Vessel_Airlines')) {
+                $cell.html(`
+                    <input type="text"
+                        class="form-control form-control-sm text-center"
+                        value="${text}" style="width:228px;">
+                `);
+
+            // ✅ BL_Express (90px)
+            } else if ($cell.hasClass('CO_BL_Express')) {
+                $cell.html(`
+                    <input type="text"
+                        class="form-control form-control-sm text-center"
+                        value="${text}" style="width:90px;">
+                `);
+            }
+        });
+
+        // ---- Transit display ----
+        const transitText = $row.find('.CO_Transit_Time').text().trim();
+     //   $row.find('.CO_Transit_Time').html(`<span class="cc-transit">${transitText}</span>`);
+        $row.find('.CO_Transit_Time')
+            .data('original', transitText) // ✅ store on <td>
+            .html(`<span class="cc-transit">${transitText}</span>`);
+    }
+});
+
+    // ✅ Edit button click event
+@*    $('#TblshipmenttrackerInfo').on('click', '.edit-btn', function (e) {
+        e.preventDefault();
+        const $btn = $(this);
+        const $row = $btn.closest('tr');
+
+        if ($btn.hasClass('editing')) {
+            // ---- SAVE MODE ----
+            const updatedData = {
+                Invoice_No: $row.find('.InvoiceNo').text().trim(),
+                Vessel_Airlines: $row.find('.CO_Vessel_Airlines input').val().trim(),
+                ETD: $row.find('.CO_ETD input').val().trim(),
+                ETA: $row.find('.CO_ETA input').val().trim(),
+                Transit_Time: $row.find('.cc-transit').text().trim(),
+                BL_Express: $row.find('.CO_BL_Express input').val().trim()
+            };
+
+            $.ajax({
+                url: '@Url.Action("GetShipmentDataUpdate", "ExportTracker")',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ rowsData: [updatedData] }),
+                success: function () {
+                    alert('Row updated successfully.');
+                    $row.find('.CO_Vessel_Airlines').text(updatedData.Vessel_Airlines);
+                    $row.find('.CO_ETD').text(updatedData.ETD);
+                    $row.find('.CO_ETA').text(updatedData.ETA);
+                    $row.find('.CO_Transit_Time').text(updatedData.Transit_Time);
+                    $row.find('.CO_BL_Express').text(updatedData.BL_Express);
+
+                    $row.find('.edit-btn, .cancel-btn').closest('td').remove();
+                    const editTdHtml = `
+                        <td style="text-align:center;">
+                            <button type="button" class="edit-btn icon-btn" title="Edit">
+                                <i class="fa fa-pencil" style="margin-left:5px;"></i>
+                            </button>
+                        </td>`;
+                    $row.find('.CO_BL_Express').after(editTdHtml);
+                },
+                error: function () {
+                    alert('Error updating row.');
+                }
+            });
+
+        } else {
+            $btn.addClass('editing')
+                .html('<i class="fa fa-check" title="Save" style="margin-left:2px; color:green"></i>');
+
+            if ($row.find('.cancel-btn').length === 0) {
+                $btn.after(`<button type="button" class="cancel-btn btn btn-sm" title="Cancel" style="margin-left:25px;color:red">
+        <i class="fa fa-times"></i></button>`);
+            }
+
+            // Editable fields setup
+            $row.find('.CO_Vessel_Airlines, .CO_ETD, .CO_ETA, .CO_BL_Express').each(function () {
+                const $cell = $(this);
+                const text = $cell.text().trim();
+
+                if ($cell.hasClass('CO_ETD') || $cell.hasClass('CO_ETA')) {
+                    // ✅ Add class .etd or .eta based on column
+                    const dateClass = $cell.hasClass('CO_ETD') ? 'etd' : 'eta';
+
+                    $cell.html(`
+            <input type="text"
+                class="form-control form-control-sm text-center datepicker cc-date ${dateClass}"
+                value="${text}" style="width:90px;"> `);
+                    // ✅ Initialize Datepicker
+                    $input.datepicker({
+                        dateFormat: 'dd/mm/yy',
+                        showAnim: 'fadeIn',
+                        changeMonth: true,
+                        changeYear: true,
+                        onSelect: function () {
+                            calculateTransitForRow($row);
+                        }
+                    }).on('change keyup', function () {
+                        calculateTransitForRow($row);
+                    });
+
+                } else if ($cell.hasClass('CO_Vessel_Airlines')) {
+                    // ✅ Vessel_Airlines = 228px width
+                    $cell.html(`
+            <input type="text"
+                class="form-control form-control-sm text-center"
+                value="${text}" style="width:228px;">
+        `);
+                } else {
+                    // ✅ All other (like BL_Express) = 90px width
+                    $cell.html(`
+            <input type="text"
+                class="form-control form-control-sm text-center"
+                value="${text}" style="width:90px;">
+        `);
+                }
+            });
+
+            // Transit display
+            const transitText = $row.find('.CO_Transit_Time').text().trim();
+            $row.find('.CO_Transit_Time').html(`<span class="cc-transit">${transitText}</span>`);
+        }
+    });*@
+
+    // ✅ Cancel button
+    $('#TblshipmenttrackerInfo').on('click', '.cancel-btn', function (e) {
+        e.preventDefault();
+        const $row = $(this).closest('tr');
+        debugger
+        $row.find('.CO_Vessel_Airlines, .CO_ETD, .CO_ETA, .CO_Transit_Time, .CO_BL_Express').each(function () {
+            const $cell = $(this);
+            const original = $cell.data('original');
+            const $input = $cell.find('input.datepicker');
+            if ($input.length) {
+                try { $input.datepicker('destroy'); } catch (err) { }
+            }
+            $cell.text(original || '');
+        });
+
+        $row.find('.edit-btn, .cancel-btn').closest('td').remove();
+        const editTdHtml = `
+        <td style="text-align:center;">
+            <button type="button" class="edit-btn icon-btn" title="Edit">
+                <i class="fa fa-pencil" style="margin-left:5px;"></i>
+            </button>
+        </td>`;
+        $row.find('.CO_BL_Express').after(editTdHtml);
+    });
+/*    $('#TblshipmenttrackerInfo').on('click', '.cancel-btn', function (e) {
+        e.preventDefault();
+        const $row = $(this).closest('tr');
+
+        $row.find('.CO_Vessel_Airlines, .CO_ETD, .CO_ETA, .CO_Transit_Time, .CO_BL_Express').each(function () {
+            const val = $(this).find('input').val() || $(this).text();
+            $(this).text(val);
+        });
+
+        $row.find('.edit-btn, .cancel-btn').closest('td').remove();
+        const editTdHtml = `
+            <td style="text-align:center;">
+                <button type="button" class="edit-btn icon-btn" title="Edit">
+                    <i class="fa fa-pencil" style="margin-left:5px;"></i>
+                </button>
+            </td>`;
+        $row.find('.CO_BL_Express').after(editTdHtml);
+    });*/
+});
+
+
+
+
+          @*$(document).ready(function () {
+
+
+              getgriddetails();
+// Edit button click
+$('#TblshipmenttrackerInfo').on('click', '.edit-btn', function(e) {
+    e.preventDefault();
+    const $btn = $(this);
+    const $row = $btn.closest('tr');
+
+    if ($btn.hasClass('editing')) {
+        // Save mode
+        const updatedData = {
+            Invoice_No: $row.find('.InvoiceNo').text().trim(),
+            Vessel_Airlines: $row.find('.CO_Vessel_Airlines input').val().trim(),
+            ETD: $row.find('.CO_ETD input').val().trim(),
+            ETA: $row.find('.CO_ETA input').val().trim(),
+            Transit_Time: $row.find('.CO_Transit_Time input').val().trim(),
+            BL_Express: $row.find('.CO_BL_Express input').val().trim()
+        };
+
+        $.ajax({
+            url: '@Url.Action("GetShipmentDataUpdate", "ExportTracker")',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ rowsData: [updatedData] }),
+            success: function(data) {
+                alert('Row updated successfully.');
+
+                // Replace inputs with plain text
+                $row.find('.CO_Vessel_Airlines').text(updatedData.Vessel_Airlines);
+                $row.find('.CO_ETD').text(updatedData.ETD);
+                $row.find('.CO_ETA').text(updatedData.ETA);
+                $row.find('.CO_Transit_Time').text(updatedData.Transit_Time);
+                $row.find('.CO_BL_Express').text(updatedData.BL_Express);
+
+                // Remove any existing edit/cancel buttons
+                $row.find('.edit-btn, .cancel-btn').closest('td').remove();
+
+                // Insert edit button <td> right after BL_Express column
+                const editTdHtml = `
+                    <td style="text-align:center;">
+                        <button type="button" class="edit-btn icon-btn" title="Edit">
+                            <i class="fa fa-pencil" style="margin-left:5px;"></i>
+                        </button>
+                    </td>
+                `;
+                $row.find('.CO_BL_Express').after(editTdHtml);
+            },
+            error: function() {
+                alert('Error updating row.');
+            }
+        });
+
+    } else {
+        // Switch to edit mode
+        $btn.addClass('editing').html('<i class="fa fa-check" title="Save" style="margin-left:2px; color:green"></i>');
+
+        // Add cancel button if not present
+        if ($row.find('.cancel-btn').length === 0) {
+            $btn.after(`<button type="button" class="cancel-btn btn btn-sm " title="Cancel" style="margin-left:29px;color:red "><i class="fa fa-times"></i></button>`);
+        }
+
+        // Convert columns to input fields
+        //$row.find('.CO_Vessel_Airlines, .CO_ETD, .CO_ETA, .CO_Transit_Time, .CO_BL_Express').each(function() {
+        //    const $cell = $(this);
+        //    const text = $cell.text().trim();
+
+        //    if ($cell.hasClass('CO_ETD') || $cell.hasClass('CO_ETA')) {
+        //        // Datepicker input for ETD and ETA
+        //        $cell.html(`<input type="text" class="form-control form-control-sm datepicker text-center" value="${text}" style="width:90px;">`);
+
+        //        // Initialize jQuery UI Datepicker
+        //        $cell.find('.datepicker').datepicker({
+        //            dateFormat: 'dd/mm/yy',
+        //            showAnim: 'fadeIn',
+        //            changeMonth: true,
+        //            changeYear: true
+        //        });
+        //    } else {
+        //        // Regular text input for other columns
+        //        $cell.html(`<input type="text" class="form-control form-control-sm text-center" value="${text}" style="width:90px;">`);
+        //    }
+        //});
+        $row.find('.CO_Vessel_Airlines, .CO_ETD, .CO_ETA, .CO_BL_Express').each(function () {
+            const $cell = $(this);
+            const text = $cell.text().trim();
+
+            if ($cell.hasClass('CO_ETD') || $cell.hasClass('CO_ETA')) {
+                // Datepicker input for ETD & ETA
+                $cell.html(`<input type="text" class="form-control form-control-sm datepicker text-center cc-date" value="${text}" style="width:90px;">`);
+                debugger
+                $cell.find('.datepicker').datepicker({
+                    dateFormat: 'dd/mm/yy',
+                    showAnim: 'fadeIn',
+                    changeMonth: true,
+                    changeYear: true,
+                    onchange: function () {
+                        calculateTransitForRow($row); // auto calculate when date selected
+                    }
+                });
+            } else {
+                // Regular text input for other columns
+                $cell.html(`<input type="text" class="form-control form-control-sm text-center" value="${text}" style="width:90px;">`);
+            }
+        });
+
+        // Keep Transit cell as <span> (no textbox)
+        const currentTransit = $row.find('.CO_Transit_Time').text().trim();
+        $row.find('.CO_Transit_Time').html(`<span class="cc-transit">${currentTransit}</span>`);
+
+    }
+});
+
+// Cancel button click
+$('#TblshipmenttrackerInfo').on('click', '.cancel-btn', function(e) {
+    e.preventDefault();
+    const $btn = $(this);
+    const $row = $btn.closest('tr');
+   // const $editBtn = $row.find('.edit-btn');
+
+    // Restore original text values from input value
+    $row.find('.CO_Vessel_Airlines, .CO_ETD, .CO_ETA, .CO_Transit_Time, .CO_BL_Express').each(function() {
+        const original = $(this).find('input').val(); // safer than .attr('value')
+        $(this).text(original);
+    });
+
+    $row.find('.edit-btn, .cancel-btn').closest('td').remove();
+
+    // Re-insert edit button <td> after BL_Express column
+    const editTdHtml = `
+        <td style="text-align:center;">
+            <button type="button" class="edit-btn icon-btn" title="Edit">
+                <i class="fa fa-pencil" style="margin-left:5px;"></i>
+            </button>
+        </td>
+    `;
+    $row.find('.CO_BL_Express').after(editTdHtml);
+});
+
+
+
+
+
+
+
+          });*@
+
+
+
+
+
+    function showDatePicker(input) {
+        const $input = $(input);
+        const $row = $input.closest('tr');
+
+        $input.datepicker({
+            dateFormat: 'dd/mm/yy',
+            showAnim: 'fadeIn',
+            changeMonth: true,
+            changeYear: true,
+            onSelect: function () {
+                calculateTransitForRow($row); // When selecting date
+            }
+        });
+
+        // Trigger calculation when user types manually
+        $input.off('change keyup blur').on('change keyup blur', function () {
+            calculateTransitForRow($row);
+        });
+
+        $input.datepicker('show');
+    }
+    //function showDatePicker(inputElement) {
+    //    var datePicker1 = Ext.create('Ext.picker.Date', {
+    //        renderTo: Ext.getBody(),
+    //        floating: true,
+    //        format: 'd/m/Y',  // Set the format you want here
+    //        listeners: {
+    //            // Listener for date selection
+    //            select: function (picker, date) {
+    //                // Set the selected date in the input element
+    //                inputElement.value = Ext.Date.format(date, 'd/m/y');
+    //                // Hide the picker after selection
+    //                $(inputElement).trigger('change');
+    //                picker.hide();
+    //            },
+    //            // Listener for when the picker is hidden
+    //            hide: function () {
+    //                // Optionally, you can do something here when picker is hidden
+    //            },
+    //            // Optional: auto-close when input loses focus
+    //            blur: function () {
+    //                datePicker1.hide();
+    //            }
+    //        }
+    //    });
+
+    //    // Get the position of the input element
+    //    var inputPosition = inputElement.getBoundingClientRect();
+    //    var x = inputPosition.left - 200;
+    //    var y = inputPosition.top + inputPosition.height;
+
+    //    // Show the picker at the calculated position
+    //    datePicker1.showAt(x, y);
+    //    Ext.getBody().on('click', function (event) {
+    //        // Check if the click is outside the picker and the input element
+    //        if (!datePicker1.el.contains(event.target) && event.target !== inputElement) {
+    //            datePicker1.hide();
+    //        }
+    //    });
+    //}
+    //$(document).on(' change', '.CO_ETD input, .CO_ETA input', function () {
+    //    debugger
+    //    const $row = $(this).closest('tr');
+    //    calculateTransitForRow($row);
+    //});
+
+    //$(document).on('change input keyup', '.cc-date', function () {
+    //    calculateTransitForRow($(this).closest('tr'));
+    //});
+
+    //function calculateTransitForRow($row) {
+    //    debugger
+    //    const etdVal = $row.find('.CO_ETD input').val();
+    //    const etaVal = $row.find('.CO_ETA input').val();
+
+    //    if (etdVal && etaVal) {
+    //        const etd = moment(etdVal, 'DD/MM/YYYY');
+    //        const eta = moment(etaVal, 'DD/MM/YYYY');
+    //        const diff = eta.diff(etd, 'days');
+    //        if (!isNaN(diff) && diff >= 0) {
+    //            $row.find('.cc-transit').text(diff);
+    //        } else {
+    //            $row.find('.cc-transit').text('');
+    //        }
+    //    } else {
+    //        $row.find('.cc-transit').text('');
+    //    }
+    //}
+
+    // delegated events for dynamically created inputs
+
+
+
+    $(document).ready(function () {
+        getgriddetails();
+
+    });
+
+
+    function getgriddetails() {
+        var urlRequest1 = '@Url.Action("GetShipmentGridList", "Common")';
+
+       $('#loadingMessage1').show();
+        $('#TblshipmenttrackerInfo').hide();
+
+
+
+            $.ajax({
+                url: urlRequest1,
+                type: 'GET',
+                data: {},
+                success: function (data) {
+
+                    if (data.length === 0) {
+
+                        $('#loadingMessage1').hide();
+                        return alert("No data available");
+
+
+
+
+                    }
+                    else {
+
+                        var totalRecords = data.length;
+                        var pageLength = 21;
+                        var totalPages = Math.ceil(totalRecords / pageLength);
+                        var startRecord = 1;
+                        var endRecord = totalRecords < pageLength ? totalRecords : pageLength;
+
+                        $('#TblshipmenttrackerInfo_info').text('Showing ' + startRecord + ' to ' + endRecord + ' of ' + totalRecords + ' entries');
+
+                        if ($.fn.dataTable.isDataTable('#TblshipmenttrackerInfo')) {
+                            $('#TblshipmenttrackerInfo').DataTable().destroy();
+                        }
+
+                        var rows = '';
+                        for (var i = 0; i < data.length; i++) {
+                            var item = data[i];
+
+
+
+
+                            var Invoice_NoTooltip = item.Invoice_No;
+                            var InvDateTooltip = item.InvDate;
+                            var Bill_To_NameTooltip = item.Bill_to_Name;
+                            var Ship_to_NameTooltip = item.Ship_to_Name;
+
+                            var Port_of_LoadingTooltip = item.Port_of_Loading;
+                            var Port_of_DischargeTooltip = item.Port_of_Discharge;
+                            var Mode_of_DishchargeTooltip = item.Mode;
+
+
+                            var Vessel_AirlinesTooltip = item.Vessel_Airlines;
+                            var ETDTooltip = item.ETD;
+                            var ETATooltip = item.ETA;
+                            var Transit_TimeTooltip = item.Transit_Time;
+                            var BL_ExpressTooltip = item.BL_Express;
+                            var Doc_DateTooltip = item.Doc_Date;
+                            var Doc_Submitted_Account_OnTooltip = item.Doc_Submitted_Account_On;
+
+                            var NooffclTooltip = item.No_of_FCL;
+
+                            let rowClass = '';
+
+
+
+                            rows += `<tr class="${rowClass}" data-obj='${JSON.stringify(item).replace(/'/g, '&#39;')}'>`;
+                            rows += '<td   title="">' + item.SrNo + '</td>';
+
+                            rows += '<td class="InvoiceNo" title="' + Invoice_NoTooltip + '">' + item.Invoice_No + '</td>';
+                            rows += '<td   style = "text-align: center;white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 75px;" title="' + InvDateTooltip + '">' + item.InvDate + '</td>';
+                            rows += '<td  class="" style="text-align: end;white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px;" title="' + NooffclTooltip + '">' + item.No_of_FCL + '</td>';
+                            rows += '<td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 10rem;"  title="' + Bill_To_NameTooltip + '">' + item.Bill_to_Name + '</td>';
+                            rows += '<td  style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 10rem;"class="" title="' + Ship_to_NameTooltip + '">' + item.Ship_to_Name + '</td>';
+                            rows += '<td  class="" style="text-align: start;white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px;" title="' + Mode_of_DishchargeTooltip + '">' + item.Mode + '</td>';
+                                rows += '<td class=""  style="text-align: start;white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px;" title="' + Port_of_LoadingTooltip + '">' + item.Port_of_Loading + '</td>';
+                            rows += '<td  style="text-align: start;white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px;"class="" title="' + Port_of_DischargeTooltip + '">' + item.Port_of_Discharge + '</td>';
+                          //  var checkboxDisabled = (item.Vessel_Airlines && item.Vessel_Airlines.trim() !== "") ? "disabled" : "";
+
+                           // rows += '<td style="text-align: center;"><input type="checkbox" Id="CheckboxPre" class="row-checkbox All-CheckedFacyPre"  /></td>';
+
+
+                            rows += '<td  style="text-align: center;" class="CO_Vessel_Airlines" title="' + Vessel_AirlinesTooltip + '">' + (item.Vessel_Airlines || '<input type="text" style="width: 198px;  text-align: center;" id="CCO_Vessel_Airlines" class="input-box TextSize "  />') + '</td>';
+                            //rows += '<td style="text-align: center;" class="CO_ETD" title="' + ETDTooltip + '">' +
+                            //    (item.ETD || '<input type="text" style="width:66px;text-align:center;" onclick="showDatePicker(this);" class="input-box TextSize cc-etd" />') +
+                            //    '</td>';
+                            //rows += '<td style="text-align: center;" class="CO_ETA" title="' + ETATooltip + '">' +
+                            //    (item.ETA || '<input type="text" style="width:66px;text-align:center;" onclick="showDatePicker(this);" class="input-box TextSize cc-eta" />') +
+                            //    '</td>';
+                            //rows += '<td style="text-align:center;" class="CO_Transit_Time" title="' + Transit_TimeTooltip + '">' +
+                            //    (item.Transit_Time || '<span class="cc-transit"></span>') +
+                            //    '</td>';
+                            rows += '<td style="text-align: center;" class="CO_ETD" title="' + ETDTooltip + '">' +
+                                (item.ETD || '<input type="text" style="width:66px;text-align:center;" onclick="showDatePicker(this);" class="input-box TextSize cc-etd" />') +
+                                '</td>';
+                            rows += '<td style="text-align: center;" class="CO_ETA" title="' + ETATooltip + '">' +
+                                (item.ETA || '<input type="text" style="width:66px;text-align:center;" onclick="showDatePicker(this);" class="input-box TextSize cc-eta" />') +
+                                '</td>';
+                            rows += '<td style="text-align:center;" class="CO_Transit_Time" title="' + Transit_TimeTooltip + '">' +
+                                (item.Transit_Time ) +
+                                '</td>';
+
+                            rows += '<td  style="text-align: center;" class="CO_BL_Express" title="' + BL_ExpressTooltip + '">' + (item.BL_Express || '<input type="text" style="width: 67px;  text-align: center;" id="CCO_BL_Express" class="input-box TextSize"  />') + '</td>';
+                            rows += `<td style="text-align:center;">
+    <button type="button" class="edit-btn icon-btn" title="Edit">
+        <i class="fa fa-pencil" style="margin-left:5px;"></i>
+    </button>
+</td>`;
+                            rows += '<td style = "text-align: start;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;max-width: 70px;"class="" title="' + (Doc_Submitted_Account_OnTooltip || '') + '">' + (item.Doc_Submitted_Account_On || '') + '</td>';
+                            rows += '<td style = "text-align: start;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"class="" title="' + (Doc_DateTooltip || '') + '">' + (item.Doc_Date || '') + '</td>';
+
+                            rows += '</tr>';
+                        }
+
+
+                        $('.ExportInfotbody').html(rows);
+                        $('#loadingMessage1').hide();
+                        $('#TblshipmenttrackerInfo').show();
+
+                        var table1 = $('#TblshipmenttrackerInfo').DataTable({
+                            paging: true,
+                            searching: true,
+
+
+                            autoWidth: false,
+                            responsive: true,
+                            pageLength: 21,
+                            lengthMenu: [21, 25, 50, 100,200,300,400,500],
+
+                            language: {
+                                emptyTable: "No Data Found"
+                            },
+
+                            initComplete: function () {
+                                moveLengthDropdown();
+                            }
+
+                        });
+
+                        function moveLengthDropdown() {
+
+                            $('#TblshipmenttrackerInfo_filter').hide();
+
+
+                            var $length = $('#TblshipmenttrackerInfo_wrapper').find('#TblshipmenttrackerInfo_length');
+                            var $target = $('#Accountpage');
+                            if ($length.length && $target.length) {
+                                $target.find('#TblshipmenttrackerInfo_length').remove();
+
+                                $length.appendTo($target).css({
+                                    'margin-top': '-3px',
+                                    'text-align': 'end',
+                                    'display': 'inline-block'
+                                });
+                            } else {
+                                console.warn("Either #TblshipmenttrackerInfo_length or #Accountpage is missing.");
+                            }
+                        }
+
+                        $('#TblshipmenttrackerInfo thead').on('keyup change', '.column-search', function () {
+
+                            var columnIndex = $(this).data('column');
+                            var searchValue = this.value;
+                            table1.column(columnIndex).search(searchValue).draw();
+                        });
+
+                    }
+
+                }
+            });
+
+                $('[data-toggle="tooltip"]').tooltip();
+
+
+
+
+        $('#TblshipmenttrackerInfo tbody').on('click', 'tr', function () {
+    var table = $(this).closest('table');
+    table.find('tbody tr').removeClass('selected');
+    $(this).addClass('selected');
+});
+    }
+
+    $(document).on('change', '.All-CheckedFacyPre', function () {
+        if ($('.All-CheckedFacyPre:checked').length == 1) {
+
+            var rowElement = $(this).closest('tr');
+            $('#Claim_form_DatepreMar').val(rowElement.find('.CO_Claimform_Received').text());
+
+        }
+        else {
+            $('#Claim_form_DatepreMar').val('');
+        }
+    });
+
+
+        function GetData() {
+            getgriddetails();
+
+    }
+
+    $(document).ready(function () {
+        $("#Date1,#Date2,#Date3,#CFS_InvDate,#AirWay_BillDate_Bill_of_LodingDate,#FCInvDate,#AdvPaymenton,#PaymentDate,#COO_InvDate,#TC_InvDate,#AddTC_InvDate,#EIA_InvDate,#OC_InvDate,#Doc_Date,#Doc_Submitted_Account_On").datepicker({
+            dateFormat: "dd/mm/yy"
+
+        });
+
+
+    });
+
+    function autoClickTab(tabId) {
+
+        const tab = document.getElementById(tabId);
+        if (tab) { tab.click(); }
+    }
+
+</script>
+
+
+@section scripts
+        {
+    <script src="~/WebFormScripts/ExtOperation.js"></script>
+    <link href="~/Content/Css/TSCommon.css" rel="stylesheet" />
+    <script src="~/Content/plugins/datatables/jquery.dataTables.min.js"></script>
+
+
+}
+
+

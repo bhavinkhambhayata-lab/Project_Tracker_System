@@ -1,0 +1,1689 @@
+﻿<style>
+    .card {
+        border: 1px solid #cfcfcf;
+        margin-bottom: 10px;
+    }
+
+    .card-header {
+        padding: 6px 10px;
+        font-size: 13px;
+        font-weight: 600;
+        background-color: #f5f5f5;
+    }
+
+    .card-body {
+        padding: 8px 10px;
+    }
+
+    .form-label {
+        font-size: 12px;
+        font-weight: 600;
+        margin-bottom: 2px;
+    }
+
+    .form-control {
+        font-size: 12px;
+        height: 28px;
+        padding: 3px 6px;
+    }
+
+        .form-control[readonly] {
+            background-color: #f3f3f3;
+        }
+
+    .btn-imprest {
+        min-width: 80px;
+        padding: 4px 14px;
+        font-size: 12px;
+    }
+</style>
+
+@model Tracker_System.Models.GetImpressEditModel
+
+<div class="container-fluid">
+
+    <div class="card mt-4">
+        <div class="card-header">1. Details</div>
+        <div class="card-body mt-4">
+            <input type="hidden" id="RowID" value="@Model.RowID" />
+            <div class="row mb-2">
+                <div class="col-2">
+                    <div class="row align-items-center">
+                        <div class="col-3">
+                            <label class="form-label">Company</label>
+                        </div>
+                        <div class="col-9">
+                            @Html.DropDownListFor(m => m.CompanyRowID, new SelectList(Model.CompanyList, "RowID", "Name"), "-- Select --", new { @class = "form-control", disabled = "disabled" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-1">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <label class="form-label">No</label>
+                        </div>
+                        <div class="col-7">
+                            @Html.TextBoxFor(m => m.No,
+                                                    new { @class = "form-control", @readonly = "readonly" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-2">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <label class="form-label">Division</label>
+                        </div>
+                        <div class="col-7">
+                            @Html.DropDownListFor(m => m.DivisionRowId, new SelectList(Model.DivisionList, "RowId", "DivisionName"), "-- Select --", new { @class = "form-control", disabled = "disabled" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-3">
+                    <div class="row align-items-center">
+                        <div class="col-3">
+                            <label class="form-label">Employee Name</label>
+                        </div>
+                        <div class="col-9">
+                            @Html.HiddenFor(x => x.EmpRowId)
+                            @Html.TextBoxFor(m => m.EmployeeName,
+                                                new
+                                                     {
+                                                    @class = "form-control",
+                                                    @id = "EmployeeName",
+                                                    autocomplete = "off",
+                                                    disabled = "disabled"
+                                                })
+
+                            <!-- Search dropdown -->
+                            <ul id="lstSearch"
+                                class="list-group position-absolute w-100"
+                                style="display: none; z-index: 1000; max-height: 600px; overflow-y: auto; overflow-x: hidden;"></ul>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-2">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <label class="form-label">Designation</label>
+                        </div>
+                        <div class="col-7">
+
+                            @Html.TextBoxFor(m => m.Designation,
+                                new { @class = "form-control", @id = "Designation", @readonly = "readonly" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-1">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <label class="form-label">Zone</label>
+                        </div>
+                        <div class="col-7">
+
+                            @Html.TextBoxFor(m => m.Zone,
+                                new { @class = "form-control", @id = "Zone", @readonly = "readonly" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-1">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <label class="form-label">Region</label>
+                        </div>
+                        <div class="col-7">
+                            @Html.TextBoxFor(m => m.Region,
+                                                    new { @class = "form-control", @id = "Region", @readonly = "readonly" })
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+            <div class="row mt-3 mb-2">
+
+                <div class="col-7">
+                    <div class="card mt-3">
+                        <div class="card-header">Expenses (Claimed Amount Details)</div>
+
+                        <div class="card-body">
+
+                            <div class="row mt-3 mb-3" id="expeses-claimamount-less-section">
+
+                                <!-- Conv / Toll -->
+                                <div class="col">
+                                    <label class="form-label">Conv./Toll</label>
+                                    @Html.TextBoxFor(m => m.Less_TollExps,
+                                        new { @class = "form-control text-end" })
+                                </div>
+
+                                <!-- Courier -->
+                                <div class="col">
+                                    <label class="form-label">Courier</label>
+                                    @Html.TextBoxFor(m => m.Less_CourierExps,
+                                        new { @class = "form-control text-end" })
+                                </div>
+
+                                <!-- Stationery Xerox -->
+                                <div class="col">
+                                    <label class="form-label">Stationery</label>
+                                    @Html.TextBoxFor(m => m.Less_Stationery_XeroxExps,
+                                        new { @class = "form-control text-end" })
+                                </div>
+
+                                <!-- Internet -->
+                                <div class="col">
+                                    <label class="form-label">Internet</label>
+                                    @Html.TextBoxFor(m => m.Less_InternetExps,
+                                        new { @class = "form-control text-end" })
+                                </div>
+
+                                <!-- Travelling Fare -->
+                                <div class="col">
+                                    <label class="form-label">Travel Fare</label>
+                                    @Html.TextBoxFor(m => m.Less_FareExps,
+                                        new { @class = "form-control text-end" })
+                                </div>
+
+                                <!-- Traveling All Other Expenes -->
+                                <div class="col">
+                                    <label class="form-label">Travel Exps.</label>
+                                    @Html.TextBoxFor(m => m.Less_TravelingExps,
+                                        new { @class = "form-control text-end" })
+                                </div>
+
+                                <!-- Sales Promotion -->
+                                <div class="col">
+                                    <label class="form-label">Sales Promo</label>
+                                    @Html.TextBoxFor(m => m.Less_SalesPromotionExps,
+                                        new { @class = "form-control text-end" })
+                                </div>
+
+                                <!-- Freight -->
+                                <div class="col">
+                                    <label class="form-label">Freight</label>
+                                    @Html.TextBoxFor(m => m.Less_FreightExps,
+                                        new { @class = "form-control text-end" })
+                                </div>
+
+                                <!-- Other Expenses -->
+                                <div class="col">
+                                    <label class="form-label">Other Exps.</label>
+                                    @Html.TextBoxFor(m => m.Less_OtherExps,
+                                        new { @class = "form-control text-end" })
+                                </div>
+
+                            </div>
+
+                            <div class="row mt-3 mb-3" id="expeses-claimamount-greathar-section" style="display:none">
+
+                                <!-- Outward -->
+                                <div class="col">
+                                    <label class="form-label">Outward</label>
+                                    @Html.TextBoxFor(m => m.Greater_OutwardExps,
+                                        new { @class = "form-control text-end" })
+                                </div>
+
+                                <!-- Conveyance -->
+                                <div class="col">
+                                    <label class="form-label">Conveyance</label>
+                                    @Html.TextBoxFor(m => m.Greater_ConveyanceExps,
+                                        new { @class = "form-control text-end" })
+                                </div>
+
+                                <!-- Stationery -->
+                                <div class="col">
+                                    <label class="form-label">Stationery</label>
+                                    @Html.TextBoxFor(m => m.Greater_StationeryExps,
+                                        new { @class = "form-control text-end" })
+                                </div>
+
+                                <!-- Maintenance -->
+                                <div class="col">
+                                    <label class="form-label">Maintenance</label>
+                                    @Html.TextBoxFor(m => m.Greater_MaintenanceExps,
+                                        new { @class = "form-control text-end" })
+                                </div>
+
+                                <!-- Postage -->
+                                <div class="col">
+                                    <label class="form-label">Postage</label>
+                                    @Html.TextBoxFor(m => m.Greater_PostageExps,
+                                        new { @class = "form-control text-end" })
+                                </div>
+
+                                <!-- Printing -->
+                                <div class="col">
+                                    <label class="form-label">Printing</label>
+                                    @Html.TextBoxFor(m => m.Greater_PrintingExps,
+                                        new { @class = "form-control text-end" })
+                                </div>
+
+                                <!-- Sales Promotion -->
+                                <div class="col">
+                                    <label class="form-label">Sales Promo</label>
+                                    @Html.TextBoxFor(m => m.Greater_SalesProExps,
+                                        new { @class = "form-control text-end" })
+                                </div>
+
+                                <!-- Phone -->
+                                <div class="col">
+                                    <label class="form-label">Phone</label>
+                                    @Html.TextBoxFor(m => m.Greater_TelephonExps,
+                                        new { @class = "form-control text-end" })
+                                </div>
+
+                                <!-- Welfare -->
+                                <div class="col">
+                                    <label class="form-label">Welfare</label>
+                                    @Html.TextBoxFor(m => m.Greater_WelfareExps,
+                                        new { @class = "form-control text-end" })
+                                </div>
+                                <!-- Other Expenses -->
+                                <div class="col">
+                                    <label class="form-label">All Others</label>
+                                    @Html.TextBoxFor(m => m.Greater_AllOtherExps,
+                                        new { @class = "form-control text-end" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-5">
+                    <div class="row align-content-center">
+
+                        <!-- Claimed Amount -->
+                        <div class="col-2">
+                            <label class="form-label fw-bold">Claimed Amt</label>
+                            @Html.TextBoxFor(m => m.ClaimedAmount,
+                                new
+                                {
+                                    @class = "form-control text-end fw-bold",
+                                    @readonly = "readonly"
+                                })
+                        </div>
+
+                        <div class="col-2">
+                            <label class="form-label">Month</label>
+                            @Html.DropDownListFor(m => m.IMonth, new SelectList(Model.MonthList, "RowID", "ShortName"), "-- Select --", new { @class = "form-control" })
+                        </div>
+
+                        <div class="col-2">
+                            <label class="form-label">Year</label>
+                            @Html.DropDownListFor(m => m.IYear, new SelectList(Model.YearList, "EYear", "EYear"), "-- Select --", new { @class = "form-control" })
+                        </div>
+
+
+                        <div class="col-3">
+                            <label class="form-label">Tour From</label>
+                            @Html.TextBoxFor(m => m.TourFrom, "{0:dd/MM/yy}",
+                                new { @class = "form-control", placeholder = "dd/mm/yy", @id = "TourFrom" })
+                        </div>
+
+
+                        <div class="col-3">
+                            <label class="form-label">Tour To</label>
+                            @Html.TextBoxFor(m => m.TourTo, "{0:dd/MM/yy}",
+                                new { @class = "form-control", placeholder = "dd/mm/yy", @id = "TourTo" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-2">
+            <div class="card">
+                <div class="card-header">2. Commercial</div>
+
+                <div class="card-body mt-3">
+
+                    <div class="row align-items-center mt-3">
+                        <div class="col">
+                            <label class="form-label">Receipt Date</label>
+                        </div>
+                        <div class="col">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        @Html.CheckBoxFor(m => m.IsCommercial,
+                                            new
+                                                 {
+                                                @class = "tsd-date-check",
+                                                data_target = "commercial",
+                                                disabled = "disabled"
+                                            })
+                                    </div>
+                                </div>
+
+                                @Html.TextBoxFor(m => m.CommercialDate, "{0:dd/MM/yy}",
+                                    new
+                                    {
+                                        @class = "form-control tsd-all-dates",
+                                        //type = "date",
+                                        placeholder = "dd/mm/yy",
+                                        data_section = "commercial",
+                                        disabled = "disabled"
+                                    })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row align-items-center mt-3">
+                        <div class="col">
+                            <label class="form-label mt-1">No. of Days</label>
+                        </div>
+                        <div class="col">
+                            @Html.TextBoxFor(m => m.CommercialNoOfDays,
+                                            new
+                                                 {
+                                                @class = "form-control",
+                                                @readonly = "readonly",
+                                                data_section = "commercial"
+                                            })
+                        </div>
+                    </div>
+
+                    <div class="row align-items-center mt-3">
+                        <div class="col">
+                            <label class="form-label mt-1">Payment Cycle</label>
+                        </div>
+
+                        <div class="col">
+                            <div class="input-group">
+
+                                @*<select id="PaymentCycle"
+                                            name="PaymentCycle"
+                                            class="form-control"
+                                            data-section="commercial" disabled>
+                                        <option value="">-- Select --</option>
+                                    </select>*@
+
+                                @Html.DropDownListFor(m => m.PaymentCycle, new SelectList(Model.PaymentCycleList, "Value", "DisplayValue"), "-- Select --", new
+                                        { @class = "form-control", id = "PaymentCycle", data_section = "commercial", disabled = "disabled" })
+
+                                <div class="input-group-append">
+                                    <button type="button"
+                                            class="btn btn-outline-secondary"
+                                            id="btnClearPaymentCycle" disabled>
+                                        ✖
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-2">
+            <div class="card">
+                <div class="card-header">3. Sent to HOD for crosscheck</div>
+                <div class="card-body mt-3">
+
+                    <div class="row align-items-center mt-3">
+                        <div class="col">
+                            <label class="form-label">Receipt Date</label>
+                        </div>
+                        <div class="col">
+                            <div class="input-group">
+                                <div class="input-group-text">
+                                    @Html.CheckBoxFor(m => m.IsCrossCheck,
+                                        new { @class = "tsd-date-check", data_target = "cross-check", disabled = "disabled" })
+                                </div>
+
+                                @Html.TextBoxFor(m => m.CrossCheckingDate, "{0:dd/MM/yy}",
+                                    new
+                                    {
+                                        @class = "form-control tsd-all-dates",
+                                        //type = "date",
+                                        data_section = "cross-check",
+                                        placeholder = "dd/mm/yy",
+                                        disabled = "disabled"
+                                    })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row align-items-center mt-3">
+                        <div class="col">
+                            <label class="form-label mt-1">No. of Days</label>
+                        </div>
+                        <div class="col">
+                            @Html.TextBoxFor(m => m.CrossCheckingNoOfDays,
+                                        new { @class = "form-control", @readonly = "readonly", data_section = "cross-check" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-2">
+            <div class="card">
+                <div class="card-header">4. Sent for Marketing Head's Approval</div>
+                <div class="card-body mt-3">
+
+                    <div class="row align-items-center mt-3">
+                        <div class="col">
+                            <label class="form-label">Receipt Date</label>
+                        </div>
+                        <div class="col">
+                            <div class="input-group">
+                                <div class="input-group-text">
+                                    @Html.CheckBoxFor(m => m.IsHeadApproval,
+                                        new { @class = "tsd-date-check", data_target = "head-approval", disabled = "disabled" })
+                                </div>
+
+                                @Html.TextBoxFor(m => m.HeadForApprovalDate, "{0:dd/MM/yy}",
+                                    new
+                                    {
+                                        @class = "form-control tsd-all-dates",
+                                        //type = "date",
+                                        data_section = "head-approval",
+                                        placeholder = "dd/mm/yy",
+                                        disabled = "disabled"
+                                    })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row align-items-center mt-3">
+                        <div class="col">
+                            <label class="form-label mt-1">No. of Days</label>
+                        </div>
+                        <div class="col">
+                            @Html.TextBoxFor(m => m.HeadForApprovalNoOfDays,
+                                        new { @class = "form-control", @readonly = "readonly", data_section = "head-approval" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-2">
+            <div class="card">
+                <div class="card-header">5. Sent for CMO's Approval</div>
+                <div class="card-body mt-3">
+
+                    <div class="row align-items-center mt-3">
+                        <div class="col">
+                            <label class="form-label">Receipt Date</label>
+                        </div>
+                        <div class="col">
+                            <div class="input-group">
+                                <div class="input-group-text">
+                                    @Html.CheckBoxFor(m => m.IsDirectorApproval,
+                                        new { @class = "tsd-date-check", data_target = "director", disabled = "disabled" })
+                                </div>
+
+                                @Html.TextBoxFor(m => m.DirectorForApprovalDate, "{0:dd/MM/yy}",
+                                    new
+                                    {
+                                        @class = "form-control tsd-all-dates",
+                                        //type = "date",
+                                        data_section = "director",
+                                        placeholder = "dd/mm/yy",
+                                        disabled = "disabled"
+                                    })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row align-items-center mt-3">
+                        <div class="col">
+                            <label class="form-label mt-1">No. of Days</label>
+                        </div>
+                        <div class="col">
+                            @Html.TextBoxFor(m => m.DirectorForApprovalNoOfDays,
+                                        new { @class = "form-control", @readonly = "readonly", data_section = "director" })
+                        </div>
+                    </div>
+
+                    <div class="row align-items-center mt-3">
+                        <div class="col">
+                            <label class="form-label mt-1">Passed Amount</label>
+                        </div>
+                        <div class="col">
+                            @Html.TextBoxFor(m => m.PassedAmount,
+                                        new { @class = "form-control", disabled = "disabled" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-2">
+            <div class="card">
+                <div class="card-header">6. Submitted In Account</div>
+                <div class="card-body mt-3">
+
+                    <div class="row align-items-center mt-3">
+                        <div class="col">
+                            <label class="form-label">Sent Date</label>
+                        </div>
+                        <div class="col">
+                            <div class="input-group">
+                                <div class="input-group-text">
+                                    @Html.CheckBoxFor(m => m.IsSubmitted,
+                                        new { @class = "tsd-date-check", data_target = "submitted", disabled = "disabled" })
+                                </div>
+
+                                @Html.TextBoxFor(m => m.SubmittedInAccountsDate, "{0:dd/MM/yy}",
+                                    new
+                                    {
+                                        @class = "form-control tsd-all-dates",
+                                        //type = "date",
+                                        data_section = "submitted",
+                                        placeholder = "dd/mm/yy",
+                                        disabled = "disabled"
+                                    })
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row align-items-center mt-3">
+                        <div class="col">
+                            <label class="form-label mt-1">No. of Days</label>
+                        </div>
+                        <div class="col">
+                            @Html.TextBoxFor(m => m.SubmittedInAccountsNoOfDays,
+                                            new { @class = "form-control", @readonly = "readonly", data_section = "submitted" })
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-2">
+            <div class="card">
+                <div class="card-header">7. Payment</div>
+                <div class="card-body mt-3">
+
+                    <div class="row align-items-center mt-3">
+                        <div class="col">
+                            <label class="form-label">Payment Date</label>
+                        </div>
+                        <div class="col">
+                            <div class="input-group">
+                                <div class="input-group-text">
+                                    @Html.CheckBoxFor(m => m.IsPayment,
+                                        new { @class = "tsd-date-check", data_target = "payment", disabled = "disabled" })
+                                </div>
+
+                                @Html.TextBoxFor(m => m.PaymentDate, "{0:dd/MM/yy}",
+                                    new
+                                    {
+                                        @class = "form-control tsd-all-dates",
+                                        //type = "date",
+                                        data_section = "payment",
+                                        placeholder = "dd/mm/yy",
+                                        disabled = "disabled"
+                                    })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row align-items-center mt-3">
+                        <div class="col">
+                            <label class="form-label mt-1">Paid Amount</label>
+                        </div>
+                        <div class="col">
+                            @Html.TextBoxFor(m => m.PaidAmount,
+                                        new { @class = "form-control", disabled = "disabled" })
+                        </div>
+                    </div>
+
+                    <div class="row align-items-center mt-3">
+                        <div class="col">
+                            <label class="form-label mt-1">Total Days</label>
+                        </div>
+                        <div class="col">
+                            @Html.TextBoxFor(m => m.TotalDays,
+                                            new { @class = "form-control", @readonly = "readonly", data_section = "all-total-days" })
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body mt-4">
+            <div class="row align-items-center mt-3">
+                <div class="col-1">
+                    <label class="form-label">Remarks</label>
+                </div>
+                <div class="col-11">
+                    @Html.TextAreaFor(m => m.Remarks,
+                                    new { @class = "form-control", rows = "2" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mt-3" id="other-expenses-section" style="display:none">
+        <div class="card-header">
+            Other Expenses
+        </div>
+
+        <div class="card-body">
+
+            <div class="row mb-3 mt-3">
+
+                <!-- Rent -->
+                <div class="col-2">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <label class="form-label">Rent</label>
+                        </div>
+                        <div class="col-7">
+                            @Html.TextBoxFor(m => m.Other_Rent,
+                                new { @class = "form-control text-end" })
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Internet Charges -->
+                <div class="col-2">
+                    <div class="row align-items-center">
+                        <div class="col-6">
+                            <label class="form-label">Internet Charges</label>
+                        </div>
+                        <div class="col-6">
+                            @Html.TextBoxFor(m => m.Other_InternetCharges,
+                                new { @class = "form-control text-end" })
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Miscellaneous -->
+                <div class="col-2">
+                    <div class="row align-items-center">
+                        <div class="col-6">
+                            <label class="form-label">Misc. Charges</label>
+                        </div>
+                        <div class="col-6">
+                            @Html.TextBoxFor(m => m.Other_MiscCharges,
+                                new { @class = "form-control text-end" })
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Electricity -->
+                <div class="col-2">
+                    <div class="row align-items-center">
+                        <div class="col-6">
+                            <label class="form-label">Electricity Bill</label>
+                        </div>
+                        <div class="col-6">
+                            @Html.TextBoxFor(m => m.Other_ElectricityBill,
+                                new { @class = "form-control text-end" })
+                        </div>
+                    </div>
+                </div>
+
+                <!-- R.O. Impress -->
+                <div class="col-2">
+                    <div class="row align-items-center">
+                        <div class="col-6">
+                            <label class="form-label">R.O. Impress</label>
+                        </div>
+                        <div class="col-6">
+                            @Html.TextBoxFor(m => m.Other_RoImprest,
+                                new { @class = "form-control text-end" })
+                        </div>
+                    </div>
+                </div>
+                <!-- Maintenance -->
+                <div class="col-2">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <label class="form-label">Maintenance</label>
+                        </div>
+                        <div class="col-7">
+                            @Html.TextBoxFor(m => m.Other_Maintenance,
+                                new { @class = "form-control text-end" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="text-center mt-2 mb-3">
+        <button type="button" class="btn-cancel" onclick="SaveImpressDetail()">Save</button>
+        @if (Model.RowID != 0)
+        {
+            <button type="button" class="btn-cancel" onclick="DeleteImpress()">Delete</button>
+        }
+        <button type="button" class="btn-cancel" onclick="ExitImpressEditDetailPage()">Exit</button>
+    </div>
+</div>
+
+<script>
+    //$('#EmployeeName').on('keyup', function () {
+
+    //    var name = $(this).val().trim();
+    //    var companyRowId = $('#CompanyRowID').val();
+    //    var divisionRowId = $('#DivisionRowId').val();
+
+    //    // Company check
+    //    if (!companyRowId || companyRowId === "0") {
+    //        $('#lstSearch').empty().hide();
+    //        alert('Please select Company first');
+    //        return;
+    //    }
+
+    //    // Division check
+    //    if (!divisionRowId || divisionRowId === "0") {
+    //        $('#lstSearch').empty().hide();
+    //        alert('Please select Division first');
+    //        return;
+    //    }
+
+    //    // Name empty check
+    //    if (name === '') {
+    //        $('#lstSearch').empty().hide();
+    //        $('#Designation').val('');
+    //        $('#Zone').val('');
+    //        $('#Region').val('');
+    //        $('#EmpRowId').val('0');
+
+    //        CheckExpensesShowHide();
+    //        return;
+    //    }
+
+    //    $.get('/Impress/SearchEmployeeName', {
+    //        companyRowId: companyRowId,
+    //        divisionRowId: divisionRowId,
+    //        name: name
+    //    }, function (data) {
+
+    //        $('#lstSearch').empty();
+
+    //        if (!data || data.length === 0) {
+    //            $('#lstSearch').hide();
+    //            return;
+    //        }
+
+    //        $.each(data, function (i, item) {
+    //            $('#lstSearch').append(
+    //                `<li class="list-group-item list-group-item-action"
+    //                    data-id="${item.ID}">
+    //                    ${item.Name}
+    //                </li>`
+    //            );
+    //        });
+
+    //        $('#lstSearch').show();
+    //    });
+    //});
+
+    //$(document).on('click', '#lstSearch li', function () {
+
+    //    var companyRowId = $('#CompanyRowID').val();
+    //    var divisionRowId = $('#DivisionRowId').val();
+
+    //    if (!companyRowId || companyRowId === "0") {
+    //        $('#lstSearch').hide();
+    //        alert('Please select Company first');
+    //        return;
+    //    }
+
+    //    if (!divisionRowId || divisionRowId === "0") {
+    //        $('#lstSearch').hide();
+    //        alert('Please select Division first');
+    //        return;
+    //    }
+
+    //    var empRowId = $(this).data('id');
+    //    var displayText = $(this).text().trim();
+
+    //    $('#EmployeeName').val(displayText);
+    //    $('#EmpRowId').val(empRowId);
+
+    //    $.get('/Impress/GetEmployeeDetailById', {
+    //        empRowId: empRowId
+    //    }, function (data) {
+
+    //        if (data) {
+    //            $('#EmployeeName').val(data.EmpName);
+    //            $('#Zone').val(data.Zone);
+    //            $('#Region').val(data.Region);
+    //            $('#Designation').val(data.Designation);
+
+    //            CheckExpensesShowHide();
+    //        }
+    //    });
+
+    //    $('#lstSearch').hide();
+    //});
+
+    $(document).on('keyup change',
+        '#expeses-claimamount-less-section input,' +
+        '#expeses-claimamount-greathar-section input,' +
+        '#other-expenses-section input',
+        function () {
+            CalculateClaimedAmount();
+        });
+
+
+    function CheckExpensesShowHide() {
+
+        var empRowId = parseInt($('#EmpRowId').val()) || 0;
+
+        if (empRowId > 10000) {
+
+            // Greater than 10000
+            $('#expeses-claimamount-greathar-section').show();
+            $('#other-expenses-section').show();
+
+            $('#expeses-claimamount-less-section').hide();
+
+        } else {
+
+            // Less than or equal to 10000
+            $('#expeses-claimamount-less-section').show();
+
+            $('#expeses-claimamount-greathar-section').hide();
+            $('#other-expenses-section').hide();
+        }
+        CalculateClaimedAmount();
+    }
+
+    function CalculateClaimedAmount() {
+
+        var total = 0;
+
+        // check which section is visible
+        if ($('#expeses-claimamount-less-section').is(':visible')) {
+
+            // Less than 10000 section
+            $('#expeses-claimamount-less-section input').each(function () {
+                var val = parseFloat($(this).val()) || 0;
+                total += val;
+            });
+
+        } else {
+
+            // Greater than 10000 section
+            $('#expeses-claimamount-greathar-section input').each(function () {
+                var val = parseFloat($(this).val()) || 0;
+                total += val;
+            });
+
+            // Other expenses section
+            $('#other-expenses-section input').each(function () {
+                var val = parseFloat($(this).val()) || 0;
+                total += val;
+            });
+        }
+
+        // set total to Claimed Amount
+        $('#ClaimedAmount').val(total.toFixed(2));
+    }
+
+
+</script>
+
+
+<script>
+    function ExitImpressEditDetailPage() {
+        $('#lnkList').click();
+    }
+
+    function getTodayDateDDMMYYYY() {
+        var d = new Date();
+        var day = ("0" + d.getDate()).slice(-2);
+        var month = ("0" + (d.getMonth() + 1)).slice(-2);
+        var year = d.getFullYear();
+        return day + "/" + month + "/" + year;
+    }
+
+    function SaveImpressDetail() {
+
+        if (!$("#CompanyRowID").val()) {
+            alert("Please select Company");
+            return;
+        }
+
+        if (!$("#DivisionRowId").val()) {
+            alert("Please select Division");
+            return;
+        }
+
+        if (!$("#EmployeeName").val()) {
+            alert("Please enter Employee Name");
+            return;
+        }
+
+        if ($("#IsCommercial").prop("checked") && !$("#CommercialDate").val()) {
+            alert("Please select Commercial Receipt Date");
+            return;
+        }
+
+        if ($("#IsCommercial").prop("checked") && !$("#PaymentCycle").val()) {
+            alert("Please select Payment Cycle");
+            return;
+        }
+
+        if ($("#IsCrossCheck").prop("checked") && !$("#CrossCheckingDate").val()) {
+            alert("Please select Cross Check Receipt Date");
+            return;
+        }
+
+        if ($("#IsHeadApproval").prop("checked") && !$("#HeadForApprovalDate").val()) {
+            alert("Please select Head Approval Date");
+            return;
+        }
+
+        if ($("#IsDirectorApproval").prop("checked") && !$("#DirectorForApprovalDate").val()) {
+            alert("Please select Director Approval Date");
+            return;
+        }
+
+        if ($("#IsDirectorApproval").prop("checked")) {
+            if (!$("#PassedAmount").val() || parseFloat($("#PassedAmount").val()) <= 0) {
+                alert("Please enter valid Passed Amount");
+                return;
+            }
+        }
+
+        if ($("#IsSubmitted").prop("checked") && !$("#SubmittedInAccountsDate").val()) {
+            alert("Please select Submitted Date");
+            return;
+        }
+
+        if ($("#IsPayment").prop("checked") && !$("#PaymentDate").val()) {
+            alert("Please select Payment Date");
+            return;
+        }
+
+        if ($("#IsPayment").prop("checked")) {
+            if (!$("#PaidAmount").val() || parseFloat($("#PaidAmount").val()) <= 0) {
+                alert("Please enter valid Paid Amount");
+                return;
+            }
+        }
+
+
+        postSaveImpress();
+    }
+
+    function postSaveImpress() {
+
+        var model = {
+            RowID: $("#RowID").val(),
+            No: $("#No").val(),
+
+            DivisionRowId: $("#DivisionRowId").val(),
+            CompanyRowID: $("#CompanyRowID").val(),
+            EmpRowId: $("#EmpRowId").val(),
+
+            EmployeeName: $("#EmployeeName").val(),
+            Designation: $("#Designation").val(),
+            Zone: $("#Zone").val(),
+            Region: $("#Region").val(),
+
+            IMonth: $("#IMonth").val(),
+            IYear: $("#IYear").val(),
+
+            ClaimedAmount: $("#ClaimedAmount").val(),
+            PassedAmount: $("#PassedAmount").val(),
+
+            TourFrom: $("#TourFrom").val(),
+            TourTo: $("#TourTo").val(),
+
+            // ===== Commercial =====
+            IsCommercial: $("#IsCommercial").prop("checked"),
+            CommercialDate: $("#CommercialDate").val(),
+            CommercialNoOfDays: $("#CommercialNoOfDays").val(),
+
+            // ===== Cross Check =====
+            IsCrossCheck: $("#IsCrossCheck").prop("checked"),
+            CrossCheckingDate: $("#CrossCheckingDate").val(),
+            CrossCheckingNoOfDays: $("#CrossCheckingNoOfDays").val(),
+
+            // ===== HOD =====
+            IsHeadApproval: $("#IsHeadApproval").prop("checked"),
+            HeadForApprovalDate: $("#HeadForApprovalDate").val(),
+            HeadForApprovalNoOfDays: $("#HeadForApprovalNoOfDays").val(),
+
+            // ===== Director =====
+            IsDirectorApproval: $("#IsDirectorApproval").prop("checked"),
+            DirectorForApprovalDate: $("#DirectorForApprovalDate").val(),
+            DirectorForApprovalNoOfDays: $("#DirectorForApprovalNoOfDays").val(),
+
+            // ===== Submitted =====
+            IsSubmitted: $("#IsSubmitted").prop("checked"),
+            SubmittedInAccountsDate: $("#SubmittedInAccountsDate").val(),
+            SubmittedInAccountsNoOfDays: $("#SubmittedInAccountsNoOfDays").val(),
+
+            // ===== Payment =====
+            IsPayment: $("#IsPayment").prop("checked"),
+            PaymentDate: $("#PaymentDate").val(),
+            PaidAmount: $("#PaidAmount").val(),
+
+            PaymentCycle: $("#PaymentCycle").val(),
+            TotalDays: $('#TotalDays').val(),
+            Remarks: $("#Remarks").val(),
+
+            // ===== Less Than 10000 =====
+            Less_TollExps: $("#Less_TollExps").val(),
+            Less_CourierExps: $("#Less_CourierExps").val(),
+            Less_Stationery_XeroxExps: $("#Less_Stationery_XeroxExps").val(),
+            Less_InternetExps: $("#Less_InternetExps").val(),
+            Less_FareExps: $("#Less_FareExps").val(),
+            Less_TravelingExps: $("#Less_TravelingExps").val(),
+            Less_SalesPromotionExps: $("#Less_SalesPromotionExps").val(),
+            Less_FreightExps: $("#Less_FreightExps").val(),
+            Less_OtherExps: $("#Less_OtherExps").val(),
+
+            // ===== Greater Than 10000 =====
+            Greater_OutwardExps: $("#Greater_OutwardExps").val(),
+            Greater_ConveyanceExps: $("#Greater_ConveyanceExps").val(),
+            Greater_StationeryExps: $("#Greater_StationeryExps").val(),
+            Greater_MaintenanceExps: $("#Greater_MaintenanceExps").val(),
+            Greater_PostageExps: $("#Greater_PostageExps").val(),
+            Greater_PrintingExps: $("#Greater_PrintingExps").val(),
+            Greater_SalesProExps: $("#Greater_SalesProExps").val(),
+            Greater_TelephonExps: $("#Greater_TelephonExps").val(),
+            Greater_WelfareExps: $("#Greater_WelfareExps").val(),
+            Greater_AllOtherExps: $("#Greater_AllOtherExps").val(),
+
+            // ===== Other Expenses =====
+            Other_Rent: $("#Other_Rent").val(),
+            Other_InternetCharges: $("#Other_InternetCharges").val(),
+            Other_MiscCharges: $("#Other_MiscCharges").val(),
+            Other_ElectricityBill: $("#Other_ElectricityBill").val(),
+            Other_RoImprest: $("#Other_RoImprest").val(),
+            Other_Maintenance: $("#Other_Maintenance").val()
+        };
+
+        $.ajax({
+            //url: "/Impress/SaveImpressDetail",
+            url: '@Url.Action("SaveImpressDetail","Impress")',
+            type: "POST",
+            data: JSON.stringify(model),
+            contentType: "application/json",
+            success: function (res) {
+                if (res.success) {
+                    alert("Impress details saved successfully");
+                } else {
+                    alert(res.message);
+                }
+            },
+            error: function () {
+                alert("Something went wrong while saving Impress data");
+            }
+        });
+    }
+
+    function DeleteImpress() {
+
+        var rowId = $("#RowID").val();
+
+        if (!rowId || parseInt(rowId) <= 0) {
+            alert("No record selected for delete");
+            return;
+        }
+
+        if (!confirm("Are you sure you want to delete this record?")) {
+            return;
+        }
+
+        $.ajax({
+            //url: "/Impress/DeleteImpress",
+            url: '@Url.Action("DeleteImpress","Impress")',
+            type: "POST",
+            data: JSON.stringify({ rowId: rowId }),
+            contentType: "application/json; charset=utf-8",
+            success: function (res) {
+
+                if (res.success === true) {
+                    alert(res.message);
+
+                } else {
+                    alert(res.message);
+                }
+            },
+            error: function () {
+                alert("Error occurred while deleting record");
+            }
+        });
+    }
+
+    $(document).ready(function () {
+
+        CheckExpensesShowHide();
+        editApplyDisableEnableDates();
+        allDatePickerLoad();
+
+        // ===== COMMERCIAL =====
+        $("#IsCommercial").change(function () {
+            if (this.checked) {
+                $("#IsCrossCheck").prop("disabled", false);
+                $("#CrossCheckingDate").prop("disabled", false);
+            } else {
+                $("#CommercialDate,#PaymentCycle,#CrossCheckingDate").val("");
+                $("#IsCrossCheck").prop("checked", false).prop("disabled", true);
+                $("#CrossCheckingDate").prop("disabled", true);
+                calculateAllDays();
+            }
+        });
+
+        // ===== CROSS CHECK =====
+        $("#IsCrossCheck").change(function () {
+            if (this.checked) {
+
+                if (!$("#CommercialDate").val()) {
+                    alert("Please select Commercial Date first");
+                    $(this).prop("checked", false);
+                    return;
+                }
+
+                if (!$("#PaymentCycle").val()) {
+                    alert("Please select Payment Cycle first");
+                    $(this).prop("checked", false);
+                    return;
+                }
+
+                $("#IsCommercial").prop("disabled", true);
+                $("#CommercialDate").prop("disabled", true);
+                $("#PaymentCycle").prop("disabled", true);
+                $("#btnClearPaymentCycle").prop("disabled", true);
+
+                $("#IsHeadApproval").prop("disabled", false);
+                $("#HeadForApprovalDate").prop("disabled", false);
+
+            } else {
+                $("#CrossCheckingDate").val("");
+
+                $("#IsCommercial").prop("disabled", false);
+                $("#CommercialDate").prop("disabled", false);
+                $("#PaymentCycle").prop("disabled", false);
+                $("#btnClearPaymentCycle").prop("disabled", false);
+
+                $("#IsHeadApproval").prop("checked", false).prop("disabled", true);
+                $("#HeadForApprovalDate").prop("disabled", true);
+
+                calculateAllDays();
+            }
+        });
+
+        // ===== HEAD APPROVAL =====
+        $("#IsHeadApproval").change(function () {
+            if (this.checked) {
+
+                if (!$("#CrossCheckingDate").val()) {
+                    alert("Please select Cross Check Date first");
+                    $(this).prop("checked", false);
+                    return;
+                }
+
+                $("#IsCrossCheck").prop("disabled", true);
+                $("#CrossCheckingDate").prop("disabled", true);
+
+                $("#IsDirectorApproval").prop("disabled", false);
+                $("#DirectorForApprovalDate").prop("disabled", false);
+
+                //check
+                $("#PassedAmount").prop("disabled", false);
+
+            } else {
+                $("#HeadForApprovalDate").val("");
+
+                $("#IsCrossCheck").prop("disabled", false);
+                $("#CrossCheckingDate").prop("disabled", false);
+
+                $("#IsDirectorApproval").prop("checked", false).prop("disabled", true);
+                $("#DirectorForApprovalDate").prop("disabled", true);
+
+                //check
+                $("#PassedAmount").val("0").prop("disabled", true);
+                calculateAllDays();
+            }
+        });
+
+        // ===== DIRECTOR =====
+        $("#IsDirectorApproval").change(function () {
+            if (this.checked) {
+
+                if (!$("#HeadForApprovalDate").val()) {
+                    alert("Please select Head Approval Date first");
+                    $(this).prop("checked", false);
+                    return;
+                }
+
+                $("#IsHeadApproval").prop("disabled", true);
+                $("#HeadForApprovalDate").prop("disabled", true);
+
+                $("#IsSubmitted").prop("disabled", false);
+                $("#SubmittedInAccountsDate").prop("disabled", false);
+
+            } else {
+                $("#DirectorForApprovalDate").val("");
+
+                $("#IsHeadApproval").prop("disabled", false);
+                $("#HeadForApprovalDate").prop("disabled", false);
+
+                $("#IsSubmitted").prop("checked", false).prop("disabled", true);
+                $("#SubmittedInAccountsDate").prop("disabled", true);
+
+                calculateAllDays();
+            }
+        });
+
+        // ===== SUBMITTED =====
+        $("#IsSubmitted").change(function () {
+            if (this.checked) {
+
+                if (!$("#DirectorForApprovalDate").val()) {
+                    alert("Please select Director Approval Date first");
+                    $(this).prop("checked", false);
+                    return;
+                }
+
+                var passedAmt = $("#PassedAmount").val();
+                if (!passedAmt || parseFloat(passedAmt) <= 0) {
+                    alert("Please enter valid Passed Amount");
+                    $(this).prop("checked", false);
+                    return;
+                }
+
+                $("#IsDirectorApproval").prop("disabled", true);
+                $("#DirectorForApprovalDate").prop("disabled", true);
+
+                // 🔁 CHANGE HERE
+                $("#IsPayment").prop("disabled", false);
+                $("#PaymentDate").prop("disabled", false);
+                $("#PaidAmount").prop("disabled", false);
+
+                $("#PassedAmount").prop("disabled", true);
+
+            } else {
+                $("#SubmittedInAccountsDate").val("");
+
+                $("#IsDirectorApproval").prop("disabled", false);
+                $("#DirectorForApprovalDate").prop("disabled", false);
+
+                // 🔁 CHANGE HERE
+                $("#IsPayment").prop("checked", false).prop("disabled", true);
+                $("#PaymentDate").prop("disabled", true);
+                $("#PaidAmount").val("").prop("disabled", true);
+
+                $("#PassedAmount").prop("disabled", false);
+                calculateAllDays();
+            }
+        });
+
+        // ===== Payment =====
+        $("#IsPayment").change(function () {
+            if (this.checked) {
+
+                if (!$("#SubmittedInAccountsDate").val()) {
+                    alert("Please select Submitted Date first");
+                    $(this).prop("checked", false);
+                    return;
+                }
+
+                $("#IsSubmitted").prop("disabled", true);
+                $("#SubmittedInAccountsDate").prop("disabled", true);
+
+                $("#PaymentDate").prop("disabled", false);
+                $("#PaidAmount").prop("disabled", false);
+
+            } else {
+                $("#PaymentDate").val("");
+                $("#PaidAmount").val("");
+
+                $("#IsSubmitted").prop("disabled", false);
+                $("#SubmittedInAccountsDate").prop("disabled", false);
+
+                $("#PaymentDate").prop("disabled", true);
+                $("#PaidAmount").prop("disabled", true);
+
+                calculateAllDays();
+            }
+        });
+
+        function parseDMY(dateStr) {
+            if (!dateStr) return null;
+
+            var parts = dateStr.split("/");
+            var day = parseInt(parts[0], 10);
+            var month = parseInt(parts[1], 10) - 1;
+            var year = parseInt(parts[2], 10);
+
+
+            if (year < 100) {
+                year = 2000 + year;
+            }
+
+            var d = new Date(year, month, day);
+            d.setHours(0, 0, 0, 0);
+            return d;
+        }
+
+
+        function diffDays(d1, d2) {
+            if (!d1 || !d2) return 0;
+            var diff = (d2 - d1) / (1000 * 60 * 60 * 24);
+            return diff < 0 ? 0 : Math.round(diff);
+        }
+
+        function calculateAllDays() {
+
+            var c = parseDMY($("#CommercialDate").val());
+            var cc = parseDMY($("#CrossCheckingDate").val());
+            var h = parseDMY($("#HeadForApprovalDate").val());
+            var d = parseDMY($("#DirectorForApprovalDate").val());
+            var s = parseDMY($("#SubmittedInAccountsDate").val());
+            var pay = parseDMY($("#PaymentDate").val());
+
+            var commercialDays = diffDays(c, cc);
+            var crossCheckDays = diffDays(cc, h);
+            var headDays = diffDays(h, d);
+            var directorDays = diffDays(d, s);
+            var submittedDays = diffDays(s, pay);
+
+            $("#CommercialNoOfDays").val(commercialDays);
+            $("#CrossCheckingNoOfDays").val(crossCheckDays);
+            $("#HeadForApprovalNoOfDays").val(headDays);
+            $("#DirectorForApprovalNoOfDays").val(directorDays);
+            $("#SubmittedInAccountsNoOfDays").val(submittedDays);
+
+
+            // ===== Total Days =====
+            var totalDays = commercialDays + crossCheckDays + headDays + directorDays + submittedDays;
+
+            $("#TotalDays").val(totalDays);
+        }
+
+
+        function allDatePickerLoad() {
+
+            var todayDate = getToday();
+
+            // ========== COMMERCIAL (>= Today) ==========
+            $("#CommercialDate").datepicker({
+                format: "dd/mm/yy",
+                changeMonth: true,
+                changeYear: true,
+                onRender: function (date) {
+                    normalizeDate(date);
+                    if (date < todayDate) return 'disabled';
+                    return '';
+                }
+            }).on("changeDate", function () {
+                calculateAllDays();
+                $("#IsCommercial").prop("checked", true).trigger("change");
+                $("#CrossCheckingDate").datepicker('update');
+
+                callPaymentCycle();
+            });
+
+
+            // ========== CROSS CHECK (>= Commercial) ==========
+            $("#CrossCheckingDate").datepicker({
+                format: "dd/mm/yy",
+                changeMonth: true,
+                changeYear: true,
+                onRender: function (date) {
+                    normalizeDate(date);
+
+                    var commercial = normalizeDate(
+                        parseDMY($("#CommercialDate").val())
+                    );
+
+                    if (commercial && date < commercial) return 'disabled';
+                    return '';
+                }
+            }).on("changeDate", function () {
+                calculateAllDays();
+                $("#IsCrossCheck").prop("checked", true).trigger("change");
+                $("#HeadForApprovalDate").datepicker('update');
+            });
+
+
+            // ========== HOD (>= Cross Check) ==========
+            $("#HeadForApprovalDate").datepicker({
+                format: "dd/mm/yy",
+                changeMonth: true,
+                changeYear: true,
+                onRender: function (date) {
+                    normalizeDate(date);
+
+                    var cross = normalizeDate(
+                        parseDMY($("#CrossCheckingDate").val())
+                    );
+
+                    if (cross && date < cross) return 'disabled';
+                    return '';
+                }
+            }).on("changeDate", function () {
+                calculateAllDays();
+                $("#IsHeadApproval").prop("checked", true).trigger("change");
+                $("#DirectorForApprovalDate").datepicker('update');
+            });
+
+
+            // ========== DIRECTOR (>= HOD) ==========
+            $("#DirectorForApprovalDate").datepicker({
+                format: "dd/mm/yy",
+                changeMonth: true,
+                changeYear: true,
+                onRender: function (date) {
+                    normalizeDate(date);
+
+                    var hod = normalizeDate(
+                        parseDMY($("#HeadForApprovalDate").val())
+                    );
+
+                    if (hod && date < hod) return 'disabled';
+                    return '';
+                }
+            }).on("changeDate", function () {
+                calculateAllDays();
+                $("#IsDirectorApproval").prop("checked", true).trigger("change");
+                $("#SubmittedInAccountsDate").datepicker('update');
+            });
+
+
+            // ========== SUBMITTED (>= Director) ==========
+            $("#SubmittedInAccountsDate").datepicker({
+                format: "dd/mm/yy",
+                changeMonth: true,
+                changeYear: true,
+                onRender: function (date) {
+                    normalizeDate(date);
+
+                    var director = normalizeDate(
+                        parseDMY($("#DirectorForApprovalDate").val())
+                    );
+
+                    if (director && date < director) return 'disabled';
+                    return '';
+                }
+            }).on("changeDate", function () {
+                calculateAllDays();
+                $("#IsSubmitted").prop("checked", true).trigger("change");
+                $("#PaymentDate").datepicker('update');   // 🔁 CHANGE
+            });
+
+
+            // ========== PAYMENT (>= Submitted) ==========
+            $("#PaymentDate").datepicker({
+                format: "dd/mm/yy",
+                changeMonth: true,
+                changeYear: true,
+                onRender: function (date) {
+                    normalizeDate(date);
+
+                    var submitted = normalizeDate(
+                        parseDMY($("#SubmittedInAccountsDate").val())
+                    );
+
+                    if (submitted && date < submitted) return 'disabled';
+                    return '';
+                }
+            }).on("changeDate", function () {
+                calculateAllDays();
+                $("#IsPayment").prop("checked", true).trigger("change"); // 🔁 CHANGE
+            });
+        }
+
+
+        function normalizeDate(d) {
+            if (!d) return null;
+            d.setHours(0, 0, 0, 0);
+            return d;
+        }
+
+        function getToday() {
+            return normalizeDate(new Date());
+        }
+
+
+        $("#TourFrom, #TourTo").datepicker({
+            format: "dd/mm/yy",
+            changeMonth: true,
+            changeYear: true,
+            autoclose: true
+        });
+
+
+        $('#DivisionRowId').on('change', function () {
+
+            var divisionId = $(this).val();
+
+            if (divisionId == "3") {
+
+                $('#TourFrom').prop('disabled', true).val('');
+                $('#TourTo').prop('disabled', true).val('');
+
+            } else {
+
+                $('#TourFrom').prop('disabled', false);
+                $('#TourTo').prop('disabled', false);
+            }
+        });
+
+        $("#btnClearPaymentCycle").click(function () {
+            $("#PaymentCycle").val("");
+        });
+
+        function loadPaymentCycle(receiptDate) {
+
+            $.ajax({
+                //url: '/Impress/GetPaymentCycle',
+                url: '@Url.Action("GetPaymentCycle","Impress")',
+                type: 'GET',
+                data: { receiptDate: receiptDate },
+                success: function (res) {
+
+                    var options = '<option value="">-- Select --</option>';
+
+                    $.each(res, function (i, item) {
+                        options += '<option value="' + item.Value + '">' + item.DisplayValue + '</option>';
+                    });
+
+                    $("#PaymentCycle").html(options);
+                }
+            });
+        }
+        function callPaymentCycle() {
+            var commecialReceiptDate = $("#CommercialDate").val();
+
+            if (commecialReceiptDate !== "") {
+
+                var parts = commecialReceiptDate.split("/"); // dd/mm/yy
+                var day = parts[0];
+                var month = parts[1];
+                var year = parts[2];
+
+                // yy → yyyy
+                year = (year.length === 2) ? "20" + year : year;
+
+                var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+                var monthName = monthNames[parseInt(month, 10) - 1];
+
+                var formattedDate = day + "/" + monthName + "/" + year;
+
+                loadPaymentCycle(formattedDate);
+            }
+        }
+
+        // Load Date and Amount Field Disable or Enable Property
+        function editApplyDisableEnableDates() {
+
+            // ===== COMMERCIAL =====
+            if (!$("#IsCommercial").is(":checked")) {
+                $("#IsCommercial").prop("disabled", false);
+                $("#CommercialDate").prop("disabled", false);
+                $("#IsCommercial").prop("checked", false);
+                $('#PaymentCycle').prop("disabled", false);
+                $('#btnClearPaymentCycle').prop("disabled", false);
+                return;
+            }
+
+            // ===== CROSS CHECK =====
+            if ($("#IsCommercial").is(":checked") && !$("#IsCrossCheck").is(":checked")) {
+                $("#IsCrossCheck").prop("disabled", false);
+                $("#CrossCheckingDate").prop("disabled", false);
+                $("#IsCrossCheck").prop("checked", false);
+                return;
+            }
+
+            // ===== HEAD APPROVAL =====
+            if ($("#IsCrossCheck").is(":checked") && !$("#IsHeadApproval").is(":checked")) {
+                $("#IsHeadApproval").prop("disabled", false);
+                $("#HeadForApprovalDate").prop("disabled", false);
+                $("#IsHeadApproval").prop("checked", false);
+                return;
+            }
+
+            // ===== DIRECTOR APPROVAL =====
+            if ($("#IsHeadApproval").is(":checked") && !$("#IsDirectorApproval").is(":checked")) {
+                $("#IsDirectorApproval").prop("disabled", false);
+                $("#DirectorForApprovalDate,#PassedAmount").prop("disabled", false);
+                $("#IsDirectorApproval").prop("checked", false);
+                return;
+            }
+
+            // ===== SUBMITTED =====
+            if ($("#IsDirectorApproval").is(":checked") && !$("#IsSubmitted").is(":checked")) {
+                $("#IsSubmitted").prop("disabled", false);
+                $("#SubmittedInAccountsDate").prop("disabled", false);
+                $("#IsSubmitted").prop("checked", false);
+                return;
+            }
+
+            // ===== PAYMENT =====
+            if ($("#IsSubmitted").is(":checked")) {
+                $("#IsPayment,#PaymentDate,#PaidAmount")
+                    .prop("disabled", false);
+            }
+        }
+
+
+
+    });
+</script>

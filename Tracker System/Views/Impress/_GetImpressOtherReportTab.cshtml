@@ -1,0 +1,156 @@
+﻿@model Tracker_System.Models.GetImpressOtherTabModel
+
+<div class="card"
+     style="margin-top:1rem;
+            margin-bottom:-3px;
+            border:1px solid blanchedalmond;
+            width:60%;
+            margin-left:2rem;
+            height:35rem;">
+
+    <div class="card-body" style="margin-top:2rem;">
+
+        <h5 class="FontSize">Impress Other Reports</h5>
+        <br /><br />
+
+        <div class="col-md-12 form-group">
+
+            <!-- ================= LEFT : RADIO (5 OPTIONS) ================= -->
+            <div class="col-md-5">
+                <div class="col-md-12 form-group custom-radio-group">
+
+                    <label class="custom-radio-container">
+                        @Html.RadioButtonFor(m => m.ReportType, 1,
+                            new { @class = "custom-radio", id = "rdo1" })
+                        <span class="custom-radio-label">
+                            1. Submission vs. Payment Date
+                        </span>
+                    </label>
+
+                    <label class="custom-radio-container">
+                        @Html.RadioButtonFor(m => m.ReportType, 2,
+                            new { @class = "custom-radio", id = "rdo2" })
+                        <span class="custom-radio-label">
+                            2. Submission Monthwise
+                        </span>
+                    </label>
+
+                    <label class="custom-radio-container">
+                        @Html.RadioButtonFor(m => m.ReportType, 3,
+                            new { @class = "custom-radio", id = "rdo3" })
+                        <span class="custom-radio-label">
+                            3. Payment Monthwise
+                        </span>
+                    </label>
+
+                    <label class="custom-radio-container">
+                        @Html.RadioButtonFor(m => m.ReportType, 4,
+                            new { @class = "custom-radio", id = "rdo4" })
+                        <span class="custom-radio-label">
+                            4. Payment Pending Monthwise
+                        </span>
+                    </label>
+
+                    <label class="custom-radio-container">
+                        @Html.RadioButtonFor(m => m.ReportType, 5,
+                            new { @class = "custom-radio", id = "rdo5" })
+                        <span class="custom-radio-label">
+                            5. Pending for Payment
+                        </span>
+                    </label>
+
+                </div>
+            </div>
+
+            <!-- ================= RIGHT : FILTERS ================= -->
+            <div class="col-md-7">
+
+                <!-- Company -->
+                <div class="col-md-12 form-group">
+                    <div class="col-md-3 PDtop6px">Company</div>
+                    <div class="col-md-7">
+                        @Html.DropDownListFor(
+                            m => m.CompanyId,
+                            new SelectList(Model.GetCompanyFilter, "RowId", "Name"),
+                            "-- Select Company --",
+                            new { @class = "form-control", id = "CompanyId", @disabled = "disabled" })
+                    </div>
+                </div>
+
+                <!-- Division -->
+                <div class="col-md-12 form-group">
+                    <div class="col-md-3 PDtop6px">Division</div>
+                    <div class="col-md-7">
+                        @Html.DropDownListFor(
+                            m => m.DivisionId,
+                            new SelectList(Model.GetDivisionFilter, "RowId", "DivisionName"),
+                            "-- Select Division --",
+                            new { @class = "form-control", id = "DivisionId" })
+                    </div>
+                </div>
+
+
+
+                <!-- Financial Year -->
+                <div class="col-md-12 form-group">
+                    <div class="col-md-3 PDtop6px">Year</div>
+                    <div class="col-md-7">
+                        @Html.DropDownListFor(
+                            m => m.FYearId,
+                            new SelectList(Model.GetFYearFilter, "RowID", "FYear"),
+                            "-- Select Year --",
+                            new { @class = "form-control", id = "FYearId" })
+                    </div>
+                </div>
+
+                <!-- ================= EXPORT BUTTON ================= -->
+                <div class="col-md-12 form-group">
+                    <div class="col-md-4">
+                        <button type="button"
+                                class="btn-cancel"
+                                style="width:150px; padding:10px;"
+                                onclick="exportImpressOtherReport()">
+                            Export Excel
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ================= JAVASCRIPT ================= -->
+<script>
+    function exportImpressOtherReport() {
+
+        var reportType = $('input[name="ReportType"]:checked').val();
+        var divisionId = $('#DivisionId').val();
+        var companyId = $('#CompanyId').val();
+        var fYearId = $('#FYearId').val();
+
+        if (!reportType) {
+            alert("Please select a report type");
+            return;
+        }
+
+        if (!divisionId || !companyId || !fYearId) {
+            alert("Please select Division, Company and Year");
+            return;
+        }
+
+        //var url = '/Impress/ExportImpressOtherExcel'
+        //    + '?reportType=' + reportType
+        //    + '&divisionId=' + divisionId
+        //    + '&companyId=' + companyId
+        //    + '&fYearId=' + fYearId;
+
+        var url = '@Url.Action("ExportImpressOtherExcel","Impress")'
+    + '?reportType=' + reportType
+    + '&divisionId=' + divisionId
+    + '&companyId=' + companyId
+    + '&fYearId=' + fYearId;
+
+        window.location.href = url;
+    }
+</script>

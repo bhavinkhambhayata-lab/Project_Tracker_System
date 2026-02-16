@@ -1,0 +1,155 @@
+﻿@model Tracker_System.Models.GetTSDOtherReportModel
+
+<div class="card"
+     style="margin-top:1rem;
+            margin-bottom:-3px;
+            border:1px solid blanchedalmond;
+            width:38%;
+            margin-left:2rem;
+            height:30rem;">
+
+    <div class="card-body" style="margin-top:2rem;">
+
+        <h5 class="FontSize">TSD Other Reports</h5>
+        <br /><br />
+
+        <div class="col-md-12 form-group">
+
+            <!-- ================= LEFT : RADIO ================= -->
+            <div class="col-md-4">
+                <div class="col-md-12 form-group custom-radio-group">
+
+                    <label class="custom-radio-container">
+                        @Html.RadioButtonFor(m => m.ReportType, 1,
+                            new { @class = "custom-radio", id = "rdoRegister", @checked = "checked" })
+                        <span class="custom-radio-label">TSD Register</span>
+                    </label>
+
+                    <label class="custom-radio-container">
+                        @Html.RadioButtonFor(m => m.ReportType, 2,
+                            new { @class = "custom-radio", id = "rdoPending" })
+                        <span class="custom-radio-label">TSD Pending</span>
+                    </label>
+
+                </div>
+            </div>
+
+            <!-- ================= MIDDLE : FILTERS ================= -->
+            <div class="col-md-8">
+
+                <!-- Company -->
+                <div class="col-md-12 form-group">
+                    <div class="col-md-3 PDtop6px">Company</div>
+                    <div class="col-md-7">
+                        <select id="CompanyId" name="CompanyId" class="form-control" style="min-width:150px;" disabled>
+                            <option value="">-- Select Company --</option>
+
+                            @foreach (var c in Model.GetCompanyList)
+                            {
+                                <option value="@c.ID" data-shortname="@c.ShortName" selected>
+                                    @c.Name
+                                </option>
+                            }
+                        </select>
+
+                    </div>
+                </div>
+
+                <!-- Brand -->
+                <div class="col-md-12 form-group">
+                    <div class="col-md-3 PDtop6px">Brand</div>
+                    <div class="col-md-7">
+                        @Html.DropDownListFor(
+                            m => m.BrandId,
+                            new SelectList(Model.GetBrandList, "ID", "Name"),
+                            "-- Select Brand --",
+                            new { @class = "form-control", style = "min-width:150px;" })
+                    </div>
+                </div>
+
+                <!-- Name -->
+                <div class="col-md-12 form-group">
+                    <div class="col-md-3 PDtop6px">Name</div>
+                    <div class="col-md-7">
+                        @Html.TextBoxFor(
+                            m => m.Name,
+                            new { @class = "form-control", placeholder = "Enter Name" })
+                    </div>
+                </div>
+
+                <!-- ================= EXPORT BUTTON ================= -->
+                <div class="col-md-12 form-group">
+                    <div class="col-md-4">
+
+                        <button type="button"
+                                class="btn-cancel"
+                                style="width:150px; padding:10px;"
+                                onclick="exportTSDOtherReport()">
+                            Export Excel
+                        </button>
+
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function exportTSDOtherReport() {
+
+        var companyId = $('#CompanyId option:selected').data('shortname') || '';
+        var brandId = $('#BrandId').val() || '';
+        var name = $('#Name').val() || '';
+        var reportType = $('input[name="ReportType"]:checked').val();
+
+        $.ajax({
+            //url: '/TSD/ExportTSDOtherReport',
+            url: '@Url.Action("ExportTSDOtherReport","TSD")',
+            type: 'POST',
+            data: {
+                Company: companyId,
+                Brand: brandId,
+                Name: name,
+                ReportType: reportType
+            },
+            success: function (res) {
+
+
+                if (!res.status) {
+                    alert(res.message);
+                    return;
+                }
+
+
+                var byteCharacters = atob(res.fileData);
+                var byteNumbers = new Array(byteCharacters.length);
+
+                for (var i = 0; i < byteCharacters.length; i++) {
+                    byteNumbers[i] = byteCharacters.charCodeAt(i);
+                }
+
+                var byteArray = new Uint8Array(byteNumbers);
+                var blob = new Blob([byteArray], {
+                    type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                });
+
+
+                var link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = res.fileName;
+
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            },
+            error: function () {
+                alert("Something went wrong while exporting");
+            }
+        });
+    }
+</script>

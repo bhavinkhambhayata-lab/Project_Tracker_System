@@ -1,0 +1,125 @@
+.btn-cancel {
+    position: relative;
+    padding-left: 44px !important;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: black !important;
+    background-color: #f4f4f4 !important;
+    padding: 7px 10px;
+    padding-left: 28px !important;
+    border: 1px solid #A8BCD5;
+    line-height: 1 !important;
+    border-radius: 0.5rem !important;
+    font-size: 15px !important;
+    width: 9rem;
+}
+
+    .btn-cancel > :first-child {
+        position: absolute;
+        left: 0;
+        top: -2px;
+        bottom: 0;
+        width: 32px;
+        border-right: none !important;
+        font-size: 1em !important;
+        line-height: 34px;
+        text-align: center;
+        border-right: 1px solid rgba(0,0,0,.2);
+        width: 12rem;
+    }
+
+    .btn-cancel:hover {
+        background-color: #ddd !important;
+        color: #000;
+    }
+
+/* The container <div> - needed to position the dropdown content */
+.tbldropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.tbldropdown-content {
+    display: none;
+    position: fixed;
+    background-color: #f9f9f9;
+    min-width: 100px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 4;
+}
+
+    /* Links inside the dropdown */
+    .tbldropdown-content a {
+        color: black;
+        padding: 1px 5px;
+        text-decoration: none;
+        display: block;
+        opacity: 0.6;
+    }
+
+        /* Change color of dropdown links on hover */
+        .tbldropdown-content a:hover {
+            font-weight: bold;
+            opacity: 1;
+        }
+
+/* Show the dropdown menu on hover */
+.tbldropdown:hover .tbldropdown-content {
+    display: block;
+}
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.tbldropdown:hover .dropbtn {
+    background-color: #f9f9f9;
+    font-weight: bold;
+}
+
+.dropbtn:hover {
+    font-weight: bold;
+    opacity: 1;
+}
+/* below class if we want display submenu above row*/
+.tbldropdownaboverow {
+    /* position: absolute;*/
+}
+/*  Context menu in grid end */
+
+/*.btn-social {
+    position: relative;
+    padding-left: 44px;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;*/
+    /*color: white !important;  background-color: #3c8dbc !important;   */
+    /*color: #fff !important;
+    background-color: #3E8BBC !important;
+    padding: 7px 7px;
+    padding-left: 26px !important;
+    border: 1px solid #A8BCD5;
+    margin-left: 2px !important;
+    line-height: 2;
+    font-weight: normal;
+    border-radius: 0.5rem !important;
+}
+
+    .btn-social > :first-child {
+        position: absolute;
+        left: 0;
+        top: -2px;
+        bottom: 0;
+        width: 25px !important;
+        font-size: 1em !important;
+        line-height: 34px;
+        text-align: center;
+        border-right: none !important;*/
+        /*border-right: 1px solid rgba(0,0,0,.2);*/
+    /*}
+
+    .btn-social:hover {*/
+        /*background-color: #2F6D92 !important; color: #fff !important;*/
+        /*background-color: #155A86 !important;
+        color: #fff !important;
+    }*/

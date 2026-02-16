@@ -1,0 +1,150 @@
+
+/*
+ * EXT.net CSS
+ */
+.x-grid-cell-inner {
+    line-height: 23px;
+    font-size: 13px;
+    color:#000;
+}
+
+.x-column-header-text {
+    line-height: 26px;
+    font-size: 14px;
+    font-weight: normal;
+    color:#000;
+    height:47px;
+}
+
+.x-grid-row-alt .x-grid-td {
+    background-color: #fff;
+    background-image: none;
+    border-right: none;
+}
+
+.x-grid-row-selected .x-grid-td {
+    background-color: #ECF0F5;
+}
+
+.x-grid-row-over .x-grid-td {
+    background-color: #ECF0F5;
+}
+
+.x-column-header-inner {
+    background-color: #e5ecf5;
+    border: none !Important;
+}
+
+.x-column-header-over {
+    background-color: #e5ecf5 !Important;
+    border: none !Important;
+    background-image: none;
+}
+
+
+.x-grid-header-ct {
+    background-color: #e5ecf5;
+    background-image: none;
+    border: none !Important;
+}
+
+.x-form-text {
+    background-image: none;
+    height: auto;
+    border: none !Important;
+    border-width: 0px;
+    padding: 1px 0px 4px 0px;
+}
+
+.x-toolbar-default {
+    border: none !Important;
+    background-color: #F2F4F7 !Important; 
+}
+
+.x-grid-body {
+    border: none !Important;
+    border-top-color: none !Important;
+}
+
+.x-grid-cell-special {
+    background-color: #fff;
+    background-image: none;
+    border-right: none;
+}
+
+.x-column-header {
+    border-right: none !Important;
+}
+
+.x-grid-row-selected .x-grid-cell-special {
+    background-image: none;
+}
+
+.x-toolbar-default {
+    background-image: none;
+    background-color: #e5ecf5 !Important;
+}
+
+.x-column-header {
+    font-family: OpenSans-Light,sans-serif;
+}
+
+.x-grid-cell {
+    font-family: OpenSans-Light,sans-serif;
+}
+
+.x-toolbar-text {
+    font-family: OpenSans-Light,sans-serif;
+    font-size: 13px;
+}
+
+
+.x-panel-header-default-docked-top
+ {
+ background-color: #e5ecf5;
+ font-size: 13px;
+ }
+
+.x-tree-node-text {
+    font-size: 13px;
+}
+.x-header-text 
+{    line-height: 26px;
+ 
+     font-size: 14px;
+    font-weight: normal;
+    color: #777777
+}
+.x-btn-inner-center{
+     font-size: 13px !important; 
+}
+.x-grid x-border-box{
+     background-color: #e5ecf5;
+     color:  #e5ecf5;
+}
+.x-panel-header-default {
+    background-image: none;
+    border : none;
+    border-bottom :  1px solid #d1d1d1 !important;
+   }
+
+.icon-folder {
+      background-image: url(../dist/img/folder.png) !important;
+}
+.icon-feeddisk {
+      background-image: url(../dist/img/diamond.png) !important;
+}
+.icon-contrast {
+    background-image: url(../dist/img/Contrast.png) !important;
+}
+
+.x-tree-icon, .x-tree-elbow-img{
+    margin-top:1px;
+    margin-bottom:0px;
+}
+
+.x-grid-item-selected {
+    color: #404040;
+    background-color: #ffefbb;
+    height: 9px;
+}

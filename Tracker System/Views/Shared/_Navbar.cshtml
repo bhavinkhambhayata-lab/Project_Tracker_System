@@ -1,0 +1,241 @@
+﻿@using System.Data
+@{
+    var menuTable = Session["UserMenus"] as DataTable;
+    var parentMenus = menuTable?.Select("ParentId = 0", "Display_Order ASC");
+}
+
+@if (menuTable != null && parentMenus.Length > 0)
+{
+    <div class="navbar">
+        @foreach (var parentRow in parentMenus)
+        {
+            string menuName = parentRow["MenuName"].ToString();
+            string link = parentRow["Link"].ToString();
+            bool isDev = Convert.ToBoolean(parentRow["Is_Under_Development"]);
+            int menuId = Convert.ToInt32(parentRow["MenuId"]);
+
+            var childRows = menuTable.Select($"ParentId = {menuId}", "Display_Order ASC");
+
+            if (childRows.Length > 0)
+            {
+                <div class="submenu-container">
+                    <label class="freight-link  dropdown-toggle" onclick="toggleSubMenu(this)">
+                        @menuName
+                    </label>
+                    <div class="submenu" style="display:none;">
+                        <ul>
+                           
+                            @foreach (var subRow in childRows)
+                            {
+                                string subName = subRow["MenuName"].ToString();
+                                string subLink = subRow["Link"].ToString();  // Just the Action name
+                                bool subIsDev = Convert.ToBoolean(subRow["Is_Under_Development"]);
+                                string controllerName = parentRow["Link"].ToString(); // Controller name only
+
+                                string finalLink = Url.Action(subLink, controllerName);
+
+                                <li>
+                                    <a href="@(!subIsDev ? finalLink : "#")"
+                                       class=""
+                                       data-mainmenu="@menuName"
+                                       data-submenu="@subName"
+                                       @(subIsDev ? "onclick=\"alert('Under Development....'); return false;\"" : "onclick=\"handleMenuClick(this);\"")>
+                                        @Html.Raw(subIsDev ? $"<span class='strikethrough'>{subName}</span>" : subName)
+                                    </a>
+
+                                </li>
+                            }
+
+
+
+                        </ul>
+                    </div>
+                </div>
+            }
+            else
+            {
+              
+                string[] parts = link.Split('/');
+                string controller = parts.Length > 0 ? parts[0] : "Home";
+                string action = parts.Length > 1 ? parts[1] : "Index";
+                string finalLink = Url.Action(action, controller);
+
+                <a href="@(!isDev ? finalLink : "#")"
+                   class="freight-link"
+                   data-mainmenu="@menuName"
+                   data-submenu=""
+                   @(isDev ? "onclick=\"alert('Under Development....'); return false;\"" : "onclick=\"handleMenuClick(this);\"")>
+                    @menuName
+                </a>
+            
+        }
+
+        <span class="separator">|</span>
+        }
+    </div>
+}
+
+<style>
+    .navbar {
+        display: flex !important;
+        justify-content: flex-start !important;
+        align-items: center !important;
+        background-color: #04085cc9; /* Dark blue background */
+        padding: 8px 16px !important;
+        font-family: 'Segoe UI', 'Roboto', sans-serif;
+        font-weight: bold;
+        font-size: 16px;
+        color: #dce2e7;
+        user-select: none;
+        flex-wrap: wrap; /* Allows wrap on small screens */
+        border-bottom: 1px solid #ddd;
+        margin-top: 38px !important;
+    }
+    .strikethrough {
+        text-decoration: line-through;
+       /* color: #888;*/
+    }
+        .navbar a.freight-link,
+        .navbar label.freight-link {
+            color: #dce2e7;
+            text-decoration: none;
+            margin-left: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 5px;
+            display: inline-block;
+        }
+
+            .navbar a.freight-link:hover,
+            .navbar label.freight-link:hover {
+                color: #012970;
+            }
+
+         
+            .navbar a.freight-link.clicked,
+            .navbar label.freight-link.clicked {
+                background-color: rgb(230, 240, 255);
+                color: rgb(1, 41, 112) !important;
+                border: 2px solid rgb(223, 227, 230);
+                border-radius: 8px;
+                font-weight: 600;
+                text-align: center;
+                box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            }
+
+    .submenu-container {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-toggle {
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    .submenu {
+        display: none;
+        position: absolute;
+        top: 100%; /* appear below the label */
+        left: 0;
+        background-color: white;
+        border: 1px solid #ccc;
+        padding: 8px 0;
+        z-index: 1000;
+        min-width: 200px;
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+        border-radius: 6px;
+    }
+
+        .submenu ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+            .submenu ul li {
+                padding: 6px 16px;
+                white-space: nowrap;
+            }
+
+                .submenu ul li a {
+                    color: #012970;
+                    text-decoration: none;
+                    display: block;
+                }
+
+                    .submenu ul li a:hover {
+                        background-color: #f2f4f7;
+                        border-radius: 4px;
+                    }
+
+    .separator {
+        margin-left: 10px;
+        margin-right: 10px;
+        color: #dce2e7;
+        user-select: none;
+    }
+</style>
+
+
+<script>
+    // Toggle submenu visibility
+    function toggleSubMenu(label) {
+        const submenu = label.nextElementSibling;
+        if (submenu) {
+            submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
+        }
+    }
+
+    // Handle menu clicks
+    function handleMenuClick(link) {
+        // Remove all clicked classes from links and labels
+        $('.navbar a.freight-link, .navbar label.freight-link').removeClass('clicked');
+
+        const parentContainer = link.closest('.submenu-container');
+        if (parentContainer) {
+            // Submenu item clicked: highlight parent label only
+            const parentLabel = parentContainer.querySelector('label.freight-link');
+            if (parentLabel) {
+                $(parentLabel).addClass('clicked');
+            }
+        } else {
+            // Top-level menu item clicked: highlight it
+            $(link).addClass('clicked');
+        }
+
+        // Navigate if needed
+        const targetHref = link.getAttribute('href');
+        if (targetHref && targetHref !== "#") {
+            window.location.href = targetHref;
+        }
+
+        // Hide submenu
+        const submenu = link.closest('.submenu');
+        if (submenu) {
+            submenu.style.display = 'none';
+        }
+    }
+
+
+
+    // Only bind event handlers once
+    document.addEventListener('DOMContentLoaded', () => {
+        // Main menu direct links
+        document.querySelectorAll('.navbar > a.freight-link').forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault(); // Prevent navigation if using handleMenuClick
+                handleMenuClick(this);
+            });
+        });
+
+        // Submenu links
+        document.querySelectorAll('.navbar .submenu a.freight-link').forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault(); // Prevent default navigation
+                handleMenuClick(this);
+            });
+        });
+    });
+</script>
+

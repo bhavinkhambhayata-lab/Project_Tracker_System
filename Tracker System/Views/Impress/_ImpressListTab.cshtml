@@ -1,0 +1,493 @@
+﻿<style>
+    .srno-search {
+        width: 16px !important;
+        min-width: 15px !important;
+        max-width: 50px !important;
+    }
+
+    .month-search {
+        width: 16px !important;
+        min-width: 15px !important;
+        max-width: 50px !important;
+    }
+
+    .year-search {
+        width: 16px !important;
+        min-width: 15px !important;
+        max-width: 50px !important;
+    }
+
+    .Name-search {
+        width: 50px !important;
+        min-width: 110px !important;
+        max-width: 50px !important;
+    }
+
+    .Compnay-search {
+        width: 50px !important;
+        min-width: 110px !important;
+        max-width: 50px !important;
+    }
+
+    .claimedamount-search {
+        width: 50px !important;
+        min-width: 42px !important;
+        max-width: 50px !important;
+    }
+
+    .CommercialReceiptDate-search {
+        width: 50px !important;
+        min-width: 58px !important;
+        max-width: 50px !important;
+    }
+
+    .CommercialDays-search {
+        width: 50px !important;
+        min-width: 35px !important;
+        max-width: 50px !important;
+    }
+
+    .SendToCrossChecking-search {
+        width: 50px !important;
+        min-width: 58px !important;
+        max-width: 50px !important;
+    }
+
+    .CrossCheckingDays-search {
+        width: 50px !important;
+        min-width: 35px !important;
+        max-width: 50px !important;
+    }
+
+    .SendToHeadForApproval-search {
+        width: 50px !important;
+        min-width: 58px !important;
+        max-width: 50px !important;
+    }
+
+    .HeadApprovalDays-search {
+        width: 50px !important;
+        min-width: 35px !important;
+        max-width: 50px !important;
+    }
+
+    .SendToDirector-search {
+        width: 50px !important;
+        min-width: 58px !important;
+        max-width: 50px !important;
+    }
+
+    .DirectorApprovalDays-search {
+        width: 50px !important;
+        min-width: 35px !important;
+        max-width: 50px !important;
+    }
+
+    .SubmittedInAccounts-search {
+        width: 50px !important;
+        min-width: 58px !important;
+        max-width: 50px !important;
+    }
+
+    .AccountsDays-search {
+        width: 50px !important;
+        min-width: 35px !important;
+        max-width: 50px !important;
+    }
+
+    .TotalDays-search {
+        width: 40px !important;
+        min-width: 40px !important;
+        max-width: 50px !important;
+    }
+
+    .PaymentDate-search {
+        width: 50px !important;
+        min-width: 58px !important;
+        max-width: 50px !important;
+    }
+
+    .ChequeNumber-search {
+        width: 50px !important;
+        min-width: 50px !important;
+        max-width: 50px !important;
+    }
+
+    .PaymentAmount-search {
+        width: 50px !important;
+        min-width: 52px !important;
+        max-width: 50px !important;
+    }
+</style>
+
+@model Tracker_System.Models.ImpressFilterModel
+
+<div class="box">
+    <div class="card mt-3 ml-3 mb-1 mr-3">
+        <div class="card-body mt-3 ml-3 mb-1 mr-3">
+            <div class="row">
+                <div class="col-md-12 form-group" id="ImpressList"
+                     style="margin-top: 6px !important; display: flex; flex-wrap: wrap; gap: 15px; align-items: flex-end; margin-left:16px;">
+
+                    <!-- Company -->
+                    <div style="display:flex; flex-direction:column;">
+                        <label for="companySearch">
+                            @resourceSettings.getResourceLable("lblCompany", "common", "Company")
+                        </label>
+                        <select id="ddlCompany" class="form-control" disabled>
+                            <option value="">-- Select Company --</option>
+                            @foreach (var c in Model.GetCompanyFilter)
+                            {
+                                <option value="@c.RowID">@c.Name</option>
+                            }
+                        </select>
+                    </div>
+
+                    <!-- Division -->
+                    <div style="display:flex; flex-direction:column;">
+                        <label>Division</label>
+                        <select id="ddlDivision" class="form-control">
+                            <option value="">-- Select Division --</option>
+                            @foreach (var d in Model.GetDivisionFilter)
+                            {
+                                <option value="@d.RowId">@d.DivisionName</option>
+                            }
+                        </select>
+                    </div>
+
+
+
+                    <!-- Month -->
+                    <div style="display:flex; flex-direction:column;">
+                        <label>Month</label>
+                        <select id="ddlMonth" class="form-control">
+                            <option value="">-- Select Month --</option>
+                            @foreach (var m in Model.GetMonthFilter)
+                            {
+                                <option value="@m.RowID">@m.ShortName</option>
+                            }
+                        </select>
+                    </div>
+
+                    <!-- Year -->
+                    <div style="display:flex; flex-direction:column;">
+                        <label>Year</label>
+                        <select id="ddlYear" class="form-control">
+                            <option value="">-- Select Year --</option>
+                            @foreach (var y in Model.GetYearFilter)
+                            {
+                                <option value="@y.EYear">@y.EYear</option>
+                            }
+                        </select>
+                    </div>
+
+                    <!-- Name -->
+                    <div style="display:flex; flex-direction:column; min-width:220px;">
+                        <label for="txtName">
+                            @resourceSettings.getResourceLable("lblName", "common", "Name")
+                        </label>
+                        <input type="text" id="ddlEmployeeName" name="EmployeeName" class="form-control" />
+                    </div>
+
+                    <!-- Search Button -->
+                    <div style="display:flex; flex-direction:column;">
+                        <label>&nbsp;</label>
+                        <a href="#" id="lnkImpressListSearch" class="btn-cancel" style="text-decoration: none">
+                            Search
+                        </a>
+                    </div>
+
+                    <!-- Export Data Button -->
+                    <div style="display:flex; flex-direction:column;">
+                        <label>&nbsp;</label>
+
+                        <a href="#" class="btn-cancel" style="width: 157px; text-decoration:none" onclick="exportExcel()">
+                            @*<i class="fa-file-export"></i>*@
+                            Export to Excel
+                        </a>
+                    </div>
+                </div>
+
+                <div id="ImpressListpage" style="margin-top: -44px;text-align:end; margin-left:-2rem;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+    <div class="form-group"></div>
+    <div class="row ml-2 mr-2">
+        <div class="col">
+            <div class="box-body">
+                <div class="table-responsive">
+
+                    <div id="loadingMessage" style="text-align:center; padding:20px; font-size:16px; display:none;">
+                        <span><i class="fa fa-spinner fa-spin" style="font-size:100px"></i> Loading data, please wait...</span>
+                    </div>
+                    <table id="TblImpressListInfo" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th class="HeaderFont" style="text-align:center;"><b>Sr No</b></th> <!-- 0 -->
+                                <th class="HeaderFont"><b>Employee Name</b></th>                   <!-- 1 -->
+                                <th class="HeaderFont"><b>Month</b></th>                            <!-- 2 -->
+                                <th class="HeaderFont"><b>Year</b></th>                             <!-- 3 -->
+                                <th class="HeaderFont"><b>Claimed Amount</b></th>                   <!-- 4 -->
+
+                                <th class="HeaderFont"><b>Commercial Receipt Date</b></th>          <!-- 5 -->
+                                <th class="HeaderFont"><b>Commercial Days</b></th>                 <!-- 6 -->
+
+                                <th class="HeaderFont"><b>Sent To Cross Checking</b></th>           <!-- 7 -->
+                                <th class="HeaderFont"><b>Cross Checking Days</b></th>             <!-- 8 -->
+
+                                <th class="HeaderFont"><b>Sent To Head For Approval</b></th>        <!-- 9 -->
+                                <th class="HeaderFont"><b>Head Approval Days</b></th>              <!-- 10 -->
+
+                                <th class="HeaderFont"><b>Sent To Director</b></th>                <!-- 11 -->
+                                <th class="HeaderFont"><b>Director Approval Days</b></th>          <!-- 12 -->
+
+                                <th class="HeaderFont"><b>Submitted In Accounts</b></th>           <!-- 13 -->
+                                <th class="HeaderFont"><b>Accounts Days</b></th>                  <!-- 14 -->
+
+                                <th class="HeaderFont"><b>Payment Date</b></th>                    <!-- 15 -->
+                                <th class="HeaderFont"><b>Total Days</b></th>                      <!-- 16 -->
+                            </tr>
+
+                            <!-- 🔍 Search Row -->
+                            <tr>
+                                <th><input type="text" class="column-search srno-search" data-column="0"></th>
+                                <th><input type="text" class="column-search Name-search" data-column="1"></th>
+                                <th><input type="text" class="column-search month-search" data-column="2"></th>
+                                <th><input type="text" class="column-search year-search" data-column="3"></th>
+                                <th><input type="text" class="column-search claimedamount-search" data-column="4"></th>
+
+                                <th><input type="text" class="column-search CommercialReceiptDate-search" data-column="5"></th>
+                                <th><input type="text" class="column-search CommercialDays-search" data-column="6"></th>
+
+                                <th><input type="text" class="column-search SendToCrossChecking-search" data-column="7"></th>
+                                <th><input type="text" class="column-search CrossCheckingDays-search" data-column="8"></th>
+
+                                <th><input type="text" class="column-search SendToHeadForApproval-search" data-column="9"></th>
+                                <th><input type="text" class="column-search HeadApprovalDays-search" data-column="10"></th>
+
+                                <th><input type="text" class="column-search SendToDirector-search" data-column="11"></th>
+                                <th><input type="text" class="column-search DirectorApprovalDays-search" data-column="12"></th>
+
+                                <th><input type="text" class="column-search SubmittedInAccounts-search" data-column="13"></th>
+                                <th><input type="text" class="column-search AccountsDays-search" data-column="14"></th>
+
+                                <th><input type="text" class="column-search PaymentDate-search" data-column="15"></th>
+                                <th><input type="text" class="column-search TotalDays-search" data-column="16"></th>
+                            </tr>
+                        </thead>
+
+                        <tbody class="ImpressListInfotbody"></tbody>
+                    </table>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#ddlCompany').val('6').trigger('change');
+        setDefaultMonthYear();
+        loadImpressListing();
+    });
+
+    function loadImpressListing() {
+
+        var divisionId = $('#ddlDivision').val() || 0;
+        var companyId = $('#ddlCompany').val() || 0;
+        var empName = $('#ddlEmployeeName').val() || '';
+        var monthId = $('#ddlMonth').val() || 0;
+        var yearId = $('#ddlYear').val() || 0;
+
+        $('#loadingMessage').show();
+        $('#TblImpressListInfo').hide();
+
+        $.ajax({
+            //url: '/Impress/GetImpressList',
+            url: '@Url.Action("GetImpressList","Impress")',
+            type: 'GET',
+            data: {
+                divisionId: divisionId,
+                companyId: companyId,
+                empName: empName,
+                monthId: monthId,
+                yearId: yearId
+            },
+            success: function (data) {
+
+                if ($.fn.dataTable.isDataTable('#TblImpressListInfo')) {
+                    $('#TblImpressListInfo').DataTable().destroy();
+                }
+
+                var rows = '';
+
+                for (var i = 0; i < data.length; i++) {
+
+                    var item = data[i];
+                    var claimedAmount = item.ClaimedAmount || 0;
+
+                    // ✅ Total Days calculation (model based)
+                    var totalDays =
+                        (item.CommercialNoOfDays || 0) +
+                        (item.SendToCrossCheckingNoOfDays || 0) +
+                        (item.SendToHeadForApprovalNoOfDays || 0) +
+                        (item.SendToDirectorForApprovalNoOfDays || 0) +
+                        (item.SubmittedInAccountsNoOfDays || 0);
+
+                    let fullText = item.EmpName || '';
+                    let truncatedText = fullText.length > 20
+                        ? fullText.substring(0, 20) + '...'
+                        : fullText;
+
+                    rows += '<tr class="impress-row" data-rowid="' + item.RowID + '">';
+
+                    rows += '<td style="text-align:center;">' + item.SrNo + '</td>';                 // 0
+                  //  rows += '<td>' + (item.Company || '') + '</td>';                                // 1
+                    rows += `<td title="${fullText}">${truncatedText}</td>`;                        // 2
+                    rows += '<td>' + (item.Month || '') + '</td>';                                  // 3
+                    rows += '<td>' + (item.IYear || '') + '</td>';                                  // 4
+                    rows += '<td style="text-align:end;">' + claimedAmount.toFixed(2) + '</td>';   // 5
+
+                    rows += '<td>' + formatDate(item.CommercialReceiptDate) + '</td>';              // 6
+                    rows += '<td style="text-align:end;">' + (item.CommercialNoOfDays || 0) + '</td>'; // 7
+
+                    rows += '<td>' + formatDate(item.SendToCrossCheckingDate) + '</td>';            // 8
+                    rows += '<td style="text-align:end;">' + (item.SendToCrossCheckingNoOfDays || 0) + '</td>'; // 9
+
+                    rows += '<td>' + formatDate(item.SendToHeadForApprovalDate) + '</td>';          // 10
+                    rows += '<td style="text-align:end;">' + (item.SendToHeadForApprovalNoOfDays || 0) + '</td>'; // 11
+
+                    rows += '<td>' + formatDate(item.SendToDirectorForApprovalDate) + '</td>';      // 12
+                    rows += '<td style="text-align:end;">' + (item.SendToDirectorForApprovalNoOfDays || 0) + '</td>'; // 13
+
+                    rows += '<td>' + formatDate(item.SubmittedInAccountsDate) + '</td>';            // 14
+                    rows += '<td style="text-align:end;">' + (item.SubmittedInAccountsNoOfDays || 0) + '</td>'; // 15
+
+                    rows += '<td>' + formatDate(item.PaymentDate) + '</td>';                        // 16
+                    rows += '<td style="text-align:end;font-weight:bold;">' + totalDays + '</td>'; // 17
+
+                    rows += '</tr>';
+                }
+
+                $('.ImpressListInfotbody').html(rows);
+
+                $('#loadingMessage').hide();
+                $('#TblImpressListInfo').show();
+
+                var table = $('#TblImpressListInfo').DataTable({
+                    paging: true,
+                    searching: true,
+                    ordering: true,
+                    autoWidth: false,
+                    processing: true,
+                    lengthMenu: [10, 20, 25, 50, 100],
+                    pageLength: 10,
+                    language: {
+                        emptyTable: "No Data Found"
+                    },
+                    initComplete: function () {
+                        $('#TblImpressListInfo_filter').remove();
+                    }
+                });
+
+                // 🔍 Column wise search
+                $('#TblImpressListInfo thead').on('keyup change', '.column-search', function () {
+                    table
+                        .column($(this).data('column'))
+                        .search(this.value)
+                        .draw();
+                });
+            },
+            error: function () {
+                $('#loadingMessage').hide();
+                alert('Error loading Impress data');
+            }
+        });
+    }
+
+    function setDefaultMonthYear() {
+
+        var today = new Date();
+        var currentMonth = today.getMonth() + 1; // JS month 0-based hoy che
+        var currentYear = today.getFullYear();
+
+        var setMonth, setYear;
+
+        if (currentMonth > 1) {
+            setMonth = currentMonth - 1;   // previous month
+            setYear = currentYear;        // same year
+        } else {
+            setMonth = 12;                // December
+            setYear = currentYear - 1;    // previous year
+        }
+
+        // Dropdown ma value set karo
+        $('#ddlMonth').val(setMonth);
+        $('#ddlYear').val(setYear);
+    }
+
+    function formatDate(date) {
+
+        if (!date) return '';
+
+        if (typeof date === "string" && date.indexOf("/Date(") === 0) {
+            var timestamp = parseInt(date.replace(/[^0-9]/g, ''));
+            var d = new Date(timestamp);
+        } else {
+            var d = new Date(date);
+        }
+
+        if (isNaN(d.getTime())) return '';
+
+        var day = String(d.getDate()).padStart(2, '0');
+        var month = String(d.getMonth() + 1).padStart(2, '0');
+        var year = String(d.getFullYear()).slice(-2); // yy
+
+        return day + '/' + month + '/' + year;
+    }
+
+    function exportExcel() {
+
+        var divisionId = $('#ddlDivision').val() || 0;
+        var companyId = $('#ddlCompany').val() || 0;
+        var empName = $('#ddlEmployeeName').val() || '';
+        var monthId = $('#ddlMonth').val() || 0;
+        var yearId = $('#ddlYear').val() || 0;
+
+        //var url = '/Impress/ExportImpressExcel'
+        //    + '?divisionId=' + encodeURIComponent(divisionId)
+        //    + '&companyId=' + encodeURIComponent(companyId)
+        //    + '&empName=' + encodeURIComponent(empName)
+        //    + '&monthId=' + encodeURIComponent(monthId)
+        //    + '&yearId=' + encodeURIComponent(yearId);
+
+        var url = '@Url.Action("ExportImpressExcel","Impress")'
+    + '?divisionId=' + encodeURIComponent(divisionId)
+    + '&companyId=' + encodeURIComponent(companyId)
+    + '&empName=' + encodeURIComponent(empName)
+    + '&monthId=' + encodeURIComponent(monthId)
+    + '&yearId=' + encodeURIComponent(yearId);
+
+        window.location.href = url;
+    }
+
+    $('#lnkImpressListSearch').click(function (e) {
+        e.preventDefault();
+
+        loadImpressListing();
+    });
+
+    $(document).on('click', '.ImpressListInfotbody tr.impress-row', function () {
+        var rowID = $(this).data('rowid');
+        if (!rowID) return;
+        editImpressDetailRowId = rowID;
+        $('#lnkDetails').click();
+    });
+</script>

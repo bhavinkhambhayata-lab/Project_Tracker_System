@@ -1,0 +1,343 @@
+﻿
+@{
+    int groupId = ViewBag.GroupId;
+}
+
+<style>
+    .checkbox-columns {
+        height: 20px;
+        width: 17px;
+    }
+
+    .commercial-length {
+        text-align: right;
+        margin-bottom: 5px;
+    }
+
+    .commercial-loader {
+        text-align: center;
+        padding: 30px;
+        font-size: 16px;
+    }
+
+        .commercial-loader i {
+            font-size: 40px;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+    .commercial-table th {
+        white-space: nowrap;
+        vertical-align: middle !important;
+    }
+
+    .commercial-table td {
+        vertical-align: middle !important;
+    }
+
+        .commercial-table td.text-right {
+            text-align: right;
+        }
+
+        .commercial-table td.text-center {
+            text-align: center;
+        }
+
+    .search-row input {
+        width: 100%;
+        height: 28px;
+        font-size: 12px;
+        padding: 2px 6px;
+    }
+
+    .sendtocrosscheckingdate,
+    .commercialreceiptdate {
+        white-space: nowrap;
+    }
+
+    #TblCommercialListInfo_info {
+        margin-left: 2rem;
+    }
+
+    .btn-save {
+        margin-left: 141rem;
+    }
+</style>
+
+<div class="box commercial-box">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div id="Commercialpage" class="commercial-length mt-4"></div>
+        </div>
+    </div>
+
+    <div class="box-body">
+        <div class="table-responsive">
+
+            <!-- Loader -->
+            <div id="commecialLoader" class="commercial-loader" style="display:none;">
+                <i class="fa fa-spinner fa-spin"></i>
+                <span>Loading data, please wait...</span>
+            </div>
+
+            <!-- Table -->
+            <table id="TblCommercialListInfo" class="table table-bordered table-striped commercial-table" style="width: 1490px;margin-left:14px">
+                <thead>
+                    <tr>
+                        <th class="text-center">Sr No</th>
+                        <th>Employee Name</th>
+                        <th>Month</th>
+                        <th>Year</th>
+                        <th class="text-right">Claimed Amount</th>
+                        <th>Commercial Receipt Date</th>
+                        <th class="text-center checkbox-columns">
+                            <input type="checkbox" id="chkSelectAllCommercial" />
+                        </th>
+                        <th>Sent to CrossChecking Date</th>
+                        <th>Remarks</th>
+                    </tr>
+
+                    <!-- Search row (same logic) -->
+                    <tr class="search-row">
+                        <th><input type="text" class="column-search" data-column="0"></th>
+                        <th><input type="text" class="column-search" data-column="1"></th>
+                        <th><input type="text" class="column-search" data-column="2"></th>
+                        <th><input type="text" class="column-search" data-column="3"></th>
+                        <th><input type="text" class="column-search" data-column="4"></th>
+                        <th><input type="text" class="column-search" data-column="5"></th>
+                        <th></th>
+                        <th><input type="text" class="column-search" data-column="7"></th>
+                        <th><input type="text" class="column-search" data-column="8"></th>
+                    </tr>
+                </thead>
+
+                <tbody class="CommercialListInfotbody"></tbody>
+            </table>
+
+            <div class="row">
+                <div class="col">
+                    <button type="button" id="btnSaveCommecial" class="btn-cancel btn-save">
+                        Save
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var groupId = '@ViewBag.GroupId';//2
+    $(document).ready(function () {
+        loadCommercialList();
+    });
+
+    function loadCommercialList() {
+
+        $('#commecialLoader').show();
+        $('#TblCommercialListInfo').hide();
+
+        $.ajax({
+            //url: '/Impress/GetImpressPendingList',
+            url: '@Url.Action("GetImpressPendingList","Impress")',
+            type: 'GET',
+            data: { groupId: groupId },//2
+            success: function (data) {
+
+                if ($.fn.dataTable.isDataTable('#TblCommercialListInfo')) {
+                    $('#TblCommercialListInfo').DataTable().destroy();
+                }
+
+                var rows = '';
+
+                $.each(data, function (i, item) {
+
+                    rows += '<tr>';
+                    rows += '<td>' + item.SrNo + '</td>';
+                    rows += '<td style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + item.EmpName + '</td>';
+                    rows += '<td>' + item.Month + '</td>';
+                    rows += '<td>' + item.Year + '</td>';
+                    rows += '<td style="text-align:end;">' + item.ClaimedAmount + '</td>';
+                    rows += '<td class="commercialreceiptdate">' + formatDate(item.CommercialReceiptDate) + '</td>';
+
+
+                    rows += '<td style="text-align:center;">' +
+                        '<input type="checkbox" class="row-checkbox CommercialChk" data-rowid="' + item.RowID + '">' +
+                        '</td>';
+
+                    rows += '<td class="sendtocrosscheckingdate">' + formatDate(item.SendToCrossCheckingDate) + '</td>';
+                    rows += '<td>' + (item.Remarks || '') + '</td>';
+                    rows += '</tr>';
+                });
+
+                $('.CommercialListInfotbody').html(rows);
+
+                $('#commecialLoader').hide();
+                $('#TblCommercialListInfo').show();
+
+                var table = $('#TblCommercialListInfo').DataTable({
+                    paging: true,
+                    searching: true,
+                    ordering: true,
+                    lengthMenu: [10, 20, 25, 50, 100],
+                    pageLength: 10,
+                    language: { emptyTable: "No Data Found" },
+                    initComplete: function () { moveLengthDropdown(); },
+                    drawCallback: function () { moveLengthDropdown(); }
+                });
+
+                // 🔍 Column search (same as Imprest)
+                $('#TblCommercialListInfo thead').on('keyup change', '.column-search', function () {
+                    table.column($(this).data('column')).search(this.value).draw();
+                });
+            }
+        });
+    }
+
+    /* ===== Helpers ===== */
+
+    function formatDate(date) {
+        if (!date) return '';
+
+        var d;
+
+        // Handle /Date(1766946600000)/
+        if (typeof date === "string" && date.includes("Date")) {
+            var timestamp = parseInt(date.replace(/[^0-9]/g, ""));
+            d = new Date(timestamp);
+        } else {
+            d = new Date(date);
+        }
+
+        var dd = String(d.getDate()).padStart(2, '0');
+        var mm = String(d.getMonth() + 1).padStart(2, '0');
+        var yy = String(d.getFullYear()).slice(-2); // ✅ 2026 → 26
+
+        return dd + '/' + mm + '/' + yy;
+    }
+
+
+    function moveLengthDropdown() {
+
+        $('#TblCommercialListInfo_filter').hide();
+
+        var $length = $('#TblCommercialListInfo_wrapper').find('#TblCommercialListInfo_length');
+        var $target = $('#Commercialpage');
+
+        if ($length.length && $target.length) {
+            $target.find('#TblCommercialListInfo_length').remove();
+            $length.appendTo($target).css({
+                'margin-top': '5px',
+                'display': 'inline-block',
+                'margin-right':'42rem'
+            });
+        }
+    }
+
+
+    /* ================= ROW CHECKBOX LOGIC ================= */
+
+    $(document).on('change', '.CommercialChk', function () {
+
+        var $row = $(this).closest('tr');
+        var $dateCell = $row.find('.sendtocrosscheckingdate');
+
+        if (this.checked) {
+            // Checked → set today date
+            $dateCell.text(getTodayDate_ddMMyy());
+        } else {
+            // Unchecked → clear date
+            $dateCell.text('');
+            $('#chkSelectAllCommercial').prop('checked', false);
+        }
+    });
+
+    /* ================= SELECT ALL LOGIC ================= */
+
+    $(document).on('change', '#chkSelectAllCommercial', function () {
+
+        var isChecked = this.checked;
+        var today = getTodayDate_ddMMyy();
+
+        $('.CommercialChk').each(function () {
+
+            var $row = $(this).closest('tr');
+            var $dateCell = $row.find('.sendtocrosscheckingdate');
+
+            $(this).prop('checked', isChecked);
+
+            if (isChecked) {
+                $dateCell.text(today);
+            } else {
+                $dateCell.text('');
+            }
+        });
+    });
+
+    /* ================= GET SELECTED DATA (SAVE USE) ================= */
+
+    function getSelectedCommercialRows() {
+
+        var list = [];
+
+        $('.CommercialChk:checked').each(function () {
+
+            var $row = $(this).closest('tr');
+
+            list.push({
+                RowID: $(this).data('rowid'),
+                Date1: $row.find('.sendtocrosscheckingdate').text()
+            });
+        });
+
+        return list;
+    }
+
+
+    function getTodayDate_ddMMyy() {
+        var d = new Date();
+        var dd = String(d.getDate()).padStart(2, '0');
+        var mm = String(d.getMonth() + 1).padStart(2, '0');
+        var yy = String(d.getFullYear()).slice(-2);
+        return dd + '/' + mm + '/' + yy;
+    }
+
+    /* ================= SAVE BUTTON CLICK ================= */
+
+    $('#btnSaveCommecial').on('click', function () {
+
+        var data = getSelectedCommercialRows();
+
+        if (data.length === 0) {
+            alert('Please select at least one row');
+            return;
+        }
+
+        $.ajax({
+            //url: '/Impress/SaveImpressRowWise',
+            url: '@Url.Action("SaveImpressRowWise","Impress")',
+            type: 'POST',
+            data: JSON.stringify({
+                groupId: 2,
+                rows: data
+            }),
+            contentType: 'application/json; charset=utf-8',
+            success: function (res) {
+
+                if (res.success) {
+                    alert('Saved Successfully');
+
+                    $('#chkSelectAllCommercial').prop('checked', false);
+                    loadCommercialList();
+                } else {
+                    alert('Save failed');
+                }
+            },
+            error: function () {
+                alert('Error while saving data');
+            }
+        });
+    });
+
+</script>

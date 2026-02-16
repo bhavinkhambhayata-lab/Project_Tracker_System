@@ -1,0 +1,26 @@
+﻿body {
+}
+
+.btn-info-v1 {
+    background-color: #3c8dbc !important;
+    border-color: #3c8dbc;
+}
+
+.p-left-3px {
+    padding-left: 8px !important;
+}
+
+.f-size-21pt {
+    font-size: 21pt !important;
+}
+
+.user-two-text-image {
+    padding-top: 3px !important;
+    padding-left: 4px !important;
+    font-size: 9pt !important;
+    text-transform:uppercase;
+}
+
+.btnrptTop {
+    margin-right: 4px;
+}

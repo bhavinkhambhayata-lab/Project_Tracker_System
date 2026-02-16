@@ -1,0 +1,320 @@
+﻿
+@{
+    int groupId = ViewBag.GroupId; // e.g. 4
+}
+
+<style>
+    .mkt-checkbox {
+        height: 20px;
+        width: 17px;
+    }
+
+    .mkt-length {
+        text-align: right;
+        margin-bottom: 5px;
+    }
+
+    .mkt-loader {
+        text-align: center;
+        padding: 30px;
+        font-size: 16px;
+    }
+
+        .mkt-loader i {
+            font-size: 40px;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+    .mkt-table th,
+    .mkt-table td {
+        white-space: nowrap;
+        vertical-align: middle !important;
+    }
+
+    .mkt-search-row input {
+        width: 100%;
+        height: 28px;
+        font-size: 12px;
+        padding: 2px 6px;
+    }
+
+    /* ✅ UPDATED CLASS NAMES */
+    .sendtoheadapprovaldate,
+    .sendtodirectorapprovaldate {
+        white-space: nowrap;
+    }
+
+    #TblMKTApproval_info {
+        margin-left: 2rem;
+    }
+
+    .btn-save {
+        margin-left: 141rem;
+    }
+</style>
+
+<div class="box mkt-box">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div id="MKTPage" class="mkt-length mt-4"></div>
+        </div>
+    </div>
+
+    <div class="box-body">
+        <div class="table-responsive">
+
+            <div id="mktLoader" class="mkt-loader" style="display:none;">
+                <i class="fa fa-spinner fa-spin"></i>
+                <span>Loading data, please wait...</span>
+            </div>
+
+            <table id="TblMKTApproval" class="table table-bordered table-striped mkt-table" style="width: 1490px;margin-left:14px">
+                <thead>
+                    <tr>
+                        <th class="text-center">Sr No</th>
+                        <th>Employee Name</th>
+                        <th class="text-right">TSD Amount</th>
+                        <th>Head Approval Date</th>
+                        <th class="text-center mkt-checkbox">
+                            <input type="checkbox" id="chkSelectAllMKT" />
+                        </th>
+                        <th>CMO Approval Date</th>
+                        <th>Remarks</th>
+                    </tr>
+
+                    <tr class="mkt-search-row">
+                        <th><input type="text" class="mkt-column-search" data-column="0"></th>
+
+                        <th><input type="text" class="mkt-column-search" data-column="1"></th>
+                        <th><input type="text" class="mkt-column-search" data-column="2"></th>
+                        <th><input type="text" class="mkt-column-search" data-column="3"></th>
+                        <th></th>
+                        <th><input type="text" class="mkt-column-search" data-column="5"></th>
+                        <th><input type="text" class="mkt-column-search" data-column="6"></th>
+                    </tr>
+                </thead>
+
+                <tbody class="mkt-approval-tbody"></tbody>
+            </table>
+
+            <div class="row">
+                <div class="col">
+                    <button type="button" id="btnSaveMKT" class="btn-cancel btn-save">
+                        Save
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var groupId = '@ViewBag.GroupId';//4
+
+    $(document).ready(function () {
+        loadMKTList();
+    });
+
+    function loadMKTList() {
+
+        $('#mktLoader').show();
+        $('#TblMKTApproval').hide();
+
+        $.ajax({
+            //url: '/TSD/GetTSDPendingList',
+            url: '@Url.Action("GetTSDPendingList","TSD")',
+            type: 'GET',
+            data: { groupId: groupId },//4
+            success: function (data) {
+
+                if ($.fn.dataTable.isDataTable('#TblMKTApproval')) {
+                    $('#TblMKTApproval').DataTable().destroy();
+                }
+
+                var rows = '';
+
+                $.each(data, function (i, item) {
+
+                    rows += '<tr>';
+                    rows += '<td>' + item.SrNo + '</td>';
+                    rows += '<td>' + item.Name + '</td>';
+                    rows += '<td class="text-right">' + item.TSDAmount + '</td>';
+
+                    /* ❌ OLD: SendToCrossCheckingDate
+                       ✅ NEW: SendToHeadForApprovalDate */
+                    rows += '<td class="sendtoheadapprovaldate">' +
+                        formatDate(item.SendToHeadForApprovalDate) +
+                        '</td>';
+
+                    rows += '<td class="text-center">' +
+                        '<input type="checkbox" class="mkt-row-checkbox" data-rowid="' + item.RowID + '">' +
+                        '</td>';
+
+                    /* ❌ OLD: SendToHODApprovalDate
+                       ✅ NEW: SendToDirectorForApprovalDate */
+                    rows += '<td class="sendtodirectorapprovaldate">' +
+                        formatDate(item.SendToDirectorForApprovalDate) +
+                        '</td>';
+
+                    rows += '<td>' + (item.Remarks || '') + '</td>';
+                    rows += '</tr>';
+                });
+
+                $('.mkt-approval-tbody').html(rows);
+
+                $('#mktLoader').hide();
+                $('#TblMKTApproval').show();
+
+                var table = $('#TblMKTApproval').DataTable({
+                    paging: true,
+                    searching: true,
+                    ordering: true,
+                    lengthMenu: [10, 20, 25, 50, 100],
+                    pageLength: 10,
+                    language: { emptyTable: "No Data Found" },
+                    initComplete: moveLengthDropdownMKT,
+                    drawCallback: moveLengthDropdownMKT
+                });
+
+                $('#TblMKTApproval thead').on('keyup change', '.mkt-column-search', function () {
+                    table.column($(this).data('column')).search(this.value).draw();
+                });
+            }
+        });
+    }
+
+    function moveLengthDropdownMKT() {
+
+
+        $('#TblMKTApproval_filter').hide();
+
+
+        var $length = $('#TblMKTApproval_wrapper')
+            .find('#TblMKTApproval_length');
+
+
+        var $target = $('#MKTPage');
+
+        if ($length.length && $target.length) {
+
+
+            $target.find('#TblMKTApproval_length').remove();
+
+
+            $length.appendTo($target).css({
+                'margin-top': '5px',
+                'display': 'inline-block',
+                'margin-right': '42rem'
+            });
+        }
+    }
+
+
+    /* ========= CHECKBOX → Director Approval Date ========= */
+
+    $(document).on('change', '.mkt-row-checkbox', function () {
+
+        var $row = $(this).closest('tr');
+        var $directorDate = $row.find('.sendtodirectorapprovaldate');
+
+        if (this.checked) {
+            $directorDate.text(getTodayDate_ddMMyy());
+        } else {
+            $directorDate.text('');
+            $('#chkSelectAllMKT').prop('checked', false);
+        }
+    });
+
+    $(document).on('change', '#chkSelectAllMKT', function () {
+
+        var today = getTodayDate_ddMMyy();
+        var isChecked = this.checked;
+
+        $('.mkt-row-checkbox').each(function () {
+
+            var $row = $(this).closest('tr');
+            var $directorDate = $row.find('.sendtodirectorapprovaldate');
+
+            $(this).prop('checked', isChecked);
+            $directorDate.text(isChecked ? today : '');
+        });
+    });
+
+    function getSelectedMKTRows() {
+
+        var list = [];
+
+        $('.mkt-row-checkbox:checked').each(function () {
+
+            var $row = $(this).closest('tr');
+
+            list.push({
+                RowID: $(this).data('rowid'),
+                Date1: $row.find('.sendtodirectorapprovaldate').text()
+            });
+        });
+
+        return list;
+    }
+
+    $('#btnSaveMKT').on('click', function () {
+
+        var rows = getSelectedMKTRows();
+
+        if (rows.length === 0) {
+            alert('Please select at least one row');
+            return;
+        }
+
+        $.ajax({
+            //url: '/TSD/SaveTSDRowWise',
+            url: '@Url.Action("SaveTSDRowWise","TSD")',
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({
+                groupId: 4,
+                rows: rows
+            }),
+            success: function (res) {
+                if (res.success) {
+                    alert('Saved Successfully');
+                    $('#chkSelectAllMKT').prop('checked', false);
+                    loadMKTList();
+                } else {
+                    alert('Save failed');
+                }
+            }
+        });
+    });
+
+    function formatDate(date) {
+        if (!date) return '';
+
+        var d;
+
+        // Handle /Date(1766946600000)/
+        if (typeof date === "string" && date.includes("Date")) {
+            var timestamp = parseInt(date.replace(/[^0-9]/g, ""));
+            d = new Date(timestamp);
+        } else {
+            d = new Date(date);
+        }
+
+        var dd = String(d.getDate()).padStart(2, '0');
+        var mm = String(d.getMonth() + 1).padStart(2, '0');
+        var yy = String(d.getFullYear()).slice(-2); // ✅ 2026 → 26
+
+        return dd + '/' + mm + '/' + yy;
+    }
+
+    function getTodayDate_ddMMyy() {
+        var d = new Date();
+        return String(d.getDate()).padStart(2, '0') + '/' +
+            String(d.getMonth() + 1).padStart(2, '0') + '/' +
+            String(d.getFullYear()).slice(-2);
+    }
+</script>

@@ -1,0 +1,502 @@
+﻿<style>
+    .srno-search {
+        width: 16px !important;
+        min-width: 15px !important;
+        max-width: 50px !important;
+    }
+
+    .Brand-search {
+        width: 45px !important;
+        min-width: 47px !important;
+        max-width: 50px !important;
+    }
+
+    .Name-search {
+        width: 50px !important;
+        min-width: 110px !important;
+        max-width: 50px !important;
+    }
+
+    .City-search {
+        width: 50px !important;
+        min-width: 80px !important;
+        max-width: 50px !important;
+    }
+
+    .TSDAmount-search {
+        width: 50px !important;
+        min-width: 42px !important;
+        max-width: 50px !important;
+    }
+
+    .CommercialReceiptDate-search {
+        width: 50px !important;
+        min-width: 58px !important;
+        max-width: 50px !important;
+    }
+
+    .CommercialDays-search {
+        width: 50px !important;
+        min-width: 35px !important;
+        max-width: 50px !important;
+    }
+
+    .SendToCrossChecking-search {
+        width: 50px !important;
+        min-width: 58px !important;
+        max-width: 50px !important;
+    }
+
+    .CrossCheckingDays-search {
+        width: 50px !important;
+        min-width: 35px !important;
+        max-width: 50px !important;
+    }
+
+    .SendToHeadForApproval-search {
+        width: 50px !important;
+        min-width: 58px !important;
+        max-width: 50px !important;
+    }
+
+    .HeadApprovalDays-search {
+        width: 50px !important;
+        min-width: 35px !important;
+        max-width: 50px !important;
+    }
+
+    .SendToDirector-search {
+        width: 50px !important;
+        min-width: 58px !important;
+        max-width: 50px !important;
+    }
+
+    .DirectorApprovalDays-search {
+        width: 50px !important;
+        min-width: 35px !important;
+        max-width: 50px !important;
+    }
+
+    .SubmittedInAccounts-search {
+        width: 50px !important;
+        min-width: 58px !important;
+        max-width: 50px !important;
+    }
+
+    .AccountsDays-search {
+        width: 50px !important;
+        min-width: 35px !important;
+        max-width: 50px !important;
+    }
+
+    .TotalDays-search {
+        width: 40px !important;
+        min-width: 40px !important;
+        max-width: 50px !important;
+    }
+
+    .PaymentDate-search {
+        width: 50px !important;
+        min-width: 58px !important;
+        max-width: 50px !important;
+    }
+
+    .ChequeNumber-search {
+        width: 50px !important;
+        min-width: 50px !important;
+        max-width: 50px !important;
+    }
+
+    .PaymentAmount-search {
+        width: 50px !important;
+        min-width: 52px !important;
+        max-width: 50px !important;
+    }
+
+    .CurieredOnSentDate-search {
+        width: 50px !important;
+        min-width: 58px !important;
+        max-width: 50px !important;
+    }
+
+    .CurieredDays-search {
+        width: 50px !important;
+        min-width: 35px !important;
+        max-width: 50px !important;
+    }
+
+    .CurieredOnConfirmationDate-search {
+        width: 50px !important;
+        min-width: 58px !important;
+        max-width: 50px !important;
+    }
+
+    .Remarks-search {
+        width: 50px !important;
+        min-width: 120px !important;
+        max-width: 50px !important;
+    }
+</style>
+
+<div class="box">
+    <div class="card mt-3 ml-3 mb-1 mr-3">
+        <div class="card-body mt-3 ml-3 mb-1 mr-3">
+            <div class="row">
+                <div class="col-md-12 form-group" id="TSDList" style="margin-top: 6px !important; display: flex; flex-wrap: wrap; gap: 15px; align-items: flex-end; margin-left:16px;">
+
+                    <!-- Compnay Name -->
+                    <div style="display: flex; flex-direction: column;">
+                        <label for="companySearch">@resourceSettings.getResourceLable("lblCompany", "common", "Company")</label>
+                        <select id="ddlCompany" class="form-control" disabled>
+                            <option value="">-- Select Company --</option>
+                        </select>
+                    </div>
+
+                    <!-- Brand Name -->
+                    <div style="display:flex; flex-direction:column; min-width:220px;">
+                        <label for="ddlBrand">
+                            @resourceSettings.getResourceLable("lblBrand", "common", "Brand")
+                        </label>
+                        <select id="ddlBrand" class="form-control">
+                            <option value="">-- Select Brand --</option>
+                        </select>
+                    </div>
+
+                    <!-- Name -->
+                    <div style="display:flex; flex-direction:column; min-width:220px;">
+                        <label for="ddlName">
+                            @resourceSettings.getResourceLable("lblName", "common", "Name")
+                        </label>
+                        <input type="text" id="ddlName" name="Name" class="form-control" placeholder="" />
+                    </div>
+
+                    <!-- Search Button -->
+                    <div style="display:flex; flex-direction:column;">
+                        <label>&nbsp;</label>
+                        @*<button type="button" id="btnSearch" class="btn btn-primary">
+                                Search
+                            </button>*@
+                        <a href="#" id="lnkSearch" class="btn-cancel" style="text-decoration: none">
+                            @*<i class="fa fa-search"></i>*@
+                            Search
+                        </a>
+                    </div>
+
+                    <!-- Export Data Button -->
+                    <div style="display:flex; flex-direction:column;">
+                        <label>&nbsp;</label>
+
+                        <a href="#" class="btn-cancel" style="width: 157px; text-decoration:none" onclick="exportExcel()">
+                            @*<i class="fa-file-export"></i>*@
+                            Export to Excel
+                        </a>
+                    </div>
+                </div>
+                <div id="Listpage" style="margin-top: -44px;text-align:end; margin-left:-2rem;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+    <div class="form-group"></div>
+    <div class="row ml-2 mr-2">
+        <div class="col">
+            <div class="box-body">
+                <div class="table-responsive">
+
+                    <div id="loadingMessage" style="text-align:center; padding:20px; font-size:16px; display:none;">
+                        <span><i class="fa fa-spinner fa-spin" style="font-size:100px"></i> Loading data, please wait...</span>
+                    </div>
+                    <table id="TblListInfo" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th class="HeaderFont" style="text-align: center;"><b>SrNo</b></th>                         <!-- 0 -->
+                                <th class="HeaderFont" title="Brand"><b>Brand</b></th>                                    <!-- 1 -->
+                                <th class="HeaderFont" title="Name"><b>Name</b></th>                                      <!-- 2 -->
+                                <th class="HeaderFont" title="City"><b>City</b></th>                                      <!-- 3 -->
+                                <th class="HeaderFont" title="TSDAmount"><b>TSD Amount</b></th>                            <!-- 4 -->
+                                <th class="HeaderFont" title="CommercialReceiptDate"><b>Commercial Receipt Date</b></th> <!-- 5 -->
+                                <th class="HeaderFont" title="CommercialDays"><b>Commercial Days</b></th>                <!-- 6 -->
+
+                                <th class="HeaderFont" title="SendToHeadForApprovalDate"><b>Send To Head For Approval</b></th> <!-- 7 -->
+                                <th class="HeaderFont" title="HeadApprovalDays"><b>Head Approval Days</b></th>            <!-- 8 -->
+                                <th class="HeaderFont" title="SendToDirectorForApprovalDate"><b>Send To CMO</b></th> <!-- 9 -->
+                                <th class="HeaderFont" title="DirectorApprovalDays"><b>CMO Approval Days</b></th>    <!-- 10 -->
+                                <th class="HeaderFont" title="SubmittedInAccountsDate"><b>Submitted In Accounts</b></th>  <!-- 11 -->
+                                <th class="HeaderFont" title="AccountsDays"><b>Accounts Days</b></th>                     <!-- 12 -->
+                                <th class="HeaderFont" title="TotalDays"><b>Total Days</b></th>                           <!-- 13 -->
+                                <th class="HeaderFont" title="PaymentDate"><b>Payment Date</b></th>                       <!-- 14 -->
+                                <th class="HeaderFont" title="ChequeNumber"><b>Cheque Number</b></th>                     <!-- 15 -->
+                                <th class="HeaderFont" title="PaymentAmount"><b>Payment Amount</b></th>                   <!-- 16 -->
+                                <th class="HeaderFont" title="CurieredOnSentDate"><b>Couriered On Sent Date</b></th>        <!-- 17 -->
+                                <th class="HeaderFont" title="CurieredDays"><b>Couriered Days</b></th>                     <!-- 18 -->
+                                <th class="HeaderFont" title="CurieredOnConfirmationDate"><b>Couriered On Confirmation Date</b></th> <!-- 19 -->
+                                <th class="HeaderFont" title="Remarks"><b>Remarks</b></th>                                <!-- 20 -->
+                            </tr>
+
+
+
+                            <tr>
+                                <th><input type="text" class="column-search srno-search" data-column="0"></th>
+
+                                <th><input type="text" class="column-search Brand-search" data-column="1"></th>
+                                <th><input type="text" class="column-search Name-search" data-column="2"></th>
+                                <th><input type="text" class="column-search City-search" data-column="3"></th>
+                                <th><input type="text" class="column-search TSDAmount-search" data-column="4"></th>
+                                <th><input type="text" class="column-search CommercialReceiptDate-search" data-column="5"></th>
+                                <th><input type="text" class="column-search CommercialDays-search" data-column="6"></th>
+
+                                <th><input type="text" class="column-search SendToHeadForApproval-search" data-column="7"></th>
+                                <th><input type="text" class="column-search HeadApprovalDays-search" data-column="8"></th>
+                                <th><input type="text" class="column-search SendToDirector-search" data-column="9"></th>
+                                <th><input type="text" class="column-search DirectorApprovalDays-search" data-column="10"></th>
+                                <th><input type="text" class="column-search SubmittedInAccounts-search" data-column="11"></th>
+                                <th><input type="text" class="column-search AccountsDays-search" data-column="12"></th>
+                                <th><input type="text" class="column-search TotalDays-search" data-column="13"></th>
+                                <th><input type="text" class="column-search PaymentDate-search" data-column="14"></th>
+                                <th><input type="text" class="column-search ChequeNumber-search" data-column="15"></th>
+                                <th><input type="text" class="column-search PaymentAmount-search" data-column="16"></th>
+                                <th><input type="text" class="column-search CurieredOnSentDate-search" data-column="17"></th>
+                                <th><input type="text" class="column-search CurieredDays-search" data-column="18"></th>
+                                <th><input type="text" class="column-search CurieredOnConfirmationDate-search" data-column="19"></th>
+                                <th><input type="text" class="column-search Remarks-search" data-column="20"></th>
+                            </tr>
+
+
+                        </thead>
+
+                        <tbody class="ListInfotbody"></tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function loadCompany() {
+        $.ajax({
+            //url: '/TSD/GetCompanyList',
+            url: '@Url.Action("GetCompanyList","TSD")',
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                $('#ddlCompany').empty();
+                $('#ddlCompany').append('<option value="">-- Select Company --</option>');
+
+                $.each(data, function (i, item) {
+                    $('#ddlCompany').append(
+                        $('<option></option>')
+                            .val(item.ID)       // ID
+                            .text(item.Name)    // Company Name
+                            .attr('data-shortname', item.ShortName)
+                    );
+                });
+                $('#ddlCompany').val('6').trigger('change');
+                loadTSDListing();
+            },
+            error: function () {
+                alert('something went wrong!');
+            }
+        });
+    }
+
+    $('#ddlCompany').on('change', function () {
+        var shortName = $('#ddlCompany option:selected').data('shortname');
+
+        if (shortName) {
+            loadBrand(shortName);
+        } else {
+            $('#ddlBrand').empty()
+                .append('<option value="">-- Select Brand --</option>');
+        }
+    });
+
+    function loadBrand(shortName) {
+        $.ajax({
+            //url: '/TSD/GetBrandListByShortName',
+            url: '@Url.Action("GetBrandListByShortName","TSD")',
+            type: 'GET',
+            data: { ShortName: shortName },
+            dataType: 'json',
+            success: function (data) {
+                $('#ddlBrand').empty();
+                $('#ddlBrand').append('<option value="">-- Select Brand --</option>');
+
+                $.each(data, function (i, item) {
+                    $('#ddlBrand').append(
+                        $('<option></option>')
+                            .val(item.ID)
+                            .text(item.Name)
+                    );
+                });
+            },
+            error: function () {
+                alert('something went wrong!');
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        loadCompany();
+
+        //loadTSDListing();
+        $('#lnkSearch').click(function () {
+            loadTSDListing();
+        });
+    });
+
+    function loadTSDListing() {
+
+        var company = $('#ddlCompany option:selected').data('shortname') || '';
+        var brand = $('#ddlBrand').val() || 0;
+        var name = $('#ddlName').val() || '';
+
+        $('#loadingMessage').show();
+        $('#TblListInfo').hide();
+
+        $.ajax({
+            //url: '/TSD/GetTSDList',
+            url: '@Url.Action("GetTSDList","TSD")',
+            type: 'GET',
+            data: {
+                CompanyName: company,
+                BrandRowID: brand,
+                Name: name
+            },
+            success: function (data) {
+
+                if ($.fn.dataTable.isDataTable('#TblListInfo')) {
+                    $('#TblListInfo').DataTable().destroy();
+                }
+
+                var rows = '';
+
+                for (var i = 0; i < data.length; i++) {
+
+                    var item = data[i];
+                    var tsdAmount = item.TSDAmount || 0;
+
+                    var totalDays =
+                        (item.CommercialNoOfDays || 0) +
+                        //(item.SendToCrossCheckingNoOfDays || 0) +
+                        (item.SendToHeadForApprovalNoOfDays || 0) +
+                        (item.SendToDirectorForApprovalNoOfDays || 0) +
+                        (item.SubmittedInAccountsNoOfDays || 0) +
+                        (item.CurieredOnNoOfDays || 0);
+
+                    let fullText = item.Name;
+                    let truncatedText = fullText.length > 20
+                        ? fullText.substring(0, 20) + '...'
+                        : fullText;
+
+                    rows += '<tr class="tsd-row" data-rowid="' + item.RowID + '">';
+
+                    rows += '<td style="text-align:center;">' + item.SrNo + '</td>';                 // 0
+                    rows += '<td>' + item.Brand + '</td>';                                          // 1
+                    rows += `<td title="${fullText}">${truncatedText}</td>`;                        // 2
+                    rows += '<td>' + item.City + '</td>';                                           // 3
+                    rows += '<td style="text-align:end;">' + (tsdAmount || 0) + '</td>';            // 4
+
+                    rows += '<td>' + formatDate(item.CommercialReceiptDate) + '</td>';              // 5
+                    rows += '<td style="text-align:end;">' + (item.CommercialNoOfDays || 0) + '</td>'; // 6
+
+                    rows += '<td>' + formatDate(item.SendToHeadForApprovalDate) + '</td>';           // 7
+                    rows += '<td style="text-align:end;">' + (item.SendToHeadForApprovalNoOfDays || 0) + '</td>'; // 8
+
+                    rows += '<td>' + formatDate(item.SendToDirectorForApprovalDate) + '</td>';       // 9
+                    rows += '<td style="text-align:end;">' + (item.SendToDirectorForApprovalNoOfDays || 0) + '</td>'; // 10
+
+                    rows += '<td>' + formatDate(item.SubmittedInAccountsDate) + '</td>';             // 11
+                    rows += '<td style="text-align:end;">' + (item.SubmittedInAccountsNoOfDays || 0) + '</td>'; // 12
+
+                    rows += '<td style="text-align:end;font-weight:bold;">' + totalDays + '</td>';   // 13
+
+                    rows += '<td>' + formatDate(item.PaymentDate) + '</td>';                         // 14
+                    rows += '<td>' + (item.ChequeNumber || '') + '</td>';                            // 15
+                    rows += '<td style="text-align:end;">' + (item.PaymentAmount || 0) + '</td>';    // 16
+
+                    rows += '<td>' + formatDate(item.CurieredOnSentDate) + '</td>';                  // 17
+                    rows += '<td style="text-align:end;">' + (item.CurieredOnNoOfDays || 0) + '</td>'; // 18
+                    rows += '<td>' + formatDate(item.CurieredOnConfirmationDate) + '</td>';          // 19
+
+                    rows += '<td>' + (item.Remarks || '') + '</td>';                                 // 20
+
+                    rows += '</tr>';
+
+                }
+
+                $('.ListInfotbody').html(rows);
+
+                $('#loadingMessage').hide();
+                $('#TblListInfo').show();
+
+                var table = $('#TblListInfo').DataTable({
+                    paging: true,
+                    searching: true,
+                    ordering: true,
+                    autoWidth: false,
+                    processing: true,
+                    lengthMenu: [10, 20, 25, 50, 100],
+                    pageLength: 10,
+                    language: {
+                        emptyTable: "No Data Found"
+                    },
+                    initComplete: function () {
+                        $('#TblListInfo_filter').remove();
+                    }
+                });
+
+                $('#TblListInfo thead').on('keyup change', '.column-search', function () {
+                    table
+                        .column($(this).data('column'))
+                        .search(this.value)
+                        .draw();
+                });
+            },
+            error: function () {
+                $('#loadingMessage').hide();
+                alert('Error loading TSD data');
+            }
+        });
+    }
+
+
+
+
+    function formatDate(date) {
+
+        if (!date) return '';
+
+        if (typeof date === "string" && date.indexOf("/Date(") === 0) {
+            var timestamp = parseInt(date.replace(/[^0-9]/g, ''));
+            var d = new Date(timestamp);
+        } else {
+            var d = new Date(date);
+        }
+
+        if (isNaN(d.getTime())) return '';
+
+        var day = String(d.getDate()).padStart(2, '0');
+        var month = String(d.getMonth() + 1).padStart(2, '0');
+        var year = String(d.getFullYear()).slice(-2); // yy
+
+        return day + '/' + month + '/' + year;
+    }
+
+    function exportExcel() {
+        var brandId = parseInt($('#ddlBrand').val()) || 0;
+
+        //window.location.href = '/TSD/ExportTSDExcel?CompanyName=ICL' + '&BrandRowID=' + brandId + '&Name=' + $('#ddlName').val();
+        window.location.href = '@Url.Action("ExportTSDExcel", "TSD")' + '?CompanyName=ICL' + '&BrandRowID=' + brandId + '&Name=' + $('#ddlName').val();
+    }
+
+    $(document).on('click', '.ListInfotbody tr.tsd-row', function () {
+
+        var rowID = $(this).data('rowid');
+        if (!rowID) return;
+        editTsdDetailRowId = rowID;
+        $('#lnkDetails').click();
+    });
+</script>

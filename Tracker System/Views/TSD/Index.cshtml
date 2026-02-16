@@ -1,0 +1,297 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @*@Html.HiddenFor(model => model.UserName)
+        @Html.HiddenFor(model => model.Password)*@
+    <section>
+        <div class="box" style="width:auto;">
+            <div class="box-body" style="width:auto;">
+                <div class="clearfix"></div>
+                <div id="tabs" class="nav-tabs-custom" style=" margin-top: -23px !important;">
+                    <hr>
+                    <ul class="nav nav-tabs" style=" margin-top: -6px !important; font-size:15px;">
+                        <li class="HeaderFont"><a id="lnkDetails" href="#tabDetails" style="font-size:15px!important;" data-toggle="tab" onclick="GetData('tabDetails');"><b>@resourceSettings.getResourceLable("lblDetails", "common", "Details")</b></a></li>
+                        <li class="HeaderFont active"><a id="lnkList" style="font-size:15px!important;" href="#tabList" data-toggle="tab" onclick="GetData('tabList');"><b>@resourceSettings.getResourceLable("lblList", "common", "List")</b></a></li>
+                        <li><a id="lnkOtherRpt" class="HeaderFont" style="font-size:15px!important;" href="#tabOtherRpt" data-toggle="tab" onclick="GetData('tabOtherReport');"><b>@resourceSettings.getResourceLable("lblOtherRpt", "common", "OtherRpt")</b></a></li>
+                        <li><a id="lnkCommercial" class="HeaderFont" style="font-size:15px!important;" href="#tabCommercial" data-toggle="tab" onclick="GetData('tabCommecialTab');"><b>@resourceSettings.getResourceLable("lblCommercial", "common", "Commercial")</b></a></li>
+                        @*<li><a id="lnkHODApproval" class="HeaderFont" style="font-size:15px!important;" href="#tabHODApproval" data-toggle="tab" onclick="GetData('tabHODApproval');"><b>@resourceSettings.getResourceLable("lblHODApproval", "common", "HOD Approval")</b></a></li>*@
+                        <li><a id="lnkMktHead" class="HeaderFont" style="font-size:15px!important;" href="#tabMktHead" data-toggle="tab" onclick="GetData('tabMKTHead');"><b>@resourceSettings.getResourceLable("lblMktHead", "common", "Mkt Head")</b></a></li>
+                        <li><a id="lnkDirectors" class="HeaderFont" style="font-size:15px!important;" href="#tabDirectors" data-toggle="tab" onclick="GetData('tabDirectors');"><b>@resourceSettings.getResourceLable("lblDirector'sApproval", "common", "CMO's Approval")</b></a></li>
+                        <li><a id="lnkSubmitted_Account" class="HeaderFont" style="font-size:15px!important;" href="#tabSubmitted-Account" data-toggle="tab" onclick="GetData('tabSubmmitedAccount');"><b>@resourceSettings.getResourceLable("lblSubmitted-Account", "common", "Submitted-Account")</b></a></li>
+                        <li><a id="lnkPayment" class="HeaderFont" style="font-size:15px!important;" href="#tabPayment" data-toggle="tab" onclick="GetData('tabPaymentTab');"><b>@resourceSettings.getResourceLable("lblPayment", "common", "Payment")</b></a></li>
+                        <li><a id="lnkCourieredOn" class="HeaderFont" style="font-size:15px!important;" href="#tabCourieredOn" data-toggle="tab" onclick="GetData('tabCourieredTab');"><b>@resourceSettings.getResourceLable("lblCourieredOn", "common", "CourieredOn")</b></a></li>
+                    </ul>
+                </div>
+                <div class="tab-content">
+                    <div id="tabDetails" class="tab-pane">
+                        @*<h4>Details Content</h4>*@
+                    </div>
+
+                    <div id="tabList" class="tab-pane active">
+                        @*<h4>List Content</h4>*@
+                    </div>
+
+                    <div id="tabOtherRpt" class="tab-pane">
+                        @*<h4>Other Report Content</h4>*@
+                    </div>
+
+                    <div id="tabCommercial" class="tab-pane">
+                        @*<h4>Commercial Content</h4>*@
+                    </div>
+
+                    <!--<div id="tabHODApproval" class="tab-pane">-->
+                    @*<h4>HOD Approval Content</h4>*@
+                    <!--</div>-->
+
+                    <div id="tabMktHead" class="tab-pane">
+                        @*<h4>Marketing Head Content</h4>*@
+                    </div>
+
+                    <div id="tabDirectors" class="tab-pane">
+                        @*<h4>Director's Approval Content</h4>*@
+                    </div>
+
+                    <div id="tabSubmitted-Account" class="tab-pane">
+                        @*<h4>Submitted Account Content</h4>*@
+                    </div>
+
+                    <div id="tabPayment" class="tab-pane">
+                        @*<h4>Payment Content</h4>*@
+                    </div>
+
+                    <div id="tabCourieredOn" class="tab-pane">
+                        @*<h4>Couriered On Content</h4>*@
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+}
+
+<link href="~/Content/Css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="~/Content/plugins/datatables/jquery.dataTables.min.css" rel="stylesheet" />
+<!-- DataTables JS -->
+<!-- ======= Footer ======= -->
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+<link href="~/Content/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<link href="~/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+<link href="~/Content/boxicons/css/boxicons.min.css" rel="stylesheet" />
+<link href="~/Content/quill/quill.snow.css" rel="stylesheet" />
+<link href="~/Content/quill/quill.bubble.css" rel="stylesheet" />
+<link href="~/Content/remixicon/remixicon.css" rel="stylesheet" />
+<link href="~/Content/simple-datatables/style.css" rel="stylesheet" />
+<script src="~/Content/echarts/echarts.min.js"></script>
+<script src="~/Content/quill/quill.js"></script>
+<script src="~/Content/simple-datatables/simple-datatables.js"></script>
+<script src="~/Content/tinymce/tinymce.min.js"></script>
+<script src="~/Content/php-email-form/validate.js"></script>
+<!-- Template Main JS File -->
+<script src="~/Scripts/main.js"></script>
+<link href="~/Styles/style.css" rel="stylesheet" />
+<link href="~/Scripts/style.css" rel="stylesheet" />
+
+<!--new-->
+<script src="~/Scripts/jquery-3.7.1.js"></script>
+<script src="~/Scripts/jquery-3.7.1.min.js"></script>
+<script src="~/Scripts/jquery.min.js"></script>
+<link href="~/Content/themes/redmond/minified/jquery.ui.tabs.min.css" rel="stylesheet" />
+<link href="~/Content/themes/base/minified/jquery.ui.tabs.min.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-2.1.4.min.js"></script>
+<script src="~/Scripts/jquery.datetimepicker.js"></script>
+<script src="~/Content/SiteCss/js/jquery.datetimepicker.js"></script>
+<link href="~/Content/SiteCss/css/jquery.datetimepicker.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-1.7.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<link href="~/Content/Css/TSCommon.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap.bundle.js"></script>
+<script src="~/Scripts/bootstrap.bundle.min.js"></script>
+<script src="~/WebFormScripts/ExtOperation.js"></script>
+<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+<link href="~/Content/themes/redmond/minified/jquery-ui.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-1.12.4.min.js"></script>
+<!-- Include jTable -->
+<link href="~/Scripts/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Styles/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/assets/css/style.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Styles/bootstrap.css" rel="stylesheet" />
+<link href="~/Styles/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Scripts/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Scripts/style.css" rel="stylesheet" />
+<link href="~/Content/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Styles/style.css" rel="stylesheet" />
+<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+<link href="~/Content/themes/redmond/minified/jquery-ui.min.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-ui.js"></script>
+<script src="~/Content/plugins/datatables/jquery.dataTables.min.js"></script>
+<link href="~/Styles/style.css" rel="stylesheet" />
+<script src="~/Scripts/ext-all.js"></script>
+<link href="~/Styles/ext-all.css" rel="stylesheet" />
+<link href="~/Content/Css/ext.css" rel="stylesheet" />
+
+<script type="text/javascript">
+    var editTsdDetailRowId = '';
+    function GetData(tab) {
+        if (tab == "tabDetails") {
+
+            if (editTsdDetailRowId != '') {
+
+                $.ajax({
+                    //url: '/TSD/GetEditTSDDetailsTab',
+                    url: '@Url.Action("GetEditTSDDetailsTab","TSD")',
+                    type: 'GET',
+                    data: { rowID: editTsdDetailRowId },
+                    success: function (data) {
+
+                        $('#tabDetails').html(data);
+                    },
+                    error: function () {
+                        alert('Failed to load detail');
+                    }
+                });
+            } else {
+
+                $.ajax({
+                    //url: '/TSD/GetTSDDetailsTab',
+                    url: '@Url.Action("GetTSDDetailsTab","TSD")',
+                    type: 'GET',
+                    success: function (result) {
+
+                        $('#tabDetails').html(result);
+                    }
+                });
+            }
+        }
+        else if (tab == "tabOtherReport") {
+            editTsdDetailRowId = '';
+
+            $.ajax({
+                //url: '/TSD/GetTSDOtherReportTab',
+                url: '@Url.Action("GetTSDOtherReportTab","TSD")',
+                type: 'GET',
+                success: function (result) {
+                    $('#tabOtherRpt').html(result);
+                }
+            });
+        }
+        else if (tab == "tabCommecialTab") {
+            editTsdDetailRowId = '';
+
+            $.ajax({
+                //url: '/TSD/GetTSDPendingCommercialTabList?GroupId=' + 2,
+                url: '@Url.Action("GetTSDPendingCommercialTabList","TSD", new { GroupId = 2 })',
+                type: 'GET',
+                success: function (result) {
+                    $('#tabCommercial').html(result);
+                }
+            });
+        }
+        else if (tab == "tabHODApproval") {
+            editTsdDetailRowId = '';
+
+            $.ajax({
+                //url: '/TSD/GetTSDPendingHODApprovalTabList?GroupId=' + 3,
+                url: '@Url.Action("GetTSDPendingHODApprovalTabList","TSD", new { GroupId = 3 })',
+                type: 'GET',
+                success: function (result) {
+                    $('#tabHODApproval').html(result);
+                }
+            });
+        }
+        else if (tab == "tabMKTHead") {
+            editTsdDetailRowId = '';
+
+            $.ajax({
+                //url: '/TSD/GetTSDPendingMKTHeadTabList?GroupId=' + 4,
+                url: '@Url.Action("GetTSDPendingMKTHeadTabList","TSD", new { GroupId = 4 })',
+                type: 'GET',
+                success: function (result) {
+                    $('#tabMktHead').html(result);
+                }
+            });
+        }
+        else if (tab == "tabDirectors") {
+            editTsdDetailRowId = '';
+
+            $.ajax({
+                //url: '/TSD/GetTSDPendingDirectorsApprovalTabList?GroupId=' + 5,
+                url: '@Url.Action("GetTSDPendingDirectorsApprovalTabList","TSD", new { GroupId = 5 })',
+                type: 'GET',
+                success: function (result) {
+                    $('#tabDirectors').html(result);
+                }
+            });
+        }
+        else if (tab == "tabSubmmitedAccount") {
+            editTsdDetailRowId = '';
+
+            $.ajax({
+                //url: '/TSD/GetTSDPendingSubmittedAccountTabList?GroupId=' + 6,
+                url: '@Url.Action("GetTSDPendingSubmittedAccountTabList","TSD", new { GroupId = 6 })',
+                type: 'GET',
+                success: function (result) {
+                    $('#tabSubmitted-Account').html(result);
+                }
+            });
+        }
+        else if (tab == "tabPaymentTab") {
+            editTsdDetailRowId = '';
+
+            $.ajax({
+                //url: '/TSD/GetTSDPendingPaymentTabList?GroupId=' + 7,
+                url: '@Url.Action("GetTSDPendingPaymentTabList","TSD", new { GroupId = 7 })',
+                type: 'GET',
+                success: function (result) {
+                    $('#tabPayment').html(result);
+                }
+            });
+        }
+        else if (tab == "tabCourieredTab") {
+            editTsdDetailRowId = '';
+
+            $.ajax({
+                //url: '/TSD/GetTSDPendingCourieredTabList?GroupId=' + 8,
+                url: '@Url.Action("GetTSDPendingCourieredTabList","TSD", new { GroupId = 8 })',
+                type: 'GET',
+                success: function (result) {
+                    $('#tabCourieredOn').html(result);
+                }
+            });
+        }
+        else {
+            editTsdDetailRowId = '';
+
+            $.ajax({
+                //url: '/TSD/TSDListTab',
+                url: '@Url.Action("TSDListTab","TSD")',
+                type: 'GET',
+                success: function (result) {
+                    $('#tabList').html(result);
+                },
+                error: function () {
+                    alert('error');
+                }
+            });
+        }
+    }
+    $(document).ready(function () {
+        GetData('tabList');
+    });
+</script>
+
+@section scripts
+        {
+    <script src="~/WebFormScripts/ExtOperation.js"></script>
+    <link href="~/Content/Css/TSCommon.css" rel="stylesheet" />
+    <script src="~/Content/plugins/datatables/jquery.dataTables.min.js"></script>
+}
+

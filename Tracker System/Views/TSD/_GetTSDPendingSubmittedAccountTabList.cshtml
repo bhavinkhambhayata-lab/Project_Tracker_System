@@ -1,0 +1,321 @@
+﻿
+@{
+    int groupId = ViewBag.GroupId; // e.g. 6 (Submitted Account Tab)
+}
+
+<style>
+    .acc-checkbox {
+        height: 20px;
+        width: 17px;
+    }
+
+    .acc-length {
+        text-align: right;
+        margin-bottom: 5px;
+    }
+
+    .acc-loader {
+        text-align: center;
+        padding: 30px;
+        font-size: 16px;
+    }
+
+        .acc-loader i {
+            font-size: 40px;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+    .acc-table th,
+    .acc-table td {
+        white-space: nowrap;
+        vertical-align: middle !important;
+    }
+
+    .acc-search-row input {
+        width: 100%;
+        height: 28px;
+        font-size: 12px;
+        padding: 2px 6px;
+    }
+
+    .submittedinaccountsdate,
+    .paymentdate {
+        white-space: nowrap;
+    }
+
+    #TblSubmittedAccount_info {
+        margin-left: 2rem;
+    }
+
+    .btn-save {
+        margin-left: 141rem;
+    }
+</style>
+
+<div class="box acc-box">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div id="AccountPage" class="acc-length mt-4"></div>
+        </div>
+    </div>
+
+    <div class="box-body">
+        <div class="table-responsive">
+
+            <!-- Loader -->
+            <div id="accLoader" class="acc-loader" style="display:none;">
+                <i class="fa fa-spinner fa-spin"></i>
+                <span>Loading data, please wait...</span>
+            </div>
+
+            <table id="TblSubmittedAccount" class="table table-bordered table-striped acc-table" style="width: 1490px;margin-left:14px">
+                <thead>
+                    <tr>
+                        <th class="text-center">Sr No</th>
+                        <th>Employee Name</th>
+                        <th class="text-right">TSD Amount</th>
+                        <th>Submitted In Accounts Date</th>
+                        <th class="text-center acc-checkbox">
+                            <input type="checkbox" id="chkSelectAllAccount" />
+                        </th>
+                        <th>Payment Date</th>
+                        <th>Remarks</th>
+                    </tr>
+
+                    <tr class="acc-search-row">
+                        <th><input type="text" class="acc-column-search" data-column="0"></th>
+                        <th><input type="text" class="acc-column-search" data-column="1"></th>
+                        <th><input type="text" class="acc-column-search" data-column="2"></th>
+                        <th><input type="text" class="acc-column-search" data-column="3"></th>
+                        <th></th>
+                        <th><input type="text" class="acc-column-search" data-column="5"></th>
+                        <th><input type="text" class="acc-column-search" data-column="6"></th>
+                    </tr>
+                </thead>
+
+                <tbody class="submitted-account-tbody"></tbody>
+            </table>
+
+            <div class="row">
+                <div class="col">
+                    <button type="button" id="btnSaveAccount" class="btn-cancel btn-save">
+                        Save
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    var grouId = '@ViewBag.GroupId'; //6
+
+    $(document).ready(function () {
+        loadSubmittedAccountList();
+    });
+
+    function loadSubmittedAccountList() {
+        $('#accLoader').show();
+        $('#TblSubmittedAccount').hide();
+
+        $.ajax({
+            //url: '/TSD/GetTSDPendingList',
+            url: '@Url.Action("GetTSDPendingList","TSD")',
+            type: 'GET',
+            data: { groupId: grouId }, //6
+            success: function (data) {
+
+                if ($.fn.dataTable.isDataTable('#TblSubmittedAccount')) {
+                    $('#TblSubmittedAccount').DataTable().destroy();
+                }
+
+                var rows = '';
+
+                $.each(data, function (i, item) {
+
+                    rows += '<tr>';
+                    rows += '<td>' + item.SrNo + '</td>';
+                    rows += '<td>' + item.Name + '</td>';
+                    rows += '<td class="text-right">' + item.TSDAmount + '</td>';
+
+                    /* Display only */
+                    rows += '<td class="submittedinaccountsdate">' +
+                        formatDate(item.SubmittedInAccountsDate) +
+                        '</td>';
+
+                    rows += '<td class="text-center">' +
+                        '<input type="checkbox" class="account-row-checkbox" data-rowid="' + item.RowID + '">' +
+                        '</td>';
+
+                    /* Updated here */
+                    rows += '<td class="paymentdate">' +
+                        formatDate(item.PaymentDate) +
+                        '</td>';
+
+                    rows += '<td>' + (item.Remarks || '') + '</td>';
+                    rows += '</tr>';
+                });
+
+                $('.submitted-account-tbody').html(rows);
+
+                $('#accLoader').hide();
+                $('#TblSubmittedAccount').show();
+
+                var table = $('#TblSubmittedAccount').DataTable({
+                    paging: true,
+                    searching: true,
+                    ordering: true,
+                    lengthMenu: [10, 20, 25, 50, 100],
+                    pageLength: 10,
+                    language: { emptyTable: "No Data Found" },
+                    initComplete: moveLengthDropdownAccount,
+                    drawCallback: moveLengthDropdownAccount
+                });
+
+                $('#TblSubmittedAccount thead').on('keyup change', '.acc-column-search', function () {
+                    table.column($(this).data('column')).search(this.value).draw();
+                });
+            }
+        });
+    }
+
+    function moveLengthDropdownAccount() {
+
+
+        $('#TblSubmittedAccount_filter').hide();
+
+
+        var $length = $('#TblSubmittedAccount_wrapper')
+            .find('#TblSubmittedAccount_length');
+
+
+        var $target = $('#AccountPage');
+
+        if ($length.length && $target.length) {
+
+
+            $target.find('#TblSubmittedAccount_length').remove();
+
+
+            $length.appendTo($target).css({
+                'margin-top': '5px',
+                'display': 'inline-block',
+                'margin-right': '42rem'
+            });
+        }
+    }
+
+
+    /* ========= CHECKBOX LOGIC ========= */
+
+    $(document).on('change', '.account-row-checkbox', function () {
+
+        var $row = $(this).closest('tr');
+        var $paymentDate = $row.find('.paymentdate');
+
+        if (this.checked) {
+            $paymentDate.text(getTodayDate_ddMMyy());
+        } else {
+            $paymentDate.text('');
+            $('#chkSelectAllAccount').prop('checked', false);
+        }
+    });
+
+    $(document).on('change', '#chkSelectAllAccount', function () {
+
+        var today = getTodayDate_ddMMyy();
+        var isChecked = this.checked;
+
+        $('.account-row-checkbox').each(function () {
+
+            var $row = $(this).closest('tr');
+            var $paymentDate = $row.find('.paymentdate');
+
+            $(this).prop('checked', isChecked);
+            $paymentDate.text(isChecked ? today : '');
+        });
+    });
+
+    function getSelectedAccountRows() {
+
+        var list = [];
+
+        $('.account-row-checkbox:checked').each(function () {
+
+            var $row = $(this).closest('tr');
+
+            list.push({
+                RowID: $(this).data('rowid'),
+                Date1: $row.find('.paymentdate').text()
+            });
+        });
+
+        return list;
+    }
+
+    /* ========= SAVE ========= */
+
+    $('#btnSaveAccount').on('click', function () {
+
+        var rows = getSelectedAccountRows();
+
+        if (rows.length === 0) {
+            alert('Please select at least one row');
+            return;
+        }
+
+        $.ajax({
+            //url: '/TSD/SaveTSDRowWise',
+            url: '@Url.Action("SaveTSDRowWise","TSD")',
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({
+                groupId: 6,
+                rows: rows
+            }),
+            success: function (res) {
+                if (res.success) {
+                    alert('Saved Successfully');
+                    $('#chkSelectAllAccount').prop('checked', false);
+                    loadSubmittedAccountList();
+                } else {
+                    alert('Save failed');
+                }
+            }
+        });
+    });
+
+    /* ========= HELPERS ========= */
+
+    function formatDate(date) {
+        if (!date) return '';
+
+        var d;
+
+        // Handle /Date(1766946600000)/
+        if (typeof date === "string" && date.includes("Date")) {
+            var timestamp = parseInt(date.replace(/[^0-9]/g, ""));
+            d = new Date(timestamp);
+        } else {
+            d = new Date(date);
+        }
+
+        var dd = String(d.getDate()).padStart(2, '0');
+        var mm = String(d.getMonth() + 1).padStart(2, '0');
+        var yy = String(d.getFullYear()).slice(-2); // ✅ 2026 → 26
+
+        return dd + '/' + mm + '/' + yy;
+    }
+
+    function getTodayDate_ddMMyy() {
+        var d = new Date();
+        return String(d.getDate()).padStart(2, '0') + '/' +
+            String(d.getMonth() + 1).padStart(2, '0') + '/' +
+            String(d.getFullYear()).slice(-2);
+    }
+
+</script>
+

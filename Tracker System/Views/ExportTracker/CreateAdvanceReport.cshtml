@@ -1,0 +1,489 @@
+﻿@model Tracker_System.Models.AdvanceTracker
+@{
+    ViewBag.Title = "CreateAdvanceReport";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(model => model.UserName)
+    @Html.HiddenFor(model => model.Password)
+    <section>
+        <div class="box" style="width: auto; margin-top: -15px;">
+            <div class="box-body" style="width:auto;">
+
+            
+                <div class="box">
+                   
+                    <div class="clearfix"></div>
+                    <div class="form-group"></div>
+                    <div class="box-body">
+                        <div class="col-md-12 form-group" style=" margin-left: -13px !important; margin-top: -28px!important;">
+                            <div class="table-responsive">
+
+                                <div id="loadingMessage1" style="text-align:center; padding:20px; font-size:16px; display:none;">
+                                    <span><i class="fa fa-spinner fa-spin" style="font-size:100px"></i> Loading data, please wait...</span>
+                                </div>
+                              
+                                <table id="TblAdvancereporttrackerInfo" class="table table-bordered table-striped mt-4 ml-0">
+                                    <thead style="text-align:center!important;">
+                                        <tr style="text-align: center !important; white-space: nowrap;" class="coma">
+
+                                            <th style="text-align: center;"><b>Sr No</b></th>
+                                            <th title="Division"><b>Division</b></th>
+                                            <th title="InvoiceNo"><b>InvoiceNo</b></th>
+                                            <th title="Vendor Name"><b>Vendor Name</b></th>
+                                            <th title="Vendor Invoice Number"><b>Vendor Invoice Number</b></th>
+                                            <th title="Date"><b>Date</b></th>
+                                            <th title="Inco Terms"><b>Inco Terms</b></th>
+                                            <th title="Amount"><b>Amount</b></th>
+                                            <th title="Account Submitted Date"><b>Account Sub...</b></th>
+                                            <th title="Payment Date"><b>Payment Date</b></th>
+                                            <th title="Action"><b>Action</b></th>
+                                            <th style="display:none" title="Sourcetype"><b>Sourcetype</b></th>
+                                           
+                                        </tr>
+                                        <tr class="comb">
+                                            <th><input type="text" class="column-search srno-search" data-column="0" style="width: 2rem !important;"></th>
+
+                                            <th><input type="text" class="column-search Invoice_No-search" data-column="1" style="width: 40px;"></th>
+                                            <th><input type="text" class="column-search Invoice_Date-search" data-column="2" style="width: 106px;"></th>
+                                            <th><input type="text" class="column-search Bill_To_Name-search" data-column="3" style="width: 29rem !important;"></th>
+                                            <th><input type="text" class="column-search Ship_To_Name-search" data-column="4" style="width: 6rem !important;"></th>
+                                            <th><input type="text" class="column-search Port_of_Loading-search" data-column="5" style="width: 9rem;"></th>
+                                            <th><input type="text" class="column-search Port_of_Loading-search" data-column="6" style="width: 4rem;"></th>
+                                            <th><input type="text" class="column-search Port_of_discharge-search" data-column="7" style="width: 5rem;"></th>
+                                            <th><input type="text" class="column-search Mode_of_Dishcharge-search" data-column="8" style="width: 8rem;"></th>
+                                            <th><input type="text" class="column-search Type-search" data-column="9" style="width: 9rem"></th>
+                                            <th><input type="text" class="column-search Action-search" data-column="10" style="width: 5rem"></th>
+                                            <th style="display:none"><input type="text" class="column-search Action-search" data-column="11" style="width: 10rem"></th>
+
+                                        </tr>
+
+                                    </thead>
+
+                                    <tbody class="AdvanceInfotbody"></tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                @*<div class="tab-content">
+            <div id="tabList" class="tab-pane active">
+                <div class="box">
+                    <div class="col-md-12 form-group" id="invoiceNoSearchSectionList" style="margin-top: 6px !important; white-space: nowrap; display: flex; margin-left: 0; ">
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="form-group"></div>
+                    <div class="box-body">
+                        <div class="col-md-12 form-group" style=" margin-left: -13px !important; margin-top: -28px!important;">
+                            <div class="table-responsive">
+
+                                <div id="loadingMessage1" style="text-align:center; padding:20px; font-size:16px; display:none;">
+                                    <span><i class="fa fa-spinner fa-spin" style="font-size:100px"></i> Loading data, please wait...</span>
+                                </div>
+
+                                <table id="TblAdvancereporttrackerInfo" class="table table-bordered table-striped mt-1">
+                                    <thead style="text-align:center!important;">
+                                        <tr style="text-align: center !important; white-space: nowrap;" class="coma">
+
+                                            <th style="text-align: center;"><b>Sr No</b></th>
+                                            <th title="Division"><b>Division</b></th>
+                                            <th title="InvoiceNo"><b>InvoiceNo</b></th>
+                                            <th title="Vendor Name"><b>Vendor Name</b></th>
+                                            <th title="Vendor Invoice Number"><b>Vendor Invoice Number</b></th>
+                                            <th title="Date"><b>Date</b></th>
+                                            <th title="Amount"><b>Amount</b></th>
+                                            <th title="Account Submitted Date"><b>Account Sub...</b></th>
+                                            <th title="Payment Date"><b>Payment Date</b></th>
+                                        </tr>
+                                        <tr class="comb">
+                                            <th><input type="text" class="column-search srno-search" data-column="0" style="width: 2rem !important;"></th>
+
+                                            <th><input type="text" class="column-search Invoice_No-search" data-column="1" style="width: 40px;"></th>
+                                            <th><input type="text" class="column-search Invoice_Date-search" data-column="2" style="width: 106px;"></th>
+                                            <th><input type="text" class="column-search Bill_To_Name-search" data-column="3" style="width: 29rem !important;"></th>
+                                            <th><input type="text" class="column-search Ship_To_Name-search" data-column="4" style="width: 6rem !important;"></th>
+                                            <th><input type="text" class="column-search Port_of_Loading-search" data-column="5" style="width: 9rem;"></th>
+                                            <th><input type="text" class="column-search Port_of_discharge-search" data-column="6" style="width: 5rem;"></th>
+                                            <th><input type="text" class="column-search Mode_of_Dishcharge-search" data-column="7" style="width: 8rem;"></th>
+                                            <th><input type="text" class="column-search Type-search" data-column="8" style="width: 9rem"></th>
+
+                                        </tr>
+
+                                    </thead>
+
+                                    <tbody class="AdvanceInfotbody"></tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+
+        </div>*@
+
+            </div>
+        </div>
+    </section>
+}
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<script src="~/Scripts/bootstrap.bundle.min.js"></script>
+<script src="~/assets/bootstrap-select/bootstrap-select.min.js"></script>
+<link href="~/Content/Css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="~/Content/plugins/datatables/jquery.dataTables.min.css" rel="stylesheet" />
+
+<link href="~/assets/bootstrap-select/bootstrap-select.min.css" rel="stylesheet" />
+
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+<link href="~/Content/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<link href="~/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+<link href="~/Content/boxicons/css/boxicons.min.css" rel="stylesheet" />
+<link href="~/Content/quill/quill.snow.css" rel="stylesheet" />
+<link href="~/Content/quill/quill.bubble.css" rel="stylesheet" />
+<link href="~/Content/remixicon/remixicon.css" rel="stylesheet" />
+<link href="~/Content/simple-datatables/style.css" rel="stylesheet" />
+<script src="~/Content/echarts/echarts.min.js"></script>
+<script src="~/Content/quill/quill.js"></script>
+<script src="~/Content/simple-datatables/simple-datatables.js"></script>
+<script src="~/Content/tinymce/tinymce.min.js"></script>
+<script src="~/Content/php-email-form/validate.js"></script>
+
+<script src="~/Scripts/main.js"></script>
+<link href="~/Scripts/style.css" rel="stylesheet" />
+<link href="~/Styles/style.css" rel="stylesheet" />
+
+<script src="~/Scripts/jquery-3.7.1.min.js"></script>
+<script src="~/Scripts/jquery.min.js"></script>
+<link href="~/Content/themes/base/minified/jquery.ui.tabs.min.css" rel="stylesheet" />
+<link href="~/Content/themes/redmond/minified/jquery.ui.tabs.min.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-2.1.4.min.js"></script>
+<script src="~/Scripts/jquery.datetimepicker.js"></script>
+<script src="~/Content/SiteCss/js/jquery.datetimepicker.js"></script>
+<link href="~/Content/SiteCss/css/jquery.datetimepicker.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-1.7.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+
+<link href="~/Content/Css/TSCommon.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap.bundle.js"></script>
+
+<script src="~/WebFormScripts/ExtOperation.js"></script>
+<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+<link href="~/Content/themes/redmond/minified/jquery-ui.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-1.12.4.min.js"></script>
+
+<link href="~/Scripts/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Styles/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/assets/css/style.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Styles/bootstrap.css" rel="stylesheet" />
+<link href="~/Styles/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Scripts/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
+
+<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+<link href="~/Content/themes/redmond/minified/jquery-ui.min.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-ui.js"></script>
+<script src="~/Content/plugins/datatables/jquery.dataTables.min.js"></script>
+
+<script src="~/Scripts/ext-all.js"></script>
+<link href="~/Styles/ext-all.css" rel="stylesheet" />
+<link href="~/Content/Css/ext.css" rel="stylesheet" />
+
+
+<script type="text/javascript">
+
+
+
+
+
+
+          $(document).ready(function () {
+              getgriddetails();
+              $('#TblAdvancereporttrackerInfo').on('click', '.edit-btn', function (e) {
+    e.preventDefault();
+    const $btn = $(this);
+                  const $row = $btn.closest('tr');
+                  debugger
+    if ($btn.hasClass('editing')) {
+        // ✅ SAVE MODE
+        let paymentDate = $row.find('.CO_Paymentdate input').val();
+
+
+
+        const updatedData = {
+            Invoice_No: $row.find('.InvNo').text().trim(),
+            FCInvoiceNo: $row.find('.FCInvNo').text().trim(),
+            PaymentDate: paymentDate,
+            SourceType: $row.find('.SourceType').text().trim()
+        };
+        debugger
+        $.ajax({
+            url: '@Url.Action("GetAdvanceDataUpdate", "ExportTracker")',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(updatedData),
+            success: function () {
+                alert('Payment Date updated successfully.');
+
+                // Replace input with plain text
+                $row.find('.CO_Paymentdate').html(updatedData.PaymentDate);
+
+                // Restore edit button
+                $btn.removeClass('editing')
+                    .html('<i class="fa fa-pencil" style="margin-left:5px;"></i>');
+                $row.find('.cancel-btn').remove();
+            },
+            error: function () {
+                alert('Error updating payment date.');
+            }
+        });
+    } else {
+        // ✏️ EDIT MODE
+        $btn.addClass('editing')
+            .html('<i class="fa fa-check" title="Save" style="margin-left:2px;color:green"></i>');
+
+        // Add cancel button
+        if ($row.find('.cancel-btn').length === 0) {
+            $btn.after(`
+                <button type="button" class="cancel-btn btn btn-sm" title="Cancel" style="margin-left:24px;color:red">
+                    <i class="fa fa-times"></i>
+                </button>`);
+        }
+
+        // Replace payment date text with input
+        const paymentDate = $row.find('.CO_Paymentdate').text().trim();
+        $row.find('.CO_Paymentdate')
+            .data('original', paymentDate)
+            .html(`<input type="text" class="form-control form-control-sm text-center cc-paymentdate"
+                style="width:90px;" value="${paymentDate}" />`);
+
+        // Activate datepicker
+        const $paymentInput = $row.find('.cc-paymentdate');
+        showDatePicker($paymentInput);
+    }
+});
+
+// Cancel logic
+$('#TblAdvancereporttrackerInfo').on('click', '.cancel-btn', function () {
+    const $row = $(this).closest('tr');
+    const $btn = $row.find('.edit-btn');
+    const original = $row.find('.CO_Paymentdate').data('original');
+
+    // revert
+    $row.find('.CO_Paymentdate').html(original || '');
+    $btn.removeClass('editing').html('<i class="fa fa-pencil" style="margin-left:5px;"></i>');
+    $(this).remove();
+});
+
+
+          });
+    function showDatePicker(input) {
+        const $input = $(input);
+        const $row = $input.closest('tr');
+
+        $input.datepicker({
+            dateFormat: 'dd/mm/yy',
+            showAnim: 'fadeIn',
+            changeMonth: true,
+            changeYear: true,
+            onSelect: function () {
+               // calculateTransitForRow($row); // When selecting date
+            }
+        });
+
+        // Trigger calculation when user types manually
+        $input.off('change keyup blur').on('change keyup blur', function () {
+          //  calculateTransitForRow($row);
+        });
+
+        $input.datepicker('show');
+    }
+    function getgriddetails() {
+        var urlRequest1 = '@Url.Action("GetAdvanceReportGridList", "Common")';
+
+       $('#loadingMessage1').show();
+        $('#TblAdvancereporttrackerInfo').hide();
+
+
+
+            $.ajax({
+                url: urlRequest1,
+                type: 'GET',
+                data: {},
+                success: function (data) {
+
+                    if (data.length === 0) {
+
+                        $('#loadingMessage1').hide();
+                        return alert("No data available");
+
+
+
+
+                    }
+                    else {
+
+                        var totalRecords = data.length;
+                        var pageLength = 26;
+                        var totalPages = Math.ceil(totalRecords / pageLength);
+                        var startRecord = 1;
+                        var endRecord = totalRecords < pageLength ? totalRecords : pageLength;
+
+                        $('#TblAdvancereporttrackerInfo_info').text('Showing ' + startRecord + ' to ' + endRecord + ' of ' + totalRecords + ' entries');
+
+                        if ($.fn.dataTable.isDataTable('#TblAdvancereporttrackerInfo')) {
+                            $('#TblAdvancereporttrackerInfo').DataTable().destroy();
+                        }
+
+                        var rows = '';
+                        for (var i = 0; i < data.length; i++) {
+                            var item = data[i];
+                  
+                            var Invoice_NoTooltip = item.Invoice_No;
+                            var DivisionTooltip = item.Division;
+                            var FCForwarderTooltip = item.FCForwarder;
+                            var FCInvoiceNoTooltip = item.FCInvoiceNo;
+                            var FCInvDateTooltip = item.FCInvDate;
+                            var FCSTOTALTooltip = item.FCSTOTAL;
+                            var FCATOTALTooltip = item.FCATOTAL;
+                            var Inco_TermsTooltip = item.Inco_Terms;
+
+                            var AdvPaymentonTooltip = item.AdvPaymenton;
+                            var PaymentDateTooltip = item.PaymentDate;
+                            var SourceTypeTooltip = item.SourceType;
+
+                            rows += `<tr class="" >`;
+                            rows += '<td   title="">' + item.SrNo + '</td>';
+                            rows += '<td class="" title="' + DivisionTooltip + '">' + item.Division + '</td>';
+                            rows += '<td  class="InvNo" style = "text-align: center;white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 75px;" title="' + Invoice_NoTooltip + '">' + item.Invoice_No + '</td>';
+                            rows += '<td  class="" style="text-align: start; align-items: center;white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px;" title="' + FCForwarderTooltip + '">' + item.FCForwarder + '</td>';
+                            rows += '<td class="FCInvNo" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 10rem;"  title="' + FCInvoiceNoTooltip + '">' + item.FCInvoiceNo + '</td>';
+                            rows += '<td  style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 10rem;"class="" title="' + FCInvDateTooltip + '">' + item.FCInvDate + '</td>';
+                            rows += '<td style="text-align: end; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px;" title="' + Inco_TermsTooltip + '">' + item.Inco_Terms + '</td>';
+
+                            var amountValue = '';
+                            var amountTooltip = '';
+
+                            if (FCATOTALTooltip && FCATOTALTooltip != 0) {
+                                amountValue = FCATOTALTooltip;
+                                amountTooltip = 'FCA TOTAL: ' + FCATOTALTooltip;
+                            } else if (FCSTOTALTooltip && FCSTOTALTooltip != 0) {
+                                amountValue = FCSTOTALTooltip;
+                                amountTooltip = 'FCS TOTAL: ' + FCSTOTALTooltip;
+                            }
+                             rows += '<td style="text-align: end; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px;" title="' + amountTooltip + '">' + amountValue + '</td>';
+                            rows += '<td style = "text-align: start;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;max-width: 70px;"class="" title="' + (AdvPaymentonTooltip || '') + '">' + (item.AdvPaymenton || '') + '</td>';
+                           // rows += '<td style = "text-align: start;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"class="" title="' + (PaymentDateTooltip || '') + '">' + (item.PaymentDate || '') + '</td>';
+                            rows += '<td style="text-align: center;" class="CO_Paymentdate" title="' + PaymentDateTooltip + '">' +
+                                (item.PaymentDate || '<input type="text" style="width:66px;text-align:center;" onclick="showDatePicker(this);" class="input-box TextSize cc-paymentdate" />') +
+                                '</td>';
+                            rows += `<td style="text-align:center;">
+    <button type="button" class="edit-btn icon-btn" title="Edit">
+        <i class="fa fa-pencil" style="margin-left:5px;"></i>
+    </button>
+</td>`;
+                            rows += '<td class="SourceType" style="text-align: end; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px; display:none" title="' + SourceTypeTooltip + '">' + item.SourceType + '</td>';
+                            rows += '</tr>';
+                        }
+
+
+                        $('.AdvanceInfotbody').html(rows);
+                        $('#loadingMessage1').hide();
+                        $('#TblAdvancereporttrackerInfo').show();
+                        debugger
+                        var table1 = $('#TblAdvancereporttrackerInfo').DataTable({
+                            paging: true,
+                            searching: true,
+
+
+                            autoWidth: false,
+                            responsive: true,
+                            pageLength: 26,
+                            lengthMenu: [26, 40, 50, 100],
+
+                            language: {
+                                emptyTable: "No Data Found"
+                            },
+
+                            initComplete: function () {
+                                moveLengthDropdown();
+                            }
+
+                        });
+
+                        function moveLengthDropdown() {
+
+                            $('#TblAdvancereporttrackerInfo_filter').hide();
+                            $('#TblAdvancereporttrackerInfo_length').appendTo('#TblAdvancereporttrackerInfo_wrapper').css({
+                                'float': 'right',          // float to the right
+                                'margin-bottom': '10px',
+                                'margin-top': '-75rem',
+                            });
+
+                            //var $length = $('#TblAdvancereporttrackerInfo_wrapper').find('#TblAdvancereporttrackerInfo_length');
+                            //var $target = $('#Accountpage');
+                            //if ($length.length && $target.length) {
+                            //    $target.find('#TblAdvancereporttrackerInfo_length').remove();
+
+                            //    $length.appendTo($target).css({
+                            //        'margin-top': '18px',
+                            //        'text-align': 'end',
+                            //        'display': 'inline-block'
+                            //    });
+
+                        }
+
+                        $('#TblAdvancereporttrackerInfo thead').on('keyup change', '.column-search', function () {
+
+                            var columnIndex = $(this).data('column');
+                            var searchValue = this.value;
+                            table1.column(columnIndex).search(searchValue).draw();
+                        });
+
+                    }
+
+                }
+            });
+
+                $('[data-toggle="tooltip"]').tooltip();
+
+
+
+
+        $('#TblAdvancereporttrackerInfo tbody').on('click', 'tr', function () {
+    var table = $(this).closest('table');
+    table.find('tbody tr').removeClass('selected');
+    $(this).addClass('selected');
+});
+    }
+
+    function autoClickTab(tabId) {
+
+        const tab = document.getElementById(tabId);
+        if (tab) { tab.click(); }
+    }
+
+</script>
+
+
+@section scripts
+        {
+    <script src="~/WebFormScripts/ExtOperation.js"></script>
+    <link href="~/Content/Css/TSCommon.css" rel="stylesheet" />
+    <script src="~/Content/plugins/datatables/jquery.dataTables.min.js"></script>
+
+
+}
+
+
+

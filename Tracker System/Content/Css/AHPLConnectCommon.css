@@ -1,0 +1,771 @@
+/* Common Css For All Over Project */
+
+
+/*Minimimum Width */
+.MinWidth100px {
+    min-width: 100px;
+}
+
+.MinWidth90px {
+    min-width: 90px;
+}
+
+.H80px {
+    height: 80px !important;
+}
+
+.H280px {
+    height: 280px !important;
+}
+
+.H200px {
+    height: 200px !important;
+}
+
+.H220p {
+    height: 220px;
+}
+
+.H30px {
+    height: 30px !important;
+}
+
+.H31px {
+    height: 31px !important;
+}
+
+.H50p {
+    height: 50px;
+}
+
+.Fsize16px {
+    font-size: 14px;
+}
+
+.MinWidth120px {
+    min-width: 120px;
+}
+
+/*Maximum Width */
+
+.MaxWidth90px {
+    max-width: 90px;
+}
+
+.MaxWidth100px {
+    max-width: 100px;
+}
+
+.MaxWidth120px {
+    max-width: 120px;
+}
+
+.W3Per {
+    width: 3% !important;
+}
+
+.W5Per {
+    width: 5% !important;
+}
+
+.W60per {
+    width: 60% !important;
+}
+
+.W20per {
+    width: 20% !important;
+}
+
+.Fsize10px {
+    font-size: 10px;
+}
+
+.FSize30px {
+    font-size: 30px;
+}
+
+.Fsize15px {
+    font-size: 15px;
+}
+
+.Fsize18px {
+    font-size: 18px;
+}
+
+.FSize25px {
+    font-size: 25px;
+}
+
+.Fsize20px {
+    font-size: 20px;
+}
+
+.btnMain {
+    float: left;
+    margin-right: 5px;
+}
+
+.MB0px {
+    margin-bottom: 0px !important;
+}
+
+.MB10px {
+    margin-bottom: 10px !important;
+}
+
+.MB8px {
+    margin-bottom: 8px !important;
+}
+
+.MB15px {
+margin-bottom: 15px !important;}
+.BT1pxWhite {
+    border-top: 1px solid #fff !important;
+}
+
+.MT1px {
+    margin-top: 1px;
+}
+
+.MT4px {
+    margin-top: 4px;
+}
+
+.MT6px {
+    margin-top: 6px;
+}
+
+
+
+.MTM7px {
+    margin-top: -7px;
+}
+
+.CustomLink {
+    float: left;
+    cursor: pointer;
+    color: #72afd2;
+}
+
+
+.tableHeadreBackColor {
+    background-color: #f4f4f4;
+}
+
+.red_text {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    color: Red;
+}
+
+.PDHeaderpx {
+    padding: 0px !important;
+    /*padding-left: 15px !important;*/
+}
+
+.PD0px {
+    padding: 0px;
+}
+
+.PD5px {
+    padding: 5px;
+}
+
+.PDtop5px {
+    padding-top: 5px !important;
+}
+.PDtop7px {
+    padding-top: 7px !important;
+}
+
+.PDtop6px {
+    padding-top: 6px !important;
+}
+
+.PDtop10px {
+    padding-top: 10px !important;
+}
+
+.PDBottom5px {
+    padding-bottom: 5px !important;
+}
+
+.activeME {
+    /*background-color: #62a3c8;*/
+    font-weight: bold;
+}
+
+.fontWNormal {
+    font-weight: normal !important;
+}
+
+.ML15px {
+    margin-left: 15px;
+}
+
+.ML17px {
+    margin-left: 17px;
+}
+
+
+.ML5px {
+    margin-left: 5px;
+}
+
+
+.ML10px {
+    margin-left: 10px;
+}
+
+.MR25px {
+    margin-right: 25px;
+}
+
+.MRminus10px {
+    margin-right: -10px;
+}
+
+.MRminus102px {
+    margin-right: -102px;
+}
+
+.MRminus35px {
+    margin-right: -35px;
+}
+
+.MRminus40px {
+    margin-right: -40px;
+}
+
+.footerfx {
+    bottom: 0;
+    position: fixed;
+    border-top: 1px solid rgb(229, 236, 245);
+    background-color: #fff;
+    margin-bottom: 0px;
+    padding-bottom: 15px;
+}
+
+.HorizontalScroll {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.HelpButtonOnPage {
+    float: right;
+    font-size: 15px;
+    cursor: pointer;
+    margin-top: -8px;
+}
+
+.HelpDivOnPage {
+    display: none;
+    position: relative;
+    width: 98%;
+    padding: 10px;
+    background: #ffffff;
+    /*border-top: 2px solid #E5ECF5;
+    margin-top: 10px;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.1);*/
+    border-bottom: 1px solid #E5ECF5;
+    margin-right: auto;
+}
+
+.Headertxt {
+    float: left;
+    margin-right: 10px;
+    font-size: 20px !important;
+    color: #64a4ca;
+}
+
+.AlertmsgDiv {
+    width: 500px;
+    float: left;
+}
+
+.LH30px {
+    line-height: 30px !important;
+}
+
+.PR0px {
+    padding-right: 0;
+}
+
+.PR1px {
+    padding-right: 1px !important;
+}
+
+.PR15px {
+    padding-right: 15px !important;
+}
+
+.PR18px {
+    padding-right: 18px !important;
+}
+
+.PR32px {
+    padding-right: 32px !important;
+}
+
+.PR35px {
+    padding-right: 35px !important;
+}
+
+.PR41px {
+    padding-right: 41px !important;
+}
+
+.PR90px {
+    padding-right: 90px !important;
+}
+
+.PLR0px {
+    padding-left: 0px !important;
+    padding-right:0px !important;
+}
+
+.PL0px {
+    padding-left: 0px;
+}
+
+.PL15px {
+    padding-left: 15px !important;
+}
+
+.PL18px {
+    padding-left: 18px !important;
+}
+
+.LH35pML5p {
+    line-height: 35px;
+    margin-left: 5px;
+}
+
+.BorderTop1pxSolid {
+    border-top: 1px solid rgba(229, 236, 245, 1) !important;
+}
+
+.userimagecircle {
+    /*border-radius: 50%;*/
+    width: 35px;
+    height: 35px;
+    border: 1px solid #DFDFDF;
+}
+
+.userimagecircleGrid {
+    /*border-radius: 50%;*/
+    width: 25px;
+    height: 25px;
+    border: 1px solid #DFDFDF;
+}
+
+.box1 {
+    position: relative;
+    border-radius: 3px;
+    background: #f9fafc;
+    border-top: 2px solid #3c8dbc;
+    margin-bottom: 20px;
+    width: 100%;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+}
+
+.contacttextform {
+    line-height: 30px;
+    height: 30px;
+    padding: 2px;
+    margin: 0;
+}
+
+.BlackSquar {
+    color: Black;
+    font-size: 15px;
+}
+
+.RedTrash {
+    color: Red;
+    font-size: 15px;
+}
+
+.FSZ18px {
+    font-size: 15px;
+}
+
+.PD2p3px {
+    padding: 2px 3px;
+}
+
+.Green {
+    color: green;
+}
+
+.VAmiddle {
+    vertical-align: middle !important;
+}
+
+.txtAcenter {
+    text-align: center;
+}
+
+.txtAright {
+    text-align: right;
+}
+
+.txtAleft {
+    text-align: left;
+}
+
+.chkDivInvType {
+    width: 300px;
+    float: left;
+}
+
+.ScrollableDiv {
+    border: 1px solid #9C9C9C;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: auto;
+    text-align: left;
+    max-height: 100px;
+    padding: 5px;
+}
+
+.chkDivInvTypeLabel {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10pt;
+}
+
+.Height150px {
+    height: 150px;
+}
+
+.btnGrp {
+    margin-right: 10px;
+    line-height: 30px;
+    float: left;
+}
+
+.floatleft {
+    float: left;
+}
+
+.EmailButton {
+    background-image: url("../SiteCss/images/Email.png");
+    background-repeat: no-repeat;
+    width: 25px;
+    height: 25px;
+    padding-left: 23px;
+    margin: 1px;
+    padding-bottom: 17px;
+    padding-right: 55px;
+    background-size: 60px;
+}
+
+.DivEmail {
+    padding-left: 60px;
+}
+
+.DefaultTaxHeadingsforProducts {
+    margin-left: 19px;
+    font-weight: bold;
+}
+
+.DefaultTaxHeadingsforServices {
+    margin-left: -174px;
+    font-weight: bold;
+}
+
+.BoxBorder {
+    border: 1px solid gray;
+    height: 150px;
+    padding-top: 30px;
+    padding-left: 30px;
+}
+
+.W15Per {
+    width: 15%;
+}
+
+.W30Per {
+    width: 30%;
+}
+
+.BGCtbl {
+    background-color: rgba(237, 237, 237, 0.99);
+}
+
+.BGCSky {
+    background-color: rgba(235, 248, 255, 0.99);
+}
+
+
+.H348px {
+    height: 348px !important;
+}
+
+.RSN {
+    resize: none;
+}
+
+.MLMinus27px {
+    margin-left: -27px;
+}
+
+.MLMinus34px {
+    margin-left: -34px;
+}
+
+.MLMinus12px {
+    margin-left: -12px;
+}
+
+.MLMinus47px {
+    margin-left: -47px;
+}
+
+.MLMinus24px {
+    margin-left: -24px;
+}
+
+.M10px {
+    margin: 15px;
+}
+
+
+.lifont {
+    font-size: 13px;
+    padding: 5px 15px !Important;
+}
+
+.fonttitle {
+    font-weight: normal !important;
+    font-size: 14px !important;
+    color: #3c8dbc !important;
+}
+
+.contexticon {
+    color: #000 !important;
+}
+
+.Mycontact {
+    position: fixed;
+    right: 0;
+    top: 80px;
+    width: 21%;
+}
+
+
+.Nofilter {
+    color: none;
+    font-size: 16px;
+}
+
+.filtered {
+    color: #3c8dbc;
+    font-size: 16px;
+}
+
+.SelectedList {
+    background-color: #3c8dbc !important;
+    color: #fff !important;
+}
+
+.UnSelected {
+    background-color: transparent;
+    color: #777;
+}
+
+
+.MR4PX {
+    margin-right: 4px;
+}
+
+.ActiveWeekDay {
+    border-bottom: 2px solid #3c8dbc;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.DeActiveWeekDay {
+    cursor: pointer;
+    border-bottom: 2px solid #D7D7D7;
+    padding: 5px;
+}
+
+.MB15PX {
+    margin-bottom: 15px !important;
+}
+
+.CommonTitle {
+    font-size: 19px;
+    /*margin: 5px 0px;*/
+    color: #64A4CA;
+}
+
+.OwnerName {
+    color: #3c8dbc !important;
+    font-weight: bold;
+}
+
+.ADDIMAGE {
+    color: #e6e1e1;
+    font-size: 75px;
+    height: 88px;
+}
+
+.BackGroundWSG {
+    background: #f4f4f5;
+}
+
+.WorkSpaceOwnerImg {
+    max-height: 50px;
+    margin-left: -12px;
+}
+
+.H140PX {
+    height: 140px;
+}
+
+.PDtop50PX {
+    padding-top: 50px;
+}
+
+.PDtop35px {
+    padding-top: 35px;
+}
+
+.Height100px {
+    height: 100px !important;
+}
+
+.VAtop {
+    vertical-align: top !important;
+}
+
+a {
+    cursor: pointer;
+}
+
+.Employee-description {
+    display: block;
+    color: #999;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.P5PX15PX {
+    padding: 5px 15px !important;
+}
+
+.TitleAling {
+    margin-left: 7px;
+    margin-bottom: 30px;
+    margin-top: 0px;
+}
+
+.dvContextMenu {
+    float: left;
+    margin-top: 9px;
+    font-size: 10px;
+    margin-left: 5px;
+}
+
+.M0px {
+    margin: 0px !important;
+}
+
+.PB0px {
+    padding-bottom: 0px !important;
+}
+
+.ML0px {
+    margin-left: 0px !important;
+}
+
+.AddWSUser {
+    height: 28px;
+    line-height: 18px;
+    margin-left: -3px;
+}
+
+
+.taskdetailbold {
+    float: left;
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.taskdetailnormal {
+    float: left;
+}
+
+
+.taskdetailtime {
+    float: right;
+    width: 70px;
+    font-weight: bold;
+}
+
+.taskdetailtimecolor {
+    color: #3c8dbc;
+    float: left;
+    margin-right: 5px;
+}
+
+.titalheight {
+    height: 60px;
+}
+
+.titalheightmain {
+    float: left;
+    margin-right: 10px;
+}
+
+
+.titalheightmaindrop {
+    float: left;
+    margin-top: 7px;
+    font-size: 10px;
+}
+.titalheightmain{
+float: left; margin-right: 10px;}
+.titalheightmaindrop{float: left; margin-top: 7px; font-size: 10px;z-index:999;
+
+}
+
+
+.titalbold {
+    color: #3c8dbc;
+    font-weight: bold;
+}
+
+.titalsmallbutton {
+    width: 80px;
+    float: right;
+    padding: 3px;
+}
+
+.titalsmallbutton1 {
+    width: 80px;
+    float: right;
+    padding: 3px;
+    margin-right: 5px;
+    margin-top: 0px !Important;
+}
+
+.taskboxborder {
+    border-top: 2px solid #3C8DBC;
+    background-color: #f9fafc;
+}
+
+.taskboxhead {
+    padding: 10px;
+    padding-left: 0;
+}
+
+.titalsmallbutton2 {
+    width: 60px;
+    padding: 3px;
+    margin-left: 70px;
+    margin-top: -5px !Important;
+}
