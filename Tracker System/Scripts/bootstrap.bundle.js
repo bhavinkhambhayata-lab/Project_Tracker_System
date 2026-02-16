@@ -207,7 +207,7 @@
     if (element.style && element.parentNode && element.parentNode.style) {
       var elementStyle = getComputedStyle(element);
       var parentNodeStyle = getComputedStyle(element.parentNode);
-      return elementStyle.display !== 'none' && parentNodeStyle.display !== 'none' && elementStyle.visibility !== 'hidden';
+      return elementStyle.display !== 'none' && parentNodeStyle.display !== 'none' ;
     }
 
     return false;

@@ -238,7 +238,7 @@ button::-moz-focus-inner {
   position: absolute;
   right: 0;
   top: 0;
-  z-index: 1;
+  z-index: 3;
 }
 .tox .mce-codemirror.tox-inline-codemirror {
   margin: 8px;
@@ -672,7 +672,7 @@ button::-moz-focus-inner {
   background-color: rgba(255, 255, 255, 0.15);
   color: rgba(255, 255, 255, 0.5);
   cursor: default;
-  font-size: 12px;
+  font-size: 13px;
   font-style: normal;
   font-weight: normal;
   margin-bottom: 4px;
@@ -761,7 +761,7 @@ button::-moz-focus-inner {
   background-color: #2f4055;
   color: #fff;
   position: relative;
-  z-index: 1;
+  z-index: 3;
 }
 .tox .tox-collection--grid .tox-collection__item--active:not(.tox-collection__item--state-disabled):focus::after {
   border-radius: 3px;
@@ -1186,7 +1186,7 @@ button::-moz-focus-inner {
 }
 .tox .tox-comment__date {
   color: #fff;
-  font-size: 12px;
+  font-size: 13px;
   line-height: 18px;
 }
 .tox .tox-comment__body {
@@ -1393,7 +1393,7 @@ button::-moz-focus-inner {
   position: absolute;
   right: 0;
   top: 0;
-  z-index: 1;
+  z-index: 3;
 }
 .tox .tox-dialog-wrap__backdrop--opaque {
   background-color: #222F3E;
@@ -1437,7 +1437,7 @@ button::-moz-focus-inner {
   position: relative;
 }
 .tox .tox-dialog__header .tox-button {
-  z-index: 1;
+  z-index: 3;
 }
 .tox .tox-dialog__draghandle {
   cursor: grab;
@@ -1724,7 +1724,7 @@ button::-moz-focus-inner {
   opacity: 1;
   pointer-events: none;
   position: absolute;
-  z-index: 1;
+  z-index: 3;
 }
 .tox .tox-navobj-bordered iframe {
   border-radius: 6px;
@@ -1835,7 +1835,7 @@ body.tox-dialog__disable-scroll {
   pointer-events: none;
   position: absolute;
   transition: opacity 0.15s;
-  z-index: 1;
+  z-index: 3;
 }
 @media (forced-colors: active) {
   .tox .tox-edit-area::before {
@@ -1972,7 +1972,7 @@ body.tox-dialog__disable-scroll {
 .tox .tox-color-input {
   display: flex;
   position: relative;
-  z-index: 1;
+  z-index: 3;
 }
 .tox .tox-color-input .tox-textfield {
   z-index: -1;
@@ -2591,7 +2591,7 @@ body.tox-dialog__disable-scroll {
   box-shadow: none;
   color: #fff;
   position: relative;
-  z-index: 1;
+  z-index: 3;
 }
 .tox .tox-mbtn:focus:not(:disabled)::after {
   border-radius: 3px;
@@ -3357,7 +3357,7 @@ body.tox-dialog__disable-scroll {
   border: 0;
   box-shadow: none;
   position: relative;
-  z-index: 1;
+  z-index: 3;
 }
 .tox .tox-tbtn:focus::after {
   border-radius: 3px;
@@ -3525,7 +3525,7 @@ body.tox-dialog__disable-scroll {
 }
 .tox .tox-number-input .tox-input-wrapper:focus {
   background-color: #2f4055;
-  z-index: 1;
+  z-index: 3;
 }
 .tox .tox-number-input .tox-input-wrapper:focus::after {
   border-radius: 3px;
@@ -3612,7 +3612,7 @@ body.tox-dialog__disable-scroll {
 }
 .tox .tox-number-input button:focus {
   background: #2f4055;
-  z-index: 1;
+  z-index: 3;
 }
 .tox .tox-number-input button:focus::after {
   border-radius: 3px;
@@ -3729,7 +3729,7 @@ body.tox-dialog__disable-scroll {
   box-shadow: none;
   color: #fff;
   position: relative;
-  z-index: 1;
+  z-index: 3;
 }
 .tox .tox-split-button:focus::after {
   pointer-events: none;
@@ -3933,7 +3933,7 @@ body.tox-dialog__disable-scroll {
   border-radius: 6px;
   box-shadow: none;
   color: #fff;
-  font-size: 12px;
+  font-size: 13px;
   font-style: normal;
   font-weight: 600;
   overflow-wrap: break-word;
@@ -4228,7 +4228,7 @@ body.tox-dialog__disable-scroll {
 .tox .tox-revisionhistory__sidebar .tox-revisionhistory__revisions:focus {
   height: 100%;
   position: relative;
-  z-index: 1;
+  z-index: 3;
 }
 .tox .tox-revisionhistory__sidebar .tox-revisionhistory__revisions:focus::after {
   border-radius: 3px;
@@ -4269,7 +4269,7 @@ body.tox-dialog__disable-scroll {
 }
 .tox .tox-revisionhistory__sidebar .tox-revisionhistory__revisions .tox-revisionhistory__card:focus {
   position: relative;
-  z-index: 1;
+  z-index: 3;
 }
 .tox .tox-revisionhistory__sidebar .tox-revisionhistory__revisions .tox-revisionhistory__card:focus::after {
   border-radius: 6px !important;

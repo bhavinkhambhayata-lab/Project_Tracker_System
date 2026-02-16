@@ -772,7 +772,7 @@ progress {
 }
 @media (min-width: 1400px) {
   .container-xxl, .container-xl, .container-lg, .container-md, .container-sm, .container {
-    max-width: 1320px;
+    max-width: 1468px;;
   }
 }
 :root {
@@ -3738,7 +3738,7 @@ textarea.form-control-lg {
 .btn-group-vertical > .btn:focus,
 .btn-group-vertical > .btn:active,
 .btn-group-vertical > .btn.active {
-  z-index: 1;
+  z-index: 3;
 }
 
 .btn-toolbar {
@@ -5052,7 +5052,7 @@ textarea.form-control-lg {
   text-align: inherit;
 }
 .list-group-item-action:hover, .list-group-item-action:focus {
-  z-index: 1;
+  z-index: 3;
   color: var(--bs-list-group-action-hover-color);
   text-decoration: none;
   background-color: var(--bs-list-group-action-hover-bg);
@@ -6077,7 +6077,7 @@ textarea.form-control-lg {
 .carousel-fade .carousel-item.active,
 .carousel-fade .carousel-item-next.carousel-item-start,
 .carousel-fade .carousel-item-prev.carousel-item-end {
-  z-index: 1;
+  z-index: 3;
   opacity: 1;
 }
 .carousel-fade .active.carousel-item-start,
@@ -6098,7 +6098,7 @@ textarea.form-control-lg {
   position: absolute;
   top: 0;
   bottom: 0;
-  z-index: 1;
+  z-index: 3;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -7181,7 +7181,7 @@ textarea.form-control-lg {
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 1;
+  z-index: 3;
   content: "";
 }
 

@@ -15719,19 +15719,19 @@
     var ONE_DAY = ONE_HOUR * 24;
     var ONE_YEAR = ONE_DAY * 365;
     var defaultLeveledFormatter = {
-      year: '{yyyy}',
+      year: '{y}',
       month: '{MMM}',
       day: '{d}',
       hour: '{HH}:{mm}',
       minute: '{HH}:{mm}',
       second: '{HH}:{mm}:{ss}',
       millisecond: '{HH}:{mm}:{ss} {SSS}',
-      none: '{yyyy}-{MM}-{dd} {HH}:{mm}:{ss} {SSS}'
+      none: '{y}-{MM}-{dd} {HH}:{mm}:{ss} {SSS}'
     };
-    var fullDayFormatter = '{yyyy}-{MM}-{dd}';
+    var fullDayFormatter = '{y}-{MM}-{dd}';
     var fullLeveledFormatter = {
-      year: '{yyyy}',
-      month: '{yyyy}-{MM}',
+      year: '{y}',
+      month: '{y}-{MM}',
       day: fullDayFormatter,
       hour: fullDayFormatter + ' ' + defaultLeveledFormatter.hour,
       minute: fullDayFormatter + ' ' + defaultLeveledFormatter.minute,
@@ -15798,7 +15798,7 @@
       var monthAbbr = timeModel.get('monthAbbr');
       var dayOfWeek = timeModel.get('dayOfWeek');
       var dayOfWeekAbbr = timeModel.get('dayOfWeekAbbr');
-      return (template || '').replace(/{a}/g, a + '').replace(/{A}/g, A + '').replace(/{yyyy}/g, y + '').replace(/{yy}/g, pad(y % 100 + '', 2)).replace(/{Q}/g, q + '').replace(/{MMMM}/g, month[M - 1]).replace(/{MMM}/g, monthAbbr[M - 1]).replace(/{MM}/g, pad(M, 2)).replace(/{M}/g, M + '').replace(/{dd}/g, pad(d, 2)).replace(/{d}/g, d + '').replace(/{eeee}/g, dayOfWeek[e]).replace(/{ee}/g, dayOfWeekAbbr[e]).replace(/{e}/g, e + '').replace(/{HH}/g, pad(H, 2)).replace(/{H}/g, H + '').replace(/{hh}/g, pad(h + '', 2)).replace(/{h}/g, h + '').replace(/{mm}/g, pad(m, 2)).replace(/{m}/g, m + '').replace(/{ss}/g, pad(s, 2)).replace(/{s}/g, s + '').replace(/{SSS}/g, pad(S, 3)).replace(/{S}/g, S + '');
+      return (template || '').replace(/{a}/g, a + '').replace(/{A}/g, A + '').replace(/{y}/g, y + '').replace(/{yy}/g, pad(y % 100 + '', 2)).replace(/{Q}/g, q + '').replace(/{MMMM}/g, month[M - 1]).replace(/{MMM}/g, monthAbbr[M - 1]).replace(/{MM}/g, pad(M, 2)).replace(/{M}/g, M + '').replace(/{dd}/g, pad(d, 2)).replace(/{d}/g, d + '').replace(/{eeee}/g, dayOfWeek[e]).replace(/{ee}/g, dayOfWeekAbbr[e]).replace(/{e}/g, e + '').replace(/{HH}/g, pad(H, 2)).replace(/{H}/g, H + '').replace(/{hh}/g, pad(h + '', 2)).replace(/{h}/g, h + '').replace(/{mm}/g, pad(m, 2)).replace(/{m}/g, m + '').replace(/{ss}/g, pad(s, 2)).replace(/{s}/g, s + '').replace(/{SSS}/g, pad(S, 3)).replace(/{S}/g, S + '');
     }
     function leveledFormat(tick, idx, formatter, lang, isUTC) {
       var template = null;
@@ -16059,7 +16059,7 @@
         deprecateReplaceLog('echarts.format.formatTime', 'echarts.time.format');
       }
       if (tpl === 'week' || tpl === 'month' || tpl === 'quarter' || tpl === 'half-year' || tpl === 'year') {
-        tpl = 'MM-dd\nyyyy';
+        tpl = 'MM-dd\ny';
       }
       var date = parseDate(value);
       var getUTC = isUTC ? 'getUTC' : 'get';
@@ -16070,7 +16070,7 @@
       var m = date[getUTC + 'Minutes']();
       var s = date[getUTC + 'Seconds']();
       var S = date[getUTC + 'Milliseconds']();
-      tpl = tpl.replace('MM', pad(M, 2)).replace('M', M).replace('yyyy', y).replace('yy', pad(y % 100 + '', 2)).replace('dd', pad(d, 2)).replace('d', d).replace('hh', pad(h, 2)).replace('h', h).replace('mm', pad(m, 2)).replace('m', m).replace('ss', pad(s, 2)).replace('s', s).replace('SSS', pad(S, 3));
+      tpl = tpl.replace('MM', pad(M, 2)).replace('M', M).replace('y', y).replace('yy', pad(y % 100 + '', 2)).replace('dd', pad(d, 2)).replace('d', d).replace('hh', pad(h, 2)).replace('h', h).replace('mm', pad(m, 2)).replace('m', m).replace('ss', pad(s, 2)).replace('s', s).replace('SSS', pad(S, 3));
       return tpl;
     }
     /**

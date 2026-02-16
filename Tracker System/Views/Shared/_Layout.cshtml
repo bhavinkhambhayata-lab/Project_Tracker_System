@@ -1,36 +1,59 @@
-﻿<!DOCTYPE html>
+﻿@using System.Data
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="~/Styles/style.css" rel="stylesheet" />
+    <title>Dashboard - Tracker System</title>
+
+    <!-- CSS Links -->
     <link href="~/Styles/font-awesome.min.css" rel="stylesheet" />
     <link href="~/Styles/bootstrap.css" rel="stylesheet" />
     <link href="~/Styles/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/Styles/font-awesome.min.css" rel="stylesheet" />
     <link href="~/Styles/owl.carousel.min.css" rel="stylesheet" />
     <link href="~/Styles/owl.theme.default.min.css" rel="stylesheet" />
-    <link href="~/Styles/style.css" rel="stylesheet" />
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="~/Content/bootstrap-datepicker.min.css" rel="stylesheet" />
 
-    <title>Dashboard - NiceAdmin Bootstrap Template</title>
+    <!-- Meta Tags -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <meta content="" name="description">
     <meta content="" name="keywords">
 
-  
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    <!-- Scripts -->
+    <script src="~/Scripts/jquery-3.6.0.min.js"></script>
+    <link href="~/Styles/style.css" rel="stylesheet" />
+    <link href="~/Scripts/style.css" rel="stylesheet" />
+    <link href="~/Content/Css/ext.css" rel="stylesheet" />
+
 </head>
 <body>
-    <div class="container body-content">  
-        
-        @RenderBody()
+
+    <div>
+        @Html.Partial("~/Views/MenuPages/_HomeSideBar.cshtml")
     </div>
+
+    @Html.Partial("~/Views/Shared/_Navbar.cshtml ")
+
+    @RenderBody()
+
+
+
+    <!-- Rendered Scripts -->
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    <!-- Section Scripts -->
+    @RenderSection("scripts", required: false)
+    <script>
+        $(document).ajaxSuccess(function (e, xhr) {
+            if (xhr.responseText === "SessionExpired") {
+                alert("Your session has expired. Kindly log in again to proceed.");
+                window.location.href = '/TSSystem/TrackerSystem/Logout';
+            }
+        });
+
+    </script>
 </body>
 </html>
-@Scripts.Render("~/bundles/jquery")
-@Scripts.Render("~/bundles/bootstrap")
-@RenderSection("scripts", required: false)
+

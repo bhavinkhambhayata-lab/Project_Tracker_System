@@ -339,7 +339,7 @@
     eventRegistry[uid] = eventRegistry[uid] || {};
     return eventRegistry[uid];
   }
-  function bootstrapHandler(element, fn) {
+  /*function bootstrapHandler(element, fn) {
     return function handler(event) {
       hydrateObj(event, {
         delegateTarget: element
@@ -349,7 +349,7 @@
       }
       return fn.apply(element, [event]);
     };
-  }
+    }*/
   function bootstrapDelegationHandler(element, selector, fn) {
     return function handler(event) {
       const domElements = element.querySelectorAll(selector);

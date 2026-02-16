@@ -1084,7 +1084,7 @@ html {
 body {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 14px;
-    line-height: 1.42857143;
+    line-height: 0.428571;
     color: #333333;
     background-color: #f6f9ff;
 }
@@ -1129,7 +1129,7 @@ img {
 }
 .img-thumbnail {
   padding: 4px;
-  line-height: 1.42857143;
+  line-height: 0.428571;
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 4px;
@@ -1284,7 +1284,7 @@ h5,
 }
 h6,
 .h6 {
-  font-size: 12px;
+  font-size: 13px;
 }
 p {
   margin: 0 0 10px;
@@ -1443,7 +1443,7 @@ dl {
 }
 dt,
 dd {
-  line-height: 1.42857143;
+  line-height: 0.428571;
 }
 dt {
   font-weight: 700;
@@ -1489,7 +1489,7 @@ blockquote small,
 blockquote .small {
   display: block;
   font-size: 80%;
-  line-height: 1.42857143;
+  line-height: 0.428571;
   color: #777777;
 }
 blockquote footer:before,
@@ -1524,7 +1524,7 @@ blockquote.pull-right .small:after {
 address {
   margin-bottom: 20px;
   font-style: normal;
-  line-height: 1.42857143;
+  line-height: 0.428571;
 }
 code,
 kbd,
@@ -1560,7 +1560,7 @@ pre {
   padding: 9.5px;
   margin: 0 0 10px;
   font-size: 13px;
-  line-height: 1.42857143;
+  line-height: 0.428571;
   color: #333333;
   word-break: break-all;
   word-wrap: break-word;
@@ -2383,7 +2383,7 @@ th {
 .table > tbody > tr > td,
 .table > tfoot > tr > td {
   padding: 8px;
-  line-height: 1.42857143;
+  line-height: 0.428571;
   vertical-align: top;
   border-top: 1px solid #ddd;
 }
@@ -2654,7 +2654,7 @@ output {
   display: block;
   padding-top: 7px;
   font-size: 14px;
-  line-height: 1.42857143;
+  line-height: 0.428571;
   color: #555555;
 }
 .form-control {
@@ -2663,7 +2663,7 @@ output {
   height: 34px;
   padding: 6px 12px;
   font-size: 14px;
-  line-height: 1.42857143;
+  line-height: 0.428571;
   color: #555555;
   background-color: #fff;
   background-image: none;
@@ -2810,7 +2810,7 @@ fieldset[disabled] .checkbox-inline {
 .input-sm {
   height: 30px;
   padding: 5px 10px;
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.5;
   border-radius: 3px;
 }
@@ -2825,7 +2825,7 @@ select[multiple].input-sm {
 .form-group-sm .form-control {
   height: 30px;
   padding: 5px 10px;
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.5;
   border-radius: 3px;
 }
@@ -2841,7 +2841,7 @@ select[multiple].input-sm {
   height: 30px;
   min-height: 32px;
   padding: 6px 10px;
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.5;
 }
 .input-lg {
@@ -3100,7 +3100,7 @@ select[multiple].input-lg {
 @media (min-width: 768px) {
   .form-horizontal .form-group-sm .control-label {
     padding-top: 6px;
-    font-size: 12px;
+    font-size: 13px;
   }
 }
 .btn {
@@ -3117,7 +3117,7 @@ select[multiple].input-lg {
   border: 1px solid transparent;
   padding: 6px 12px;
   font-size: 14px;
-  line-height: 1.42857143;
+  line-height: 0.428571;
   border-radius: 4px;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -3520,14 +3520,14 @@ fieldset[disabled] .btn-link:focus {
 .btn-sm,
 .btn-group-sm > .btn {
   padding: 5px 10px;
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.5;
   border-radius: 3px;
 }
 .btn-xs,
 .btn-group-xs > .btn {
   padding: 1px 5px;
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.5;
   border-radius: 3px;
 }
@@ -3632,7 +3632,7 @@ tbody.collapse.in {
   padding: 3px 20px;
   clear: both;
   font-weight: 400;
-  line-height: 1.42857143;
+  line-height: 0.428571;
   color: #333333;
   white-space: nowrap;
 }
@@ -3680,8 +3680,8 @@ tbody.collapse.in {
 .dropdown-header {
   display: block;
   padding: 3px 20px;
-  font-size: 12px;
-  line-height: 1.42857143;
+  font-size: 13px;
+  line-height: 0.428571;
   color: #777777;
   white-space: nowrap;
 }
@@ -3939,7 +3939,7 @@ select[multiple].input-group-lg > .input-group-btn > .btn {
 .input-group-sm > .input-group-btn > .btn {
   height: 30px;
   padding: 5px 10px;
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.5;
   border-radius: 3px;
 }
@@ -3986,7 +3986,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .input-group-addon.input-sm {
   padding: 5px 10px;
-  font-size: 12px;
+  font-size: 13px;
   border-radius: 3px;
 }
 .input-group-addon.input-lg {
@@ -4102,7 +4102,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .nav-tabs > li > a {
   margin-right: 2px;
-  line-height: 1.42857143;
+  line-height: 0.428571;
   border: 1px solid transparent;
   border-radius: 4px 4px 0 0;
 }
@@ -4801,7 +4801,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
   float: left;
   padding: 6px 12px;
   margin-left: -1px;
-  line-height: 1.42857143;
+  line-height: 0.428571;
   color: #337ab7;
   text-decoration: none;
   background-color: #fff;
@@ -4869,7 +4869,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 .pagination-sm > li > a,
 .pagination-sm > li > span {
   padding: 5px 10px;
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.5;
 }
 .pagination-sm > li:first-child > a,
@@ -4991,7 +4991,7 @@ a.label:focus {
   display: inline-block;
   min-width: 10px;
   padding: 3px 7px;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: bold;
   line-height: 1;
   color: #fff;
@@ -5080,7 +5080,7 @@ a.badge:focus {
   display: block;
   padding: 4px;
   margin-bottom: 20px;
-  line-height: 1.42857143;
+  line-height: 0.428571;
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 4px;
@@ -5214,7 +5214,7 @@ a.thumbnail.active {
   float: left;
   width: 0%;
   height: 100%;
-  font-size: 12px;
+  font-size: 13px;
   line-height: 20px;
   color: #fff;
   text-align: center;
@@ -6021,7 +6021,7 @@ button.close {
 }
 .modal-title {
   margin: 0;
-  line-height: 1.42857143;
+  line-height: 0.428571;
 }
 .modal-body {
   position: relative;
@@ -6074,7 +6074,7 @@ button.close {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-style: normal;
   font-weight: 400;
-  line-height: 1.42857143;
+  line-height: 0.428571;
   line-break: auto;
   text-align: left;
   text-align: start;
@@ -6086,7 +6086,7 @@ button.close {
   word-spacing: normal;
   word-wrap: normal;
   white-space: normal;
-  font-size: 12px;
+  font-size: 13px;
   filter: alpha(opacity=0);
   opacity: 0;
 }
@@ -6192,7 +6192,7 @@ button.close {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-style: normal;
   font-weight: 400;
-  line-height: 1.42857143;
+  line-height: 0.428571;
   line-break: auto;
   text-align: left;
   text-align: start;

@@ -12377,10 +12377,10 @@ module.exports = function(Chart) {
 				minute: 'h:mm:ss a', // 11:20:01 AM
 				hour: 'MMM D, hA', // Sept 4, 5PM
 				day: 'll', // Sep 4 2015
-				week: 'll', // Week 46, or maybe "[W]WW - YYYY" ?
-				month: 'MMM YYYY', // Sept 2015
-				quarter: '[Q]Q - YYYY', // Q3
-				year: 'YYYY' // 2015
+				week: 'll', // Week 46, or maybe "[W]WW - y" ?
+				month: 'MMM y', // Sept 2015
+				quarter: '[Q]Q - y', // Q3
+				year: 'y' // 2015
 			},
 		},
 		ticks: {

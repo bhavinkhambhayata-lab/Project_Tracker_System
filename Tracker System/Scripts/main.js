@@ -44,7 +44,7 @@
    */
   if (select('.toggle-sidebar-btn')) {
     on('click', '.toggle-sidebar-btn', function(e) {
-      select('body').classList.toggle('toggle-sidebar')
+     select('body').classList.toggle('toggle-sidebar')
     })
   }
 
@@ -284,7 +284,9 @@
   const datatables = select('.datatable', true)
   datatables.forEach(datatable => {
     new simpleDatatables.DataTable(datatable, {
-      perPageSelect: [5, 10, 15, ["All", -1]],
+      //perPageSelect: [5, 10, 15, ["All", -1]],
+        perPageSelect: [10],
+
       columns: [{
           select: 2,
           sortSequence: ["desc", "asc"]

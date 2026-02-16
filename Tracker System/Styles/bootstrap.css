@@ -632,7 +632,7 @@ progress {
 
 @media (min-width: 1200px) {
   .container, .container-sm, .container-md, .container-lg, .container-xl {
-    max-width: 1140px;
+    max-width: 1200px;
   }
 }
 
@@ -1040,7 +1040,7 @@ progress {
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1000px) {
   .col-md {
     flex: 1 0 0%;
   }
@@ -2270,7 +2270,7 @@ progress {
   top: 0;
   right: 0;
   left: 0;
-  z-index: 1;
+  z-index: 3;
   display: flex;
   height: var(--bs-form-file-height);
   border-color: #ced4da;
@@ -3739,7 +3739,7 @@ fieldset:disabled .btn {
 .btn-group-vertical > .btn:focus,
 .btn-group-vertical > .btn:active,
 .btn-group-vertical > .btn.active {
-  z-index: 1;
+  z-index: 3;
 }
 
 .btn-toolbar {
@@ -4743,7 +4743,7 @@ fieldset:disabled .btn {
 }
 
 .list-group-item-action:hover, .list-group-item-action:focus {
-  z-index: 1;
+  z-index: 3;
   color: #495057;
   text-decoration: none;
   background-color: #f8f9fa;
@@ -5339,7 +5339,7 @@ button.close {
 
 @media (min-width: 1200px) {
   .modal-xl {
-    max-width: 1140px;
+    max-width: 1650px;
   }
 }
 
@@ -5817,7 +5817,7 @@ button.close {
 .carousel-fade .carousel-item.active,
 .carousel-fade .carousel-item-next.carousel-item-left,
 .carousel-fade .carousel-item-prev.carousel-item-right {
-  z-index: 1;
+  z-index: 3;
   opacity: 1;
 }
 
@@ -5840,7 +5840,7 @@ button.close {
   position: absolute;
   top: 0;
   bottom: 0;
-  z-index: 1;
+  z-index: 3;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -6207,7 +6207,7 @@ button.close {
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 1;
+  z-index: 3;
   content: "";
 }
 

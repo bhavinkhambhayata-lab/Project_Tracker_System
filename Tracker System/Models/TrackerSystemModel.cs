@@ -20,10 +20,26 @@ namespace Tracker_System.Models
         [StringLength(100, ErrorMessage = "Password \"{0}\" must have {2} characters", MinimumLength = 8)]
         [RegularExpression(@"^([a-zA-Z0-9@*#]{8,15})$", ErrorMessage = "Password must contain: Minimum 8 characters, at least 1 UpperCase Alphabet, 1 LowerCase Alphabet, 1 Number, and 1 Special Character")]
         public string Password { get; set; }
+        public int RowID { get; set; }
+        public int EmployeeRowId { get; set; }
         public string IpAddress { get; set; }
 
         public string AppName { get; set; }
         public int RememberOrNot { get; set; }
         public int EntryOrCheck { get; set; }
+        public string UserImages { get; set; }
+        public byte imageBytes { get; set; }
+
+    }
+
+    public class DivisionModel
+    {
+        public string ID { get; set; }
+        public string Name { get; set; }
+    }
+    public class CompanyModel
+    {
+        public string ID { get; set; }
+        public string Name { get; set; }
     }
 }

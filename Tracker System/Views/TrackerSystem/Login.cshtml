@@ -1,48 +1,103 @@
 ﻿@model Tracker_System.Models.TrackerSystemModel
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    <section class="form-02-main">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="_lk_de">
-                        <div class="form-03-main">
-                            <div class="logo">
-                                <img src="~/images/user.png" />
-                                <h7>Tracker System</h7>
-                            </div>
-                            <div class="col-12">
-                                <label for="yourUsername" class="form-label">Username</label>
-                                <div class="input-group has-validation">
+    @{
+        Layout = null;
+    }
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <section class="form-02-main">
+            <div>
+                <div class="d-flex justify-content-center">
+                    <div class="user_card">
+                        <div class="card-body">
+                            <div class="form-03-main">
+                                <div class="d-flex justify-content-center">
+                                    <div class="brand_logo_container">
+                                        <img src="~/images/user.png" alt="Logo" />
+                                        <h9>Tracker System</h9>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="yourUsername" class="form-label">Username</label>
                                     <input type="text" name="username" class="form-control" id="yourUsername" required>
                                     <div class="invalid-feedback">Please enter your username.</div>
                                 </div>
-                            </div>
 
-                            <div class="text">
-                                <label for="yourPassword" class="form-label">Password</label>
-                                <input type="password" name="password" class="form-control" id="yourPassword" required>
-                                <div class="invalid-feedback">Please enter your password!</div>
-                            </div>
-
-                            <div class="col-12">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe">
-                                    <label class="form-check-label" for="rememberMe">Remember me</label>
-                                </div>
                                 <div class="form-group">
-                                    <div class="col-12">
-                                        <button class="btn btn-primary w-100" type="submit">Login</button>
+                                    <label for="yourPassword" class="form-label">Password</label>
+                                    <input type="password" name="password" class="form-control" id="yourPassword" required>
+                                    <div class="invalid-feedback">Please enter your password!</div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe">
+                                        <label class="form-check-label" for="rememberMe">Remember me</label>
                                     </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <button class="btn btn-primary" type="submit">Login</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    }
+    <style>
+        /* Add these styles to your custom CSS file */
+        .form-02-main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f9;
+        }
 
-}
+        .user_card {
+            width: 100%;
+            max-width: 350px;
+            padding: 30px;
+            background: #fff;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .brand_logo_container img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            margin: 0 auto;
+        }
+
+        h9 {
+            font-size: 20px;
+            text-align: center;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        input.form-control {
+            border-radius: 5px;
+        }
+
+        button.btn {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+    </style>
+
+    <link href="~/Styles/style.css" rel="stylesheet" />
+    <link href="~/Styles/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.min.js"></script>

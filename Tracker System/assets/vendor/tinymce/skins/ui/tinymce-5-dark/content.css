@@ -411,7 +411,7 @@ tiny-math-inline {
   color: white;
   display: none;
   font-family: sans-serif;
-  font-size: 12px;
+  font-size: 13px;
   line-height: 14px;
   margin: 5px 10px;
   padding: 5px;
@@ -447,7 +447,7 @@ tiny-math-inline {
   color: #fff;
   content: attr(data-user);
   display: block;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: bold;
   left: -5px;
   min-height: 8px;

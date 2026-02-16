@@ -296,7 +296,7 @@ div.jtable-contextmenu-overlay {
 div.jtable-main-container {
   font-family: Arial, Helvetica, sans-serif;
   font-weight: 300;
-  font-size: 12px;
+  font-size: 13px;
   background: #fff;
   line-height:22px;
 
@@ -355,7 +355,7 @@ div.jtable-main-container > table.jtable > thead {
 div.jtable-main-container > table.jtable > thead th {
   font-family: OpenSans-Light,sans-serif;
   font-weight: 300;
-  font-size: 12px;
+  font-size: 13px;
   color: #222222;
   font-weight:bold;
 
@@ -436,7 +436,7 @@ div.jtable-main-container > div.jtable-bottom-panel {
   background-color: #e5ecf5;
   color: #222222;
   min-height: 22.900000000000002px;
-  font-size: 12px;
+  font-size: 13px;
 
   border-top: none;
   font-weight:bold;

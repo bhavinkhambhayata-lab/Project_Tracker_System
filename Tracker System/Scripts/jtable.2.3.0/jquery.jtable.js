@@ -74,18 +74,18 @@ THE SOFTWARE.
             rowsRemoved: function (event, data) { },
 
             //Localization
-            messages: {
-                serverCommunicationError: 'An error occured while communicating to the server.',
-                loadingMessage: 'Loading records...',
-                noDataAvailable: 'No data available!',
-                areYouSure: 'Are you sure?',
-                save: 'Save',
-                saving: 'Saving',
-                cancel: 'Cancel',
-                error: 'Error',
-                close: 'Close',
-                cannotLoadOptionsFor: 'Can not load options for field {0}'
-            }
+        //    messages: {
+        //        serverCommunicationError: 'An error occured while communicating to the server.',
+        //        loadingMessage: 'Loading records...',
+        //        noDataAvailable: 'No data available!',
+        //        areYouSure: 'Are you sure?',
+        //        save: 'Save',
+        //        saving: 'Saving',
+        //        cancel: 'Cancel',
+        //        error: 'Error',
+        //        close: 'Close',
+        //        cannotLoadOptionsFor: 'Can not load options for field {0}'
+        //    }
         },
 
         /************************************************************************
@@ -911,8 +911,8 @@ THE SOFTWARE.
         /* Parses given date string to a javascript Date object.
         *  Given string must be formatted one of the samples shown below:
         *  /Date(1320259705710)/
-        *  2011-01-01 20:32:42 (YYYY-MM-DD HH:MM:SS)
-        *  2011-01-01 (YYYY-MM-DD)
+        *  2011-01-01 20:32:42 (y-MM-DD HH:MM:SS)
+        *  2011-01-01 (y-MM-DD)
         *************************************************************************/
         _parseDate: function (dateString) {
             if (dateString.indexOf('Date') >= 0) { //Format: /Date(1320259705710)/
@@ -3364,7 +3364,7 @@ THE SOFTWARE.
         options: {
             paging: false,
             pageList: 'normal', //possible values: 'minimal', 'normal'
-            pageSize: 10,
+            pageSize: 15,
             pageSizes: [10, 25, 50, 100, 250, 500,1000,10000],
             pageSizeChangeArea: true,
             gotoPageArea: 'combobox', //possible values: 'textbox', 'combobox', 'none'
