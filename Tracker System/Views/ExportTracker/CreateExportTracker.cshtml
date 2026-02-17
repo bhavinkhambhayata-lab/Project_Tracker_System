@@ -24,7 +24,7 @@
                     <hr />
                     <ul class="nav nav-tabs" style=" margin-top: -6px !important; font-size:15px;">
 
-                        <li id="lnkList" class="HeaderFont active"><a style="font-size:15px!important;" href="#tabList" data-toggle="tab" onclick="clearDetailsForm();GetData();"><b> @resourceSettings.getResourceLable("lblList", "common", "List")</b></a></li>
+                        <li id="lnkList" class="HeaderFont active"><a style="font-size:15px!important;" href="#tabList" data-toggle="tab" onclick="GetData();"><b> @resourceSettings.getResourceLable("lblList", "common", "List")</b></a></li>
                         <li><a id="#lnkDetail" class="HeaderFont" style="font-size:15px!important;" href="#tabDetail" data-toggle="tab" onclick=""><b> @resourceSettings.getResourceLable("lblDetails", "common", "Details")</b></a></li>
                     </ul>
                 </div>
@@ -3155,7 +3155,7 @@ $.ajax({
                     "Type": typeText,
                     "Due_Date": $('#Due_Date').val()
                 };
-                
+
                 var urlcfsRequest = '@Url.Action("GetAllDataUpdate", "ExportTracker")';
 
                 $.ajax({
@@ -4027,7 +4027,7 @@ $.ajax({
                     type: "POST",
                     url: urlRequest1,
                     data: { invNo: invoice_no },
-                    success: function (response) 
+                    success: function (response)
                     {
                         if (response.exists)
                         {
@@ -4554,7 +4554,7 @@ s
 
     }
     function InsertOCBLDetails() {
-        
+
         var invoice_no = $('#invoiceDropdown').val();
 
         var finalsave = $('#hdnFinalSave').val() === "true";
@@ -4575,7 +4575,7 @@ s
             if (response.exists) {
 
 
-                
+
                 var charges = [];
                 var isValid = true;
                 var missingFieldsMsg = "";
@@ -5060,7 +5060,7 @@ s
                     //reset color in all panel.
                     resetAllPanelColors();
                     let d = data[0];
-                    
+
 
                     let LogArray = (d.ExporttrackerLogDetails && Array.isArray(d.ExporttrackerLogDetails)) ? d.ExporttrackerLogDetails : [];
                     const sectionDivMap = {
@@ -5523,7 +5523,7 @@ s
                     toggleFieldBasedOnValue('#Remarks');
                     toggleFieldBasedOnValue('#Clearing_Point');
                     let otherChargesArray = (d.OtherCharges && Array.isArray(d.OtherCharges)) ? d.OtherCharges : [];
-                    
+
                     // ================= OTHER CHARGES TABLE =================
                     let tbody = $('#chargesTable tbody');
                     let tbody2 = $('#BLchargesTable tbody');
@@ -6030,13 +6030,13 @@ s
 
 
             $('#lnkDetail').trigger('click');
-            
+
         }
     }
 
 
     $('#lnkDetail').on('click', function () {
-        
+
         toggleInvoiceDetailsFields();
     });
 
@@ -6960,8 +6960,9 @@ var allowedUsers = [2044, 2928, 363, 344,1093,332];
     }
 
         function GetData() {
-            getgriddetails();
+            //getgriddetails();
             //refreshLnkDetailPage();
+            window.location.href = '@Url.Action("CreateExportTracker", "ExportTracker")';
     }
     function showDatePicker(inputElement) {
         var datePicker1 = Ext.create('Ext.picker.Date', {
@@ -7051,7 +7052,7 @@ var allowedUsers = [2044, 2928, 363, 344,1093,332];
         $("#AirWay_BillDate_Bill_of_LodingDate").datepicker({
             format: "dd/mm/yy"
         }).on("changeDate clearDate change", function () {
-            
+
             var paymentTerms = $('#Payment_Terms').val();
 
             if (paymentTerms && paymentTerms.toUpperCase().includes('BL')) {
