@@ -872,8 +872,7 @@
 
     $(document).on('keyup change',
         '#expeses-claimamount-less-section input,' +
-        '#expeses-claimamount-greathar-section input,' +
-        '#other-expenses-section input',
+        '#expeses-claimamount-greathar-section input',
         function () {
             CalculateClaimedAmount();
         });
@@ -923,11 +922,6 @@
                 total += val;
             });
 
-            // Other expenses section
-            $('#other-expenses-section input').each(function () {
-                var val = parseFloat($(this).val()) || 0;
-                total += val;
-            });
         }
 
         // set total to Claimed Amount
