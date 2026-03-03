@@ -202,8 +202,8 @@ namespace Tracker_System.Controllers
                 if (model.IYear <= 0)
                     return Json(new { success = false, message = "Please select Year" });
 
-                if (model.ClaimedAmount <= 0)
-                    return Json(new { success = false, message = "Claimed amount must be greater than zero" });
+                if (model.ClaimedAmount < 0)
+                    return Json(new { success = false, message = "Claimed amount must be zero or greater" });
 
                 // ================= DATE FLOW VALIDATION =================
                 if (model.TourFrom.HasValue && model.TourTo.HasValue &&
