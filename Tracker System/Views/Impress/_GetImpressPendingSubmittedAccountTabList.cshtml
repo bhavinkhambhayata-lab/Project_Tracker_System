@@ -157,8 +157,9 @@
                         '</td>';
 
                     /* Updated here */
-                    rows += '<td class="paymentdate">' +
-                        formatDate(item.PaymentDate) +
+                    rows += '<td>' +
+                        '<input type="text" class="form-control paymentdate datepicker" ' +
+                        'value="' + formatDate(item.PaymentDate) + '" placeholder="dd/mm/yy" style="width:110px;" />' +
                         '</td>';
 
                     rows += '<td>' + (item.Remarks || '') + '</td>';
@@ -214,6 +215,48 @@
         }
     }
 
+    /* ========= Payment Date Datepicker ========= */
+
+    $(document).on("focus", ".datepicker", function () {
+
+        var $this = $(this);
+
+        // Old datepicker remove
+        if ($this.data('datepicker')) {
+            $this.datepicker('destroy');
+        }
+
+        $this.datepicker({
+            format: "dd/mm/yy",
+            autoclose: true
+        }).on("changeDate", function () {
+
+            var $input = $(this);
+            var dateVal = $input.val();
+            var $row = $input.closest("tr");
+
+            if (!dateVal || dateVal.trim() === "") {
+                $row.find(".account-row-checkbox").prop("checked", false);
+                return;
+            }
+
+            $row.find(".account-row-checkbox").prop("checked", true);
+
+        });
+
+    });
+
+    $(document).on("input", ".paymentdate", function () {
+
+        var $row = $(this).closest("tr");
+        var $checkbox = $row.find(".account-row-checkbox");
+
+        if ($(this).val().trim() === "") {
+
+            $checkbox.prop("checked", false);
+        }
+
+    });
 
     /* ========= CHECKBOX LOGIC ========= */
 
@@ -223,9 +266,9 @@
         var $paymentDate = $row.find('.paymentdate');
 
         if (this.checked) {
-            $paymentDate.text(getTodayDate_ddMMyy());
+            $paymentDate.val(getTodayDate_ddMMyy());
         } else {
-            $paymentDate.text('');
+            $paymentDate.val('');
             $('#chkSelectAllAccount').prop('checked', false);
         }
     });
@@ -241,7 +284,7 @@
             var $paymentDate = $row.find('.paymentdate');
 
             $(this).prop('checked', isChecked);
-            $paymentDate.text(isChecked ? today : '');
+            $paymentDate.val(isChecked ? today : '');
         });
     });
 
@@ -255,7 +298,7 @@
 
             list.push({
                 RowID: $(this).data('rowid'),
-                Date1: $row.find('.paymentdate').text()
+                Date1: $row.find('.paymentdate').val()
             });
         });
 
