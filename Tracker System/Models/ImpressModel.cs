@@ -144,7 +144,7 @@ namespace Tracker_System.Models
         public int IYear { get; set; }
 
         public decimal ClaimedAmount { get; set; }
-        public decimal PassedAmount { get; set; }
+        public decimal PassedAmount { get; set; } = 0;
 
         public DateTime? TourFrom { get; set; }
         public DateTime? TourTo { get; set; }
@@ -177,7 +177,7 @@ namespace Tracker_System.Models
         //Payment
         public bool IsPayment { get; set; }
         public DateTime? PaymentDate { get; set; }
-        public decimal? PaidAmount { get; set; }
+        public decimal? PaidAmount { get; set; } = 0;
 
         public string PaymentCycle { get; set; }
         public int TotalDays { get; set; }
@@ -267,7 +267,7 @@ namespace Tracker_System.Models
         public int IYear { get; set; }
 
         public decimal ClaimedAmount { get; set; }
-        public decimal PassedAmount { get; set; }
+        public decimal PassedAmount { get; set; } = 0;
 
         public DateTime? TourFrom { get; set; }
         public DateTime? TourTo { get; set; }
@@ -300,7 +300,7 @@ namespace Tracker_System.Models
         //Payment
         public bool IsPayment { get; set; }
         public DateTime? PaymentDate { get; set; }
-        public decimal? PaidAmount { get; set; }
+        public decimal? PaidAmount { get; set; } = 0;
 
         public int TotalDays { get; set; }
         public string PaymentCycle { get; set; }
@@ -363,7 +363,7 @@ namespace Tracker_System.Models
         public int IYear { get; set; }
 
         public decimal ClaimedAmount { get; set; }
-        public decimal PassedAmount { get; set; }
+        public decimal PassedAmount { get; set; } = 0;
 
         public DateTime? TourFrom { get; set; }
         public DateTime? TourTo { get; set; }
@@ -396,7 +396,7 @@ namespace Tracker_System.Models
         //Payment
         public bool IsPayment { get; set; }
         public DateTime? PaymentDate { get; set; }
-        public decimal? PaidAmount { get; set; }
+        public decimal? PaidAmount { get; set; } = 0;
 
         public int TotalDays { get; set; }
         public string PaymentCycle { get; set; }
@@ -465,8 +465,8 @@ namespace Tracker_System.Models
         public DateTime? Imp_Bal_Con_SendDate { get; set; }
         public DateTime? Imp_Bal_Con_ReceivedDate { get; set; }
 
-        public decimal PaidAmount { get; set; }
-        public decimal PassedAmount { get; set; }
+        public decimal PaidAmount { get; set; } = 0;
+        public decimal PassedAmount { get; set; } = 0;
         public string Remarks { get; set; }
     }
 

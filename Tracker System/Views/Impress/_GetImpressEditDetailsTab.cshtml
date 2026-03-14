@@ -992,7 +992,7 @@
         }
 
         if ($("#IsDirectorApproval").prop("checked")) {
-            if (!$("#PassedAmount").val() || parseFloat($("#PassedAmount").val()) <= 0) {
+            if (!$("#PassedAmount").val() || parseFloat($("#PassedAmount").val()) < 0) {
                 alert("Please enter valid Passed Amount");
                 return;
             }
@@ -1009,7 +1009,7 @@
         }
 
         if ($("#IsPayment").prop("checked")) {
-            if (!$("#PaidAmount").val() || parseFloat($("#PaidAmount").val()) <= 0) {
+            if (!$("#PaidAmount").val() || parseFloat($("#PaidAmount").val()) < 0) {
                 alert("Please enter valid Paid Amount");
                 return;
             }
@@ -1297,7 +1297,7 @@
                 }
 
                 var passedAmt = $("#PassedAmount").val();
-                if (!passedAmt || parseFloat(passedAmt) <= 0) {
+                if (!passedAmt || parseFloat(passedAmt) < 0) {
                     alert("Please enter valid Passed Amount");
                     $(this).prop("checked", false);
                     return;

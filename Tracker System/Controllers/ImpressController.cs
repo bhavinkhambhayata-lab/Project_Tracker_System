@@ -233,7 +233,7 @@ namespace Tracker_System.Controllers
                 if (model.IsPayment && !model.PaymentDate.HasValue)
                     return Json(new { success = false, message = "Please enter Payment date" });
 
-                if (model.IsPayment && model.PaidAmount <= 0)
+                if (model.IsPayment && model.PaidAmount < 0)
                     return Json(new { success = false, message = "Please enter Paid Amount" });
 
                 // ================= SAVE =================
