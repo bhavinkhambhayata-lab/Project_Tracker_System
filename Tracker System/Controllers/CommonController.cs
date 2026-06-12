@@ -473,18 +473,18 @@ namespace Tracker_System.Controllers
 
             try
             {
-                DataSet dsMaster = ObjSQLHelper.SelectProcDataDS("Export_InsertInvoiceDetails_110626_1536", cmdMaster);
+                DataSet dsMaster = ObjSQLHelper.SelectProcDataDS("Export_InsertInvoiceDetails", cmdMaster);
 
                 SqlCommand cmdOther = new SqlCommand();
                 cmdOther.Parameters.AddWithValue("@Mode", "OtherGet");
-                DataSet dsOther = ObjSQLHelper.SelectProcDataDS("Export_InsertInvoiceDetails_110626_1536", cmdOther);
+                DataSet dsOther = ObjSQLHelper.SelectProcDataDS("Export_InsertInvoiceDetails", cmdOther);
                 SqlCommand cmdcfsOther = new SqlCommand();
                 cmdcfsOther.Parameters.AddWithValue("@Mode", "CFS Charges get");
-                DataSet dscfsOther = ObjSQLHelper.SelectProcDataDS("Export_InsertInvoiceDetails_110626_1536", cmdcfsOther);
+                DataSet dscfsOther = ObjSQLHelper.SelectProcDataDS("Export_InsertInvoiceDetails", cmdcfsOther);
                 SqlCommand cmdLog = new SqlCommand();
                 cmdLog.Parameters.AddWithValue("@Mode", "GetLogDetails");
 
-                DataSet dslog = ObjSQLHelper.SelectProcDataDS("Export_InsertInvoiceDetails_110626_1536", cmdLog);
+                DataSet dslog = ObjSQLHelper.SelectProcDataDS("Export_InsertInvoiceDetails", cmdLog);
 
                 List<Exporttracker> exportList = new List<Exporttracker>();
                 if (!(dsMaster == null || dsMaster.Tables == null || dsMaster.Tables.Count == 0))
@@ -1050,17 +1050,17 @@ namespace Tracker_System.Controllers
             DataSet ds = new DataSet();
             //int Total = 0;
 
-            ds = ObjSQLHelper.SelectProcDataDS("Export_GetInvoiceDetails_110626_1702", cmd);
+            ds = ObjSQLHelper.SelectProcDataDS("Export_GetInvoiceDetails", cmd);
             SqlCommand cmdOther = new SqlCommand();
             cmdOther.Parameters.AddWithValue("@Mode", "OtherGet");
-            DataSet dsOther = ObjSQLHelper.SelectProcDataDS("Export_InsertInvoiceDetails_110626_1536", cmdOther);
+            DataSet dsOther = ObjSQLHelper.SelectProcDataDS("Export_InsertInvoiceDetails", cmdOther);
             SqlCommand cmdcfsOther = new SqlCommand();
             cmdcfsOther.Parameters.AddWithValue("@Mode", "CFS Charges get");
-            DataSet dscfsOther = ObjSQLHelper.SelectProcDataDS("Export_InsertInvoiceDetails_110626_1536", cmdcfsOther);
+            DataSet dscfsOther = ObjSQLHelper.SelectProcDataDS("Export_InsertInvoiceDetails", cmdcfsOther);
             SqlCommand cmdLog = new SqlCommand();
             cmdLog.Parameters.AddWithValue("@Mode", "GetLogDetails");
             cmdLog.Parameters.AddWithValue("@InvNo", invoiceNo);
-            DataSet dslog = ObjSQLHelper.SelectProcDataDS("Export_InsertInvoiceDetails_110626_1536", cmdLog);
+            DataSet dslog = ObjSQLHelper.SelectProcDataDS("Export_InsertInvoiceDetails", cmdLog);
 
             List<Exporttracker> dynamicDtList = new List<Exporttracker>();
             if (!(ds == null || ds.Tables == null || ds.Tables.Count == 0))
