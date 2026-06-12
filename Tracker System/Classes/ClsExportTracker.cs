@@ -95,6 +95,7 @@ string.IsNullOrEmpty(model.Shipping_Bill_No) ? "" : model.Shipping_Bill_No);
             com.Parameters.AddWithValue("@Freight_Amount", model.Sea_Freight_Air_Freight ?? (object)DBNull.Value);
   
             com.Parameters.AddWithValue("@Other_Charges", model.Other_Charges ?? (object)DBNull.Value);
+            com.Parameters.AddWithValue("@Payment_Method_Code", model.Payment_Method ?? (object)DBNull.Value);
             com.Parameters.AddWithValue("@Payment_Terms_Code", model.Payment_Terms ?? (object)DBNull.Value);
             //com.Parameters.AddWithValue("@Port_of_Discharge", model.Port_of_Discharge );
             com.Parameters.AddWithValue("@Port_of_Discharge",
@@ -1137,6 +1138,7 @@ string.IsNullOrEmpty(model.Port_of_Loading) ? "" : model.Port_of_Loading);
             com.Parameters.AddWithValue("@Freight_Amount", model.Sea_Freight_Air_Freight ?? (object)DBNull.Value);
 
             com.Parameters.AddWithValue("@Other_Charges", model.Other_Charges ?? (object)DBNull.Value);
+            com.Parameters.AddWithValue("@Payment_Method_Code", model.Payment_Method ?? (object)DBNull.Value);
             com.Parameters.AddWithValue("@Payment_Terms_Code", model.Payment_Terms ?? (object)DBNull.Value);
             // com.Parameters.AddWithValue("@Port_of_Discharge", model.Port_of_Discharge ?? (object)DBNull.Value);
             com.Parameters.AddWithValue("@Port_of_Discharge",

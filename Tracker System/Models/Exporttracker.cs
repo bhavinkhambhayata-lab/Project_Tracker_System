@@ -37,6 +37,7 @@ namespace Tracker_System.Models
         public string Inco_Terms { get; set; }
         public List<Inco_TermsModel> lstInco_Terms { get; set; }
 
+        public string Payment_Method { get; set; }
         public string Payment_Terms { get; set; }
         public string Due_Date { get; set; }
         public string Remarks { get; set; }

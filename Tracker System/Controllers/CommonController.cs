@@ -473,18 +473,18 @@ namespace Tracker_System.Controllers
 
             try
             {
-                DataSet dsMaster = ObjSQLHelper.SelectProcDataDS("Export_InsertInvoiceDetails", cmdMaster);
+                DataSet dsMaster = ObjSQLHelper.SelectProcDataDS("Export_InsertInvoiceDetails_110626_1536", cmdMaster);
 
                 SqlCommand cmdOther = new SqlCommand();
                 cmdOther.Parameters.AddWithValue("@Mode", "OtherGet");
-                DataSet dsOther = ObjSQLHelper.SelectProcDataDS("Export_InsertInvoiceDetails", cmdOther);
+                DataSet dsOther = ObjSQLHelper.SelectProcDataDS("Export_InsertInvoiceDetails_110626_1536", cmdOther);
                 SqlCommand cmdcfsOther = new SqlCommand();
                 cmdcfsOther.Parameters.AddWithValue("@Mode", "CFS Charges get");
-                DataSet dscfsOther = ObjSQLHelper.SelectProcDataDS("Export_InsertInvoiceDetails", cmdcfsOther);
+                DataSet dscfsOther = ObjSQLHelper.SelectProcDataDS("Export_InsertInvoiceDetails_110626_1536", cmdcfsOther);
                 SqlCommand cmdLog = new SqlCommand();
                 cmdLog.Parameters.AddWithValue("@Mode", "GetLogDetails");
 
-                DataSet dslog = ObjSQLHelper.SelectProcDataDS("Export_InsertInvoiceDetails", cmdLog);
+                DataSet dslog = ObjSQLHelper.SelectProcDataDS("Export_InsertInvoiceDetails_110626_1536", cmdLog);
 
                 List<Exporttracker> exportList = new List<Exporttracker>();
                 if (!(dsMaster == null || dsMaster.Tables == null || dsMaster.Tables.Count == 0))
@@ -524,6 +524,7 @@ namespace Tracker_System.Controllers
                             Mode = GetValueOrDefault(row, "Mode_of_Transport"),
                             Country = GetValueOrDefault(row, "Country"),
                             Port_of_Discharge = GetValueOrDefault(row, "Port_of_Discharge"),
+                            Payment_Method = GetValueOrDefault(row, "Payment Method Code"),
                             Payment_Terms = GetValueOrDefault(row, "Payment Terms Code"),
                             EPCG_Licence_No = GetValueOrDefault(row, "EPCG_Licence_No"),
                             AirWay_BillNo_Bill_of_LodingNo = GetValueOrDefault(row, "AirWay_BillNo_Bill_of_LodingNo"),
@@ -1049,17 +1050,17 @@ namespace Tracker_System.Controllers
             DataSet ds = new DataSet();
             //int Total = 0;
 
-            ds = ObjSQLHelper.SelectProcDataDS("Export_GetInvoiceDetails", cmd);
+            ds = ObjSQLHelper.SelectProcDataDS("Export_GetInvoiceDetails_110626_1702", cmd);
             SqlCommand cmdOther = new SqlCommand();
             cmdOther.Parameters.AddWithValue("@Mode", "OtherGet");
-            DataSet dsOther = ObjSQLHelper.SelectProcDataDS("Export_InsertInvoiceDetails", cmdOther);
+            DataSet dsOther = ObjSQLHelper.SelectProcDataDS("Export_InsertInvoiceDetails_110626_1536", cmdOther);
             SqlCommand cmdcfsOther = new SqlCommand();
             cmdcfsOther.Parameters.AddWithValue("@Mode", "CFS Charges get");
-            DataSet dscfsOther = ObjSQLHelper.SelectProcDataDS("Export_InsertInvoiceDetails", cmdcfsOther);
+            DataSet dscfsOther = ObjSQLHelper.SelectProcDataDS("Export_InsertInvoiceDetails_110626_1536", cmdcfsOther);
             SqlCommand cmdLog = new SqlCommand();
             cmdLog.Parameters.AddWithValue("@Mode", "GetLogDetails");
             cmdLog.Parameters.AddWithValue("@InvNo", invoiceNo);
-            DataSet dslog = ObjSQLHelper.SelectProcDataDS("Export_InsertInvoiceDetails", cmdLog);
+            DataSet dslog = ObjSQLHelper.SelectProcDataDS("Export_InsertInvoiceDetails_110626_1536", cmdLog);
 
             List<Exporttracker> dynamicDtList = new List<Exporttracker>();
             if (!(ds == null || ds.Tables == null || ds.Tables.Count == 0))
@@ -1095,6 +1096,7 @@ namespace Tracker_System.Controllers
                         Mode = GetValueOrDefault(row, "Mode_of_Transport"),
                         Country = GetValueOrDefault(row, "Country"),
                         Port_of_Discharge = GetValueOrDefault(row, "Port_of_Discharge"),
+                        Payment_Method = GetValueOrDefault(row, "Payment Method Code"),
                         Payment_Terms = GetValueOrDefault(row, "Payment Terms Code"),
                         Due_Date = row["Due Date"] != DBNull.Value ? row["Due Date"].ToString() : "",
                         EPCG_Licence_No = GetValueOrDefault(row, "EPCG_Licence_No"),

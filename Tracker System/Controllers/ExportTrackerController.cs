@@ -823,13 +823,13 @@ namespace Tracker_System.Controllers
 
                     // ===== MAIN HEADERS =====
 
-                    ws.Cells[headerRow, col, headerRow + 1, col + 28].Merge = true;
+                    ws.Cells[headerRow, col, headerRow + 1, col + 29].Merge = true;
                     ws.Cells[headerRow, col].Value = "Invoice Details";
                     ws.Cells[headerRow, col].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                     ws.Cells[headerRow, col].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
                     ws.Cells[headerRow, col].Style.Font.Size = 14;
                     ws.Cells[headerRow, col].Style.Font.Bold = true;
-                    col += 29;
+                    col += 30;
 
                     ws.Cells[headerRow, col, headerRow + 1, col + 3].Merge = true;
                     ws.Cells[headerRow, col].Value = "Clearance Charges";
@@ -935,7 +935,7 @@ namespace Tracker_System.Controllers
                 "Sea Freight / Air Freight","Insurance Charged","Other Charged","Invoice Value","Quntity(SQM)",
                 "Air Way Bill No / Bill of Lading No","Air Way Bill Date / Bill of Lading Date",
                 "Clearing Point","Port of Lading","Port of discharge","Mode","Type","No of FCL","Country",
-                "Inco Terms","Payment terms","Remarks"
+                "Inco Terms","Payment Method","Payment terms","Remarks"
                     };
 
                     foreach (var header in invoiceSubHeaders)
@@ -1054,6 +1054,7 @@ namespace Tracker_System.Controllers
                         ws.Cells[dataRow, c++].Value = item.No_of_FCL;
                         ws.Cells[dataRow, c++].Value = item.Country;
                         ws.Cells[dataRow, c++].Value = item.Inco_Terms;
+                        ws.Cells[dataRow, c++].Value = item.Payment_Method;
                         ws.Cells[dataRow, c++].Value = item.Payment_Terms;
                         ws.Cells[dataRow, c++].Value = item.Remarks;
 
@@ -1139,7 +1140,7 @@ namespace Tracker_System.Controllers
                 12,13,14,15,16,17,25,33,37,38,42,46,50,54,58
             };
 
-                    int otherChargeStartCol = 59;
+                    int otherChargeStartCol = 60;
 
                     for (int i = 0; i < maxOtherChargesCount; i++)
                     {
@@ -1199,17 +1200,17 @@ namespace Tracker_System.Controllers
 
                     var chargeBlocks = new List<(int StartCol, int EndCol)>
             {
-                (1,29),
-                (30,33),
-                (34,38),
-                (39,42),
-                (43,46),
-                (47,50),
-                (51,54),
-                (55,58)
+                (1,30),
+                (31,34),
+                (35,39),
+                (40,43),
+                (44,47),
+                (48,51),
+                (52,55),
+                (56,59)
             };
 
-                    int dynamicOtherStart = 59;
+                    int dynamicOtherStart = 60;
 
                     for (int i = 0; i < maxOtherChargesCount; i++)
                     {

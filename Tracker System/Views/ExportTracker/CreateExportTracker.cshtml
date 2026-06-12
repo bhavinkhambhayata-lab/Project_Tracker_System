@@ -58,7 +58,7 @@
                                                     <th class="sticky-left-header" colspan="6" rowspan="2" style=" border-right: 2px solid #918989; border-top: 2px solid #918989; border-left: 2px solid #918989; border-bottom: 2px solid #918989; text-align: center; font-weight: bold; background-color: #f0f0f0; ">
 
                                                     </th>
-                                                    <th colspan="23" rowspan="2" style="border-left: 2px solid #918989; border-right: 2px solid #918989; border-top: 2px solid #918989; border-bottom: 2px solid #918989; text-align: center; font-weight: bold; background-color: #f0f0f0; ">
+                                                    <th colspan="24" rowspan="2" style="border-left: 2px solid #918989; border-right: 2px solid #918989; border-top: 2px solid #918989; border-bottom: 2px solid #918989; text-align: center; font-weight: bold; background-color: #f0f0f0; ">
                                                         Invoice Details
                                                     </th>
                                                     <th colspan="2" rowspan="2" style="border-right: 2px solid #918989; border-top: 2px solid #918989; border-left: 2px solid #918989; border-bottom: 2px solid #918989; text-align: center; font-weight: bold; background-color: #f0f0f0; ">
@@ -151,6 +151,7 @@
                                                     <th title="No of FCL"><b>No Of FCL</b></th>
                                                     <th title="Country"><b>Country</b></th>
                                                     <th title="Inco Terms"><b>Inco Terms</b></th>
+                                                    <th title="Payment method"><b>Payment method</b></th>
                                                     <th title="Payment terms"><b>Payment terms</b></th>
                                                     <th title="Remarks"><b>Remarks</b></th>
 
@@ -248,45 +249,46 @@
 
                                                     <th><input type="text" class="column-search Country-search" data-column="24" style=" width: 5rem;"></th>
                                                     <th><input type="text" class="column-search Inco_Terms-search" data-column="25" style=" width: 6rem;"></th>
-                                                    <th><input type="text" class="column-search Payment_terms-search" data-column="26" style=" width: 8rem;"></th>
-                                                    <th><input type="text" class="column-search Remarks-search" data-column="27" style="width: 8rem !important;"></th>
-                                                    <th><input type="text" class="column-search Clearance_Agent-search" data-column="28" style="width: 11rem !important;"></th>
-                                                    <th style="border-left: 3px solid #918989;"><input type="text" class="column-search Total-search" data-column="29" style="width: 10rem !important;"></th>
+                                                    <th><input type="text" class="column-search Payment_method-search" data-column="26" style=" width: 8rem;"></th>
+                                                    <th><input type="text" class="column-search Payment_terms-search" data-column="27" style=" width: 8rem;"></th>
+                                                    <th><input type="text" class="column-search Remarks-search" data-column="28" style="width: 8rem !important;"></th>
+                                                    <th><input type="text" class="column-search Clearance_Agent-search" data-column="29" style="width: 11rem !important;"></th>
+                                                    <th style="border-left: 3px solid #918989;"><input type="text" class="column-search Total-search" data-column="30" style="width: 10rem !important;"></th>
 
-                                                    <th style="border-right: 2px solid #918989 ;"><input type="text" class="column-search Forwader-search" data-column="30" style="width: 6rem !important;"></th>
-                                                    <th style="border-left: 2px solid #918989;"><input type="text" class="column-search seatotal-search" data-column="31" style="width: 9rem !important;"></th>
+                                                    <th style="border-right: 2px solid #918989 ;"><input type="text" class="column-search Forwader-search" data-column="31" style="width: 6rem !important;"></th>
+                                                    <th style="border-left: 2px solid #918989;"><input type="text" class="column-search seatotal-search" data-column="32" style="width: 9rem !important;"></th>
 
-                                                    <th><input type="text" class="column-search airtotal-search" data-column="32" style="width:5rem"></th>
+                                                    <th><input type="text" class="column-search airtotal-search" data-column="33" style="width:5rem"></th>
 
-                                                    <th style=" border-right: 2px solid #918989;"><input type="text" class="column-search transporter-search" data-column="33" style="width: 11rem "></th>
-                                                    <th><input type="text" class="column-search transporttotal-search" data-column="34" style="width:5rem"></th>
-                                                    <th style=" border-right: 2px solid #918989;"><input type="text" class="column-search Vendor-name-search" data-column="35" style="width: 9rem"></th>
-                                                    <th><input type="text" class="column-search CFSTotal-search" data-column="36" style="max-width:3rem"></th>
-                                                    <th style=" border-right: 2px solid #918989;"><input type="text" class="column-search additionaltransporter-search" data-column="37" style="width: 11rem "></th>
-                                                    <th><input type="text" class="column-search addtotal-search" data-column="38" style="width:5rem"></th>
-                                                    <th style=" border-right: 2px solid #918989;"><input type="text" class="column-search coovendor-search" data-column="39" style="max-width:5rem"></th>
-                                                    <th><input type="text" class="column-search coottotal-search" data-column="40" style="width:9rem"></th>
-                                                    <th style=" border-right: 2px solid #918989;"><input type="text" class="column-search eiavendorname-search" data-column="41" style="width:6rem"></th>
-                                                    <th><input type="text" class="column-search eiatotal-search" data-column="42" style="width:6rem"></th>
+                                                    <th style=" border-right: 2px solid #918989;"><input type="text" class="column-search transporter-search" data-column="34" style="width: 11rem "></th>
+                                                    <th><input type="text" class="column-search transporttotal-search" data-column="35" style="width:5rem"></th>
+                                                    <th style=" border-right: 2px solid #918989;"><input type="text" class="column-search Vendor-name-search" data-column="36" style="width: 9rem"></th>
+                                                    <th><input type="text" class="column-search CFSTotal-search" data-column="37" style="max-width:3rem"></th>
+                                                    <th style=" border-right: 2px solid #918989;"><input type="text" class="column-search additionaltransporter-search" data-column="38" style="width: 11rem "></th>
+                                                    <th><input type="text" class="column-search addtotal-search" data-column="39" style="width:5rem"></th>
+                                                    <th style=" border-right: 2px solid #918989;"><input type="text" class="column-search coovendor-search" data-column="40" style="max-width:5rem"></th>
+                                                    <th><input type="text" class="column-search coottotal-search" data-column="41" style="width:9rem"></th>
+                                                    <th style=" border-right: 2px solid #918989;"><input type="text" class="column-search eiavendorname-search" data-column="42" style="width:6rem"></th>
+                                                    <th><input type="text" class="column-search eiatotal-search" data-column="43" style="width:6rem"></th>
 
                                                     @*<th style=" border-right: 2px solid #918989;"><input type="text" class="column-search othervendor-search" data-column="43" style="width:10rem"></th>
-                                                    <th><input type="text" class="column-search Othertotal-search" data-column="44" style="width:5rem"></th>*@
+        <th><input type="text" class="column-search Othertotal-search" data-column="44" style="width:5rem"></th>*@
 
                                                     @*<th style=" border-right: 2px solid #918989;"><input type="text" class="column-search othertotal-search" data-column="45" style="width:3rem"></th>
-                                                    <th><input type="text" class="column-search Vendor-name-search" data-column="46" style="width:5rem"></th>
+        <th><input type="text" class="column-search Vendor-name-search" data-column="46" style="width:5rem"></th>
 
-                                                    <th style=" border-right: 2px solid #918989;"><input type="text" class="column-search Vendor-name-search" data-column="47" style="width:3rem"></th>
-                                                    <th><input type="text" class="column-search srno-search" data-column="48" style="width:8rem"></th>*@
+        <th style=" border-right: 2px solid #918989;"><input type="text" class="column-search Vendor-name-search" data-column="47" style="width:3rem"></th>
+        <th><input type="text" class="column-search srno-search" data-column="48" style="width:8rem"></th>*@
 
-                                                    <th style="border-right: 2px solid #918989;"><input type="text" class="column-search srno-search" data-column="44" style="width: 6rem"></th>
-                                                    <th style=" border-right: 2px solid #918989;"><input type="text" class="column-search srno-search" data-column="45" style="width: 6rem"></th>
+                                                    <th style="border-right: 2px solid #918989;"><input type="text" class="column-search srno-search" data-column="45" style="width: 6rem"></th>
                                                     <th style=" border-right: 2px solid #918989;"><input type="text" class="column-search srno-search" data-column="46" style="width: 6rem"></th>
-                                                    <th style=" border-right: 2px solid #918989;"><input type="text" class="column-search srno-search" data-column="47" style="width:8rem"></th>
-                                                    <th><input type="text" class="column-search srno-search" data-column="48" style="width:8rem"></th>
+                                                    <th style=" border-right: 2px solid #918989;"><input type="text" class="column-search srno-search" data-column="47" style="width: 6rem"></th>
+                                                    <th style=" border-right: 2px solid #918989;"><input type="text" class="column-search srno-search" data-column="48" style="width:8rem"></th>
+                                                    <th><input type="text" class="column-search srno-search" data-column="49" style="width:8rem"></th>
 
-                                                    <th><input type="text" class="column-search Vendor-name-search" data-column="49" style="width: 16rem"></th>
-                                                    <th><input type="text" class="column-search srno-search" data-column="50" style="width:8rem"></th>
-                                                    <th style="border-right: 2px solid #918989;"><input type="text" class="column-search Nooffcl-search" data-column="51"></th>
+                                                    <th><input type="text" class="column-search Vendor-name-search" data-column="50" style="width: 16rem"></th>
+                                                    <th><input type="text" class="column-search srno-search" data-column="51" style="width:8rem"></th>
+                                                    <th style="border-right: 2px solid #918989;"><input type="text" class="column-search Nooffcl-search" data-column="52"></th>
 
 
                                                 </tr>
@@ -434,6 +436,11 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4">
+                                                            <div class="col-md-10 form-group d-flex align-items-center">
+
+                                                                <div class="col-md-5 PDtop6px FontSize">Payment Method</div>
+                                                                <div class="col-md-7">@Html.TextBoxFor(model => model.Payment_Method, new { Class = "form-control", @disabled = "disabled", maxlength = "500" })</div>
+                                                            </div>
                                                             <div class="col-md-10 form-group d-flex align-items-center">
 
                                                                 <div class="col-md-5 PDtop6px FontSize">Payment Term</div>
@@ -2894,6 +2901,7 @@ $.ajax({
                     "Country": $('#Country').val(),
                     "Port_of_Discharge": $('#Port_of_Discharge').val(),
                     "Port_of_Loading": $('#Port_of_Loading').val(),
+                    "Payment_Method":$('#Payment_Method').val(),
                     "Payment_Terms": $('#Payment_Terms').val(),
                     "Clearing_Point": $('#Clearing_Point option:selected').text(),
                     "Inco_Terms": $('#Inco_Terms option:selected').text(),
@@ -4745,6 +4753,7 @@ s
         "Country": $('#Country').val(),
         "Port_of_Discharge": $('#Port_of_Discharge').val(),
         "Port_of_Loading": $('#Port_of_Loading').val(),
+        "Payment_Method": $('#Payment_Method').val(),
         "Payment_Terms": $('#Payment_Terms').val(),
         "Due_Date": $('#Due_Date').val(),
         "Clearing_Point": $('#Clearing_Point').val(),
@@ -5171,6 +5180,10 @@ s
 
                     $('#Country').val(d.Country);
                     $('#Port_of_Discharge').val(d.Port_of_Discharge);
+
+                    debugger
+
+                    $('#Payment_Method').val(d.Payment_Method);
                     $('#Payment_Terms').val(d.Payment_Terms);
                     $('#Due_Date').val(d.Due_Date);
                     $('#Remarks').val(d.Remarks);
@@ -6260,6 +6273,9 @@ var allowedUsers = [2044, 2928, 363, 344,1093,332];
                             var Mode_of_DishchargeTooltip = item.Mode;
                             var CountryTooltip = item.Country;
                             var Inco_TermsTooltip = item.Inco_Terms;
+                            debugger
+
+                            var Payment_MethodTooltip = item.Payment_Method;
                             var Payment_TermsTooltip = item.Payment_Terms;
                             var RemarksTooltip = item.Remarks;
                             var ccAgentnameTooltip = item.CCClearance_Agent_Name;
@@ -6326,6 +6342,7 @@ var allowedUsers = [2044, 2928, 363, 344,1093,332];
                             rows += '<td  class="" style="text-align: end;white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px;" title="' + NooffclTooltip + '">' + item.No_of_FCL + '</td>';
                             rows += '<td class="" style="text-align: end;white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px;" title="' + CountryTooltip + '">' + item.Country + '</td>';
                             rows += '<td class="" title="' + Inco_TermsTooltip + '">' + item.Inco_Terms + '</td>';
+                            rows += '<td class="" title="' + Payment_MethodTooltip + '">' + item.Payment_Method + '</td>';
                             rows += '<td class="" title="' + Payment_TermsTooltip + '">' + item.Payment_Terms + '</td>';
                             rows += '<td class="" title="' + RemarksTooltip + '">' + item.Remarks + '</td>';
                             rows += '<td class="" style="text-align: start;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;max-width: 70px;border-left: 2px solid #918989;"title="' + (ccAgentnameTooltip || '') + '">' + (item.CCClearance_Agent_Name || '') + '</td>';
