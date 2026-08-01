@@ -316,6 +316,7 @@
     <Compile Include="Models\ImpressModel.cs" />
     <Compile Include="Models\TrackerSystemModel.cs" />
     <Compile Include="Models\TSDDetailsModel.cs" />
+    <Compile Include="Models\YearModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

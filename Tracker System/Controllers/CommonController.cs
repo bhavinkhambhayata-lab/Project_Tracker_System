@@ -30,7 +30,7 @@ namespace Tracker_System.Controllers
     {
 
 
-        public JsonResult GetGridListFrieghtForMosaic(string ObjectType = "", string TypeOfSales = "", int Month = 0, int Year = 2024, bool ShowAllFT = false, String SearchType = " ",bool ExportSales = false)
+        public JsonResult GetGridListFrieghtForMosaic(string ObjectType = "", string TypeOfSales = "", int Month = 0, int Year = 2024, bool ShowAllFT = false, String SearchType = " ", bool ExportSales = false)
         {
             string sortDefault = "";
             int PageSize = 859;
@@ -212,7 +212,7 @@ namespace Tracker_System.Controllers
             ObjSQLHelper.ClearObjects();
             return Json(dynamicDtFreight, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult GetGridCommissionListMosaic(String SearchType = " ",string ObjectType = "", string invoiceNo = "", string invoiceDate = "")
+        public JsonResult GetGridCommissionListMosaic(String SearchType = " ", string ObjectType = "", string invoiceNo = "", string invoiceDate = "")
         {
             string sortDefault = "";
             int PageSize = 859;
@@ -279,7 +279,7 @@ namespace Tracker_System.Controllers
                     dynamicDtList.Add(CSList);
                 }
             }
-           ObjSQLHelper.ClearObjects();
+            ObjSQLHelper.ClearObjects();
             return Json(dynamicDtList, JsonRequestBehavior.AllowGet);
         }
         public JsonResult GetGridCommissionListTile(String SearchType = " ", string ObjectType = "", string invoiceNo = "", string invoiceDate = "")
@@ -351,7 +351,7 @@ namespace Tracker_System.Controllers
             ObjSQLHelper.ClearObjects();
             return Json(dynamicDtList, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult GetGridExportCommissionList(String SearchType = " ",string ObjectType = "", string invoiceNo = "", string invoiceDate = "")
+        public JsonResult GetGridExportCommissionList(String SearchType = " ", string ObjectType = "", string invoiceNo = "", string invoiceDate = "")
         {
             string sortDefault = "";
             int PageSize = 859;
@@ -369,7 +369,7 @@ namespace Tracker_System.Controllers
             if (!(ds == null || ds.Tables == null || ds.Tables.Count == 0))
             {
                 dt = ds.Tables[0];
-             
+
                 foreach (DataRow row in dt.Rows)
                 {
                     string currentInvoiceNo = row["InvoiceNo"]?.ToString() ?? string.Empty;
@@ -387,35 +387,35 @@ namespace Tracker_System.Controllers
                         continue;
                     }
                     ExportCommissiontracker CSList = new ExportCommissiontracker();
-                    { 
-                    CSList.SrNo = row["SrNo"] != DBNull.Value ? row["SrNo"].ToString() : string.Empty;
-                    CSList.PI_No = row["PINo"] != DBNull.Value ? row["PINo"].ToString() : string.Empty;
-                    CSList.OCF_No = row["OCF_No"] != DBNull.Value ? row["OCF_No"].ToString() : string.Empty;
-                    CSList.Division = row["Division"] != DBNull.Value ? row["Division"].ToString() : string.Empty;
-                    CSList.Invoice_No = row["InvoiceNo"] != DBNull.Value ? row["InvoiceNo"].ToString() : string.Empty;
-                    CSList.INV_Dates = row["InvDate"] != DBNull.Value ? row["InvDate"].ToString() : string.Empty;
-                    CSList.CustomerName = row["CustomerName"] != DBNull.Value ? row["CustomerName"].ToString() : string.Empty;
-                    CSList.Commission_Vendor_Name = row["VendorName"] != DBNull.Value ? row["VendorName"].ToString() : string.Empty;
-                    CSList.CommissionType = row["CommissionType"] != DBNull.Value ? row["CommissionType"].ToString() : string.Empty;
-                    CSList.TentativeCommBasic_Amt = row["TentativeAmount"] != DBNull.Value ? Convert.ToString(row["TentativeAmount"]) : string.Empty;
-                    CSList.CommissionRate = row["CommissionRate"] != DBNull.Value ? decimal.Parse(row["CommissionRate"].ToString()) : 0m;
-                    CSList.SalesPerson_Name = row["SalesPersonName"] != DBNull.Value ? row["SalesPersonName"].ToString() : string.Empty;
-                    CSList.TaggedOnPI = row["TaggedONPI_Flag"] != DBNull.Value ? Convert.ToBoolean(row["TaggedONPI_Flag"]) : false;
-                    CSList.TaggedOnOCF = row["TaggedOnERP_Flag"] != DBNull.Value ? Convert.ToBoolean(row["TaggedOnERP_Flag"]) : false;
-                    CSList.TaggedAfterInvoice = row["TaggedAfterInVoice_Flag"] != DBNull.Value ? Convert.ToBoolean(row["TaggedAfterInVoice_Flag"]) : false;
-                    CSList.Claimform_Received = row["ClaimFormReceived"] != DBNull.Value ? row["ClaimFormReceived"].ToString() : string.Empty;// Or handle invalid date formats as needed
-                    CSList.CommissionworkingsenttoVendor_Employee = row["CommissionWorkingSentToVendor"] != DBNull.Value ? row["CommissionWorkingSentToVendor"].ToString() : string.Empty;
-                    CSList.Credit_Note_Prepared = row["CreditNotePrepared"] != DBNull.Value ? row["CreditNotePrepared"].ToString() : string.Empty;
-                    CSList.Credit_Advice_Prepared = row["CreditAdvicePrepared"] != DBNull.Value ? row["CreditAdvicePrepared"].ToString() : string.Empty;
-                    CSList.CommissionInvoice_Received = row["CommissionInvoiceReceived"] != DBNull.Value ? row["CommissionInvoiceReceived"].ToString() : string.Empty;
-                    CSList.Vendor_Code = row["VenderNo"] != DBNull.Value ? row["VenderNo"].ToString() : string.Empty;
-                    CSList.Credit_Advice_Details = row["CreditAdviceDetails"] != DBNull.Value ? Convert.ToString(row["CreditAdviceDetails"]) : string.Empty;
-                    CSList.Remarks = row["Remark"] != DBNull.Value ? Convert.ToString(row["Remark"]) : string.Empty;
-                    CSList.FreightAmt = row["FreightAmt"] != DBNull.Value ? Convert.ToString(row["FreightAmt"]) : string.Empty;
-                    CSList.FreightBillNo = row["freightBillNo"] != DBNull.Value ? Convert.ToString(row["freightBillNo"]) : string.Empty;
-                    CSList.FromNo = row["FromNo"] != DBNull.Value ? Convert.ToString(row["FromNo"]) : string.Empty;
-                    CSList.FreightBillDate = row["FreightBillDate"] != DBNull.Value ? row["FreightBillDate"].ToString() : string.Empty;
-                    CSList.ActualCommission = row["ActualCommission"] != DBNull.Value ? Convert.ToString(row["ActualCommission"]) : string.Empty;
+                    {
+                        CSList.SrNo = row["SrNo"] != DBNull.Value ? row["SrNo"].ToString() : string.Empty;
+                        CSList.PI_No = row["PINo"] != DBNull.Value ? row["PINo"].ToString() : string.Empty;
+                        CSList.OCF_No = row["OCF_No"] != DBNull.Value ? row["OCF_No"].ToString() : string.Empty;
+                        CSList.Division = row["Division"] != DBNull.Value ? row["Division"].ToString() : string.Empty;
+                        CSList.Invoice_No = row["InvoiceNo"] != DBNull.Value ? row["InvoiceNo"].ToString() : string.Empty;
+                        CSList.INV_Dates = row["InvDate"] != DBNull.Value ? row["InvDate"].ToString() : string.Empty;
+                        CSList.CustomerName = row["CustomerName"] != DBNull.Value ? row["CustomerName"].ToString() : string.Empty;
+                        CSList.Commission_Vendor_Name = row["VendorName"] != DBNull.Value ? row["VendorName"].ToString() : string.Empty;
+                        CSList.CommissionType = row["CommissionType"] != DBNull.Value ? row["CommissionType"].ToString() : string.Empty;
+                        CSList.TentativeCommBasic_Amt = row["TentativeAmount"] != DBNull.Value ? Convert.ToString(row["TentativeAmount"]) : string.Empty;
+                        CSList.CommissionRate = row["CommissionRate"] != DBNull.Value ? decimal.Parse(row["CommissionRate"].ToString()) : 0m;
+                        CSList.SalesPerson_Name = row["SalesPersonName"] != DBNull.Value ? row["SalesPersonName"].ToString() : string.Empty;
+                        CSList.TaggedOnPI = row["TaggedONPI_Flag"] != DBNull.Value ? Convert.ToBoolean(row["TaggedONPI_Flag"]) : false;
+                        CSList.TaggedOnOCF = row["TaggedOnERP_Flag"] != DBNull.Value ? Convert.ToBoolean(row["TaggedOnERP_Flag"]) : false;
+                        CSList.TaggedAfterInvoice = row["TaggedAfterInVoice_Flag"] != DBNull.Value ? Convert.ToBoolean(row["TaggedAfterInVoice_Flag"]) : false;
+                        CSList.Claimform_Received = row["ClaimFormReceived"] != DBNull.Value ? row["ClaimFormReceived"].ToString() : string.Empty;// Or handle invalid date formats as needed
+                        CSList.CommissionworkingsenttoVendor_Employee = row["CommissionWorkingSentToVendor"] != DBNull.Value ? row["CommissionWorkingSentToVendor"].ToString() : string.Empty;
+                        CSList.Credit_Note_Prepared = row["CreditNotePrepared"] != DBNull.Value ? row["CreditNotePrepared"].ToString() : string.Empty;
+                        CSList.Credit_Advice_Prepared = row["CreditAdvicePrepared"] != DBNull.Value ? row["CreditAdvicePrepared"].ToString() : string.Empty;
+                        CSList.CommissionInvoice_Received = row["CommissionInvoiceReceived"] != DBNull.Value ? row["CommissionInvoiceReceived"].ToString() : string.Empty;
+                        CSList.Vendor_Code = row["VenderNo"] != DBNull.Value ? row["VenderNo"].ToString() : string.Empty;
+                        CSList.Credit_Advice_Details = row["CreditAdviceDetails"] != DBNull.Value ? Convert.ToString(row["CreditAdviceDetails"]) : string.Empty;
+                        CSList.Remarks = row["Remark"] != DBNull.Value ? Convert.ToString(row["Remark"]) : string.Empty;
+                        CSList.FreightAmt = row["FreightAmt"] != DBNull.Value ? Convert.ToString(row["FreightAmt"]) : string.Empty;
+                        CSList.FreightBillNo = row["freightBillNo"] != DBNull.Value ? Convert.ToString(row["freightBillNo"]) : string.Empty;
+                        CSList.FromNo = row["FromNo"] != DBNull.Value ? Convert.ToString(row["FromNo"]) : string.Empty;
+                        CSList.FreightBillDate = row["FreightBillDate"] != DBNull.Value ? row["FreightBillDate"].ToString() : string.Empty;
+                        CSList.ActualCommission = row["ActualCommission"] != DBNull.Value ? Convert.ToString(row["ActualCommission"]) : string.Empty;
                         CSList.CreditNotePreparedNo = row["CreditNotePreparedNo"] != DBNull.Value ? Convert.ToString(row["CreditNotePreparedNo"]) : string.Empty;
                         SqlCommand cmdLog = new SqlCommand();
                         cmdLog.Parameters.AddWithValue("@InvNo", CSList.Invoice_No);
@@ -459,21 +459,36 @@ namespace Tracker_System.Controllers
             }
             return string.Empty;
         }
-        public JsonResult GetExportGridList(String SearchType = " ")
+        public JsonResult GetExportGridList(String SearchType = "All", int Year = 2026, int PageNumber = 1, int PageSize = 20, string ExportDropDownYear = "")
         {
+            // Use dropdown year if provided, otherwise use Year parameter
+            if (!string.IsNullOrEmpty(ExportDropDownYear))
+            {
+                Year = Convert.ToInt32(ExportDropDownYear);
+            }
+
+            // Financial Year Dates
+            DateTime fromDate = new DateTime(Year - 1, 4, 1);
+            DateTime toDate = new DateTime(Year, 3, 31);
+
             string sortDefault = "";
-            int PageSize = 859;
+            //int PageSize = 859;
             DataTable dt = new DataTable();
             SqlDataAdapter da = new SqlDataAdapter();
             SQLHelper ObjSQLHelper = new SQLHelper();
             SqlCommand cmd = new SqlCommand();
             SqlCommand cmdMaster = new SqlCommand();
             cmdMaster.Parameters.AddWithValue("@Mode", "GET");
+            cmdMaster.Parameters.AddWithValue("@FromDate", fromDate);
+            cmdMaster.Parameters.AddWithValue("@ToDate", toDate);
+            cmdMaster.Parameters.AddWithValue("@PageNumber", PageNumber);
+            cmdMaster.Parameters.AddWithValue("@Limit", PageSize);
+            cmdMaster.Parameters.AddWithValue("@SearchType", SearchType);
 
 
             try
             {
-                DataSet dsMaster = ObjSQLHelper.SelectProcDataDS("Export_InsertInvoiceDetails", cmdMaster);
+                DataSet dsMaster = ObjSQLHelper.SelectProcDataDS("Export_GetInvoiceListWithPagination_Test_Wind", cmdMaster);
 
                 SqlCommand cmdOther = new SqlCommand();
                 cmdOther.Parameters.AddWithValue("@Mode", "OtherGet");
@@ -496,9 +511,6 @@ namespace Tracker_System.Controllers
 
                     foreach (DataRow row in dtMaster.Rows)
                     {
-
-
-
                         Exporttracker export = new Exporttracker
                         {
                             SrNo = GetValueOrDefault(row, "SrNo"),
@@ -768,9 +780,9 @@ namespace Tracker_System.Controllers
                             No_of_FCL = GetValueOrDefault(row, "No_of_FCL"),
                             AvgCostPerFCL = GetValueOrDefault(row, "AvgCostPerFCL"),
                             AvgCostPerSQM = GetValueOrDefault(row, "AvgCostPerSQM"),
-                            FinalTotal=GetValueOrDefault(row, "FinalTotal"),
-                            AdvPaymenton=GetValueOrDefault(row, "AdvPaymenton"),
-                            PaymentDate=GetValueOrDefault(row, "PaymentDate")
+                            FinalTotal = GetValueOrDefault(row, "FinalTotal"),
+                            AdvPaymenton = GetValueOrDefault(row, "AdvPaymenton"),
+                            PaymentDate = GetValueOrDefault(row, "PaymentDate")
                         };
                         export.ExporttrackerLogDetails = dtlog.AsEnumerable()
                                .Select(r => new InvoiceLogDetail
@@ -780,7 +792,7 @@ namespace Tracker_System.Controllers
                                    EmpId = r["EmpId"] == DBNull.Value ? 0 : Convert.ToInt32(r["EmpId"]),
                                    EmployeeName = r["EmployeeName"].ToString()
                                }).ToList();
-                      
+
                         export.OtherCharges = dtOther.AsEnumerable()
                             .Where(r => Convert.ToInt32(r["ETMasterID"]) == export.rowid)
                             .Select(r => new Exporttracker_OtherCharges
@@ -814,31 +826,52 @@ namespace Tracker_System.Controllers
                                 }).ToList();
                         exportList.Add(export);
                     }
-                    if (SearchType == "Pending")
-                    {
-                        exportList = exportList.Where(x => x.runfor == 1 || x.runfor == 2).ToList();
-                    }
-                    else if (SearchType == "Completed")
-                    {
-                        exportList = exportList.Where(x => x.runfor == 3).ToList();
-                    }
-                    else if (SearchType == "All")
-                    {
-                        exportList = exportList.Where(x => x.runfor == 1 || x.runfor == 2|| x.runfor == 3).ToList();
-                    }
-                    else
-                    {
-                        Console.WriteLine("No Data found");
-                    }
+                    //if (SearchType == "Pending")
+                    //{
+                    //    exportList = exportList.Where(x => x.runfor == 1 || x.runfor == 2).ToList();
+                    //}
+                    //else if (SearchType == "Completed")
+                    //{
+                    //    exportList = exportList.Where(x => x.runfor == 3).ToList();
+                    //}
+                    //else if (SearchType == "All")
+                    //{
+                    //    exportList = exportList.Where(x => x.runfor == 1 || x.runfor == 2 || x.runfor == 3).ToList();
+                    //}
+                    //else
+                    //{
+                    //    Console.WriteLine("No Data found");
+                    //}
                     // If SearchType is "Pending", filter the list for runfor = 1 or 2
 
                 }
 
+                int totalCount = 0;
+
+                if (dsMaster.Tables.Count > 1 && dsMaster.Tables[1].Rows.Count > 0)
+                {
+                    totalCount = Convert.ToInt32(dsMaster.Tables[1].Rows[0]["TotalCount"]);
+                }
+
+
                 ObjSQLHelper.ClearObjects();
                 //return Json(exportList, JsonRequestBehavior.AllowGet);
+
+                //return new JsonResult()
+                //{
+                //    Data = exportList,
+                //    JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                //    MaxJsonLength = int.MaxValue
+                //};
+
                 return new JsonResult()
                 {
-                    Data = exportList,
+                    Data = new ExportListPaginationResponse
+                    {
+                        Data = exportList,
+                        TotalCount = totalCount
+                    },
+
                     JsonRequestBehavior = JsonRequestBehavior.AllowGet,
                     MaxJsonLength = int.MaxValue
                 };
@@ -870,7 +903,7 @@ namespace Tracker_System.Controllers
                 if (!(dsMaster == null || dsMaster.Tables == null || dsMaster.Tables.Count == 0))
                 {
                     DataTable dtMaster = dsMaster.Tables[0];
-                    
+
 
                     foreach (DataRow row in dtMaster.Rows)
                     {
@@ -881,7 +914,7 @@ namespace Tracker_System.Controllers
                         {
                             SrNo = GetValueOrDefault(row, "SrNo"),
 
-                            
+
                             Invoice_No = GetValueOrDefault(row, "InvNo"),
                             InvDate = GetValueOrDefault(row, "InvDate"),
                             No_of_FCL = GetValueOrDefault(row, "No_of_FCL"),
@@ -898,10 +931,10 @@ namespace Tracker_System.Controllers
                             Doc_Date = GetValueOrDefault(row, "DocDate"),
                             Doc_Submitted_Account_On = GetValueOrDefault(row, "DocSubmittedAccountOn"),
                         };
-                       
+
                         exportList.Add(export);
                     }
-                    
+
                     // If SearchType is "Pending", filter the list for runfor = 1 or 2
 
                 }
@@ -936,7 +969,7 @@ namespace Tracker_System.Controllers
                 if (!(dsMaster == null || dsMaster.Tables == null || dsMaster.Tables.Count == 0))
                 {
                     DataTable dtMaster = dsMaster.Tables[0];
-                    
+
 
                     foreach (DataRow row in dtMaster.Rows)
                     {
@@ -946,7 +979,7 @@ namespace Tracker_System.Controllers
                         AdvanceTracker export = new AdvanceTracker
                         {
                             SrNo = GetValueOrDefault(row, "SrNo"),
-                            Division= GetValueOrDefault(row, "Division"),
+                            Division = GetValueOrDefault(row, "Division"),
                             Invoice_No = GetValueOrDefault(row, "InvNo"),
                             FCForwarder = GetValueOrDefault(row, "FCForwarder"),
                             FCInvoiceNo = GetValueOrDefault(row, "FCInvNo"),
@@ -1034,7 +1067,7 @@ namespace Tracker_System.Controllers
             ObjSQLHelper.ClearObjects();
             return Json(dynamicDtCommision, JsonRequestBehavior.AllowGet);
         }
-        
+
         public JsonResult GetpanelExportForList(string invoiceNo = "")
         {
 
@@ -1352,7 +1385,7 @@ namespace Tracker_System.Controllers
                               EmpId = r["EmpId"] == DBNull.Value ? 0 : Convert.ToInt32(r["EmpId"]),
                               EmployeeName = r["EmployeeName"].ToString()
                           }).ToList();
-                  
+
 
                     CSList.OtherCharges = dtOther.AsEnumerable()
                             .Where(r => Convert.ToInt32(r["ETMasterID"]) == CSList.rowid)

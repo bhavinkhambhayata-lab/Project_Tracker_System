@@ -3,15 +3,45 @@
     ViewBag.Title = "CreateExportTracker";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@*<style>
-        .tr-yellow {
-            background-color: yellow !important;
-        }
+@{
+    var yearList = ViewBag.YearList as List<Tracker_System.Models.YearModel>;
+}
 
-        .tr-green {
-            background-color: #ccffcc !important; /* light green */
-        }
-    </style>*@
+<style>
+    .tr-yellow {
+        background-color: yellow !important;
+    }
+
+    .tr-green {
+        background-color: #ccffcc !important; /* light green */
+    }
+
+    .page-btn {
+        margin: 0 2px;
+        padding: 4px 10px;
+        border: 1px solid #ccc;
+        background-color: #fff;
+        cursor: pointer;
+        border-radius: 3px;
+        font-size: 12px;
+        min-width: 30px;
+    }
+
+    .page-btn:hover {
+        background-color: #f0f0f0;
+    }
+
+    .page-btn.active {
+        background-color: #007bff;
+        color: white;
+        border-color: #007bff;
+    }
+
+    .page-btn:disabled {
+        background-color: #e9ecef;
+        cursor: not-allowed;
+    }
+</style>
 @using (Html.BeginForm())
 {
     @Html.HiddenFor(model => model.UserName)
@@ -35,6 +65,15 @@
 
                                 <label for="searchType">@resourceSettings.getResourceLable("lblSearchType", "common", "Search Type")</label>
                                 @Html.DropDownListFor(model => model.SearchType, new SelectList(ViewBag.SearchTypes, "Value", "Text"), new { @class = "form-control", onchange = "getgriddetails()", @id = "searchType", style = "width: 100px;" })
+
+                                <select class="form-control" id="ExportDropDownYear" name="ExportDropDownYear" style="width: 100px;" onchange="getgriddetails(1, 15);">
+                                    <option value="">Select Year</option>
+
+                                    @foreach (var item in ViewBag.YearList)
+                                    {
+                                        <option value="@item.Code" @(item.Code == "2026" ? "selected" : "")>@item.Name</option>
+                                    }
+                                </select>
                                 <a href="#" id="lnkExportToExcel" class="btn-cancel" style=" width: 14rem;">
                                     <i class="fa fa-eraser"></i>
                                     @resourceSettings.getResourceLable("lblExportToExcel", "common", "Export To Excel")
@@ -86,14 +125,14 @@
                                                     </th>
 
                                                     @*<th colspan="2" rowspan="2" style="border-right: 2px solid #918989; border-top: 2px solid #918989; border-left: 2px solid #918989; border-bottom: 2px solid #918989; text-align: center; font-weight: bold; background-color: #f0f0f0; ">
-                Other Charges (IF ANY)
-            </th>
-            <th colspan="2" rowspan="2" style="border-right: 2px solid #918989; white-space: nowrap; border-top: 2px solid #918989; border-left: 2px solid #918989; border-bottom: 2px solid #918989; text-align: center; font-weight: bold; background-color: #f0f0f0; ">
-                Other Charges (IF ANY)
-            </th>
-            <th colspan="2" rowspan="2" style="border-right: 2px solid #918989; border-top: 2px solid #918989; border-left: 2px solid #918989; border-bottom: 2px solid #918989; text-align: center; font-weight: bold; background-color: #f0f0f0; ">
-                Other Charges (IF ANY)
-            </th>*@
+                                                            Other Charges (IF ANY)
+                                                        </th>
+                                                        <th colspan="2" rowspan="2" style="border-right: 2px solid #918989; white-space: nowrap; border-top: 2px solid #918989; border-left: 2px solid #918989; border-bottom: 2px solid #918989; text-align: center; font-weight: bold; background-color: #f0f0f0; ">
+                                                            Other Charges (IF ANY)
+                                                        </th>
+                                                        <th colspan="2" rowspan="2" style="border-right: 2px solid #918989; border-top: 2px solid #918989; border-left: 2px solid #918989; border-bottom: 2px solid #918989; text-align: center; font-weight: bold; background-color: #f0f0f0; ">
+                                                            Other Charges (IF ANY)
+                                                        </th>*@
 
                                                     <th colspan="1" rowspan="2" style="border-right: 2px solid #918989; border-top: 2px solid #918989; border-left: 2px solid #918989; border-bottom: 2px solid #918989; text-align: center; font-weight: bold; background-color: #f0f0f0; ">
                                                         Total EXP (Excluding GST)
@@ -272,13 +311,13 @@
                                                     <th><input type="text" class="column-search eiatotal-search" data-column="43" style="width:6rem"></th>
 
                                                     @*<th style=" border-right: 2px solid #918989;"><input type="text" class="column-search othervendor-search" data-column="43" style="width:10rem"></th>
-        <th><input type="text" class="column-search Othertotal-search" data-column="44" style="width:5rem"></th>*@
+                                                        <th><input type="text" class="column-search Othertotal-search" data-column="44" style="width:5rem"></th>*@
 
                                                     @*<th style=" border-right: 2px solid #918989;"><input type="text" class="column-search othertotal-search" data-column="45" style="width:3rem"></th>
-        <th><input type="text" class="column-search Vendor-name-search" data-column="46" style="width:5rem"></th>
+                                                        <th><input type="text" class="column-search Vendor-name-search" data-column="46" style="width:5rem"></th>
 
-        <th style=" border-right: 2px solid #918989;"><input type="text" class="column-search Vendor-name-search" data-column="47" style="width:3rem"></th>
-        <th><input type="text" class="column-search srno-search" data-column="48" style="width:8rem"></th>*@
+                                                        <th style=" border-right: 2px solid #918989;"><input type="text" class="column-search Vendor-name-search" data-column="47" style="width:3rem"></th>
+                                                        <th><input type="text" class="column-search srno-search" data-column="48" style="width:8rem"></th>*@
 
                                                     <th style="border-right: 2px solid #918989;"><input type="text" class="column-search srno-search" data-column="45" style="width: 6rem"></th>
                                                     <th style=" border-right: 2px solid #918989;"><input type="text" class="column-search srno-search" data-column="46" style="width: 6rem"></th>
@@ -298,6 +337,9 @@
 
                                             <tbody class="ExportInfotbody"></tbody>
                                         </table>
+
+                                        <div id="paginationContainer" style="margin-top: 20px; text-align: center; padding: 10px;">
+                                        </div>
 
                                     </div>
                                 </div>
@@ -2729,6 +2771,8 @@
 
                     //$('#loadingMessage1').show();
                     var selectedSearchType = $('#searchType').val();
+                    var dropDownYear = $('#ExportDropDownYear').val();
+
 
       var urlRequest = '@Url.Action("ExportReport", "ExportTracker")';
 
@@ -2737,7 +2781,7 @@ $.ajax({
     type: 'POST',
 
           contentType: 'application/json',
-    data: JSON.stringify({ SearchType: selectedSearchType }),
+    data: JSON.stringify({ SearchType: selectedSearchType, year: dropDownYear }),
     xhrFields: {
         responseType: 'blob' // 🔹 This is key
     },
@@ -5181,7 +5225,7 @@ s
                     $('#Country').val(d.Country);
                     $('#Port_of_Discharge').val(d.Port_of_Discharge);
 
-                    
+
 
                     $('#Payment_Method').val(d.Payment_Method);
                     $('#Payment_Terms').val(d.Payment_Terms);
@@ -6085,973 +6129,348 @@ var allowedUsers = [2044, 2928, 363, 344,1093,332];
         }
 
     });
-    function getgriddetails() {
+     function getgriddetails(pageNumber = 1, pageSize = 15) {
         var urlRequest1 = '@Url.Action("GetExportGridList", "Common")';
 
-       $('#loadingMessage1').show();
+        $('#loadingMessage1').show();
         $('#TblExportTrackerInfo').hide();
 
         var selectedSearchType = $('#searchType').val();
-
-            $.ajax({
-                url: urlRequest1,
-                type: 'GET',
-                data: {
-                    SearchType: selectedSearchType,
-
-                },
-                success: function (data) {
-
-                    if (data.length === 0) {
-
-                        $('#loadingMessage1').hide();
-                        return alert("No data available");
-
-
-
-
-                    }
-                    else {
-
-                        var totalRecords = data.length;
-                        var pageLength = 15;
-                        var totalPages = Math.ceil(totalRecords / pageLength);
-                        var startRecord = 1;
-                        var endRecord = totalRecords < pageLength ? totalRecords : pageLength;
-
-                        $('#TblExportTrackerInfo_info').text('Showing ' + startRecord + ' to ' + endRecord + ' of ' + totalRecords + ' entries');
-
-                        if ($.fn.dataTable.isDataTable('#TblExportTrackerInfo')) {
-                            $('#TblExportTrackerInfo').DataTable().destroy();
-                        }
-
-                        $('.dynamic-other-main').remove();
-                        $('.dynamic-other-column').remove();
-                        $('.dynamic-other-search').remove();
-
-                        // ==========================================
-                        // DYNAMIC OTHER CHARGES COUNT
-                        // ==========================================
-
-                        var maxOtherChargesCount = 0;
-
-                        for (var x = 0; x < data.length; x++) {
-
-                            var oc = data[x].OtherCharges || [];
-
-                            if (oc.length > maxOtherChargesCount) {
-                                maxOtherChargesCount = oc.length;
-                            }
-                        }
-
-                        var mainHeaderHtml = '';
-
-                        for (var h = 0; h < maxOtherChargesCount; h++) {
-
-                            mainHeaderHtml += `
-                    <th class="dynamic-other-main"
-                        colspan="2"
-                        rowspan="2"
-                        style="border-right: 2px solid #918989;
-                               border-top: 2px solid #918989;
-                               border-left: 2px solid #918989;
-                               border-bottom: 2px solid #918989;
-                               text-align: center;
-                               font-weight: bold;
-                               background-color: #f0f0f0;">
-
-                        Other Charges (IF ANY)
-
-                    </th>
-                `;
-                        }
-
-                        $('#dynamicmainheaderothercharges').after(mainHeaderHtml);
-
-                        // ==========================================
-                        // COLUMN HEADER
-                        // ==========================================
-
-                        var columnHeaderHtml = '';
-
-                        for (var h = 0; h < maxOtherChargesCount; h++) {
-
-                            columnHeaderHtml += `
-
-                    <th class="dynamic-other-column"
-                        title="Vendor">
-
-                        <b>Vendor</b>
-
-                    </th>
-
-                    <th class="dynamic-other-column"
-                        style="border-right: 2px solid #918989;"
-                        title="Total">
-
-                        <b>Total</b>
-
-                    </th>
-                `;
-                        }
-
-                        $('#dynamicsubothercharges').after(columnHeaderHtml);
-
-                        // ==========================================
-                        // DYNAMIC SEARCH HEADER
-                        // ==========================================
-
-                        $('.dynamic-other-search').remove();
-
-                        var searchHeaderHtml = '';
-
-                        for (var h = 0; h < maxOtherChargesCount; h++) {
-
-                            searchHeaderHtml += `
-
-        <th class="dynamic-other-search">
-            <input type="text"
-                   class="column-search dynamic-vendor-search"
-                   style="width:10rem"
-            >
-        </th>
-
-        <th class="dynamic-other-search">
-            <input type="text"
-                   class="column-search dynamic-total-search"
-                   style="width:5rem"
-            >
-        </th>
-    `;
-                        }
-
-                        // dynamic search column add
-                        $('.comb th').eq(42).after(searchHeaderHtml);
-
-
-                        // ==========================================
-                        // RESET ALL COLUMN INDEXES
-                        // ==========================================
-
-                        $('#TblExportTrackerInfo thead tr.comb th').each(function (index) {
-
-                           // $(this).find('.column-search').attr('data-column', index);
-                            if (index >= 42) {
-                                $(this).find('.column-search').attr('data-column', index);
-                            }
-                        });
-
-
-
-                        var rows = '';
-                        for (var i = 0; i < data.length; i++) {
-                            var item = data[i];
-
-
-                            var otherCharges = item.OtherCharges || [];
-                            var DivisionTooltip = item.Division;
-                            var M_TTooltip = item.Mfr_Out;
-                            var Invoice_NoTooltip = item.Invoice_No;
-                            var InvDateTooltip = item.InvDate;
-                            var Bill_To_NameTooltip = item.Bill_to_Name;
-                            var Ship_to_NameTooltip = item.Ship_to_Name;
-                            var Shipping_Bill_NoTooltip = item.Shipping_Bill_No;
-                            var Shipping_Bill_DateTooltip = item.Shipping_Bill_Date;
-                            var EPCG_Licence_NoTooltip = item.EPCG_Licence_No;
-                            var CurrencyTooltip = item.Currency;
-                            var Basic_Amt_ChargesTooltip = item.Basic_Amt_Charges;
-                            var Sea_Freight_Air_FreightTooltip = item.Sea_Freight_Air_Freight;
-                            var Insurarnce_chargedTooltip = item.Insurarnce_charged;
-                            var Other_chargedTooltip = item.Other_Charges;
-                            var Invoice_ValueTooltip = item.Invoice_Value;
-                            var Quntity_SQMTooltip = item.Quntity_SQM;
-                            var AirWay_BillNo_Bill_of_LodingNoTooltip = item.AirWay_BillNo_Bill_of_LodingNo;
-                            var AirWay_BillDate_Bill_of_LodingDateTooltip = item.AirWay_BillDate_Bill_of_LodingDate;
-                            var Clearing_PointTooltip = item.Clearing_Point;
-                            var Port_of_LoadingTooltip = item.Port_of_Loading;
-                            var Port_of_DischargeTooltip = item.Port_of_Discharge;
-                            var Mode_of_DishchargeTooltip = item.Mode;
-                            var CountryTooltip = item.Country;
-                            var Inco_TermsTooltip = item.Inco_Terms;
-                            
-
-                            var Payment_MethodTooltip = item.Payment_Method;
-                            var Payment_TermsTooltip = item.Payment_Terms;
-                            var RemarksTooltip = item.Remarks;
-                            var ccAgentnameTooltip = item.CCClearance_Agent_Name;
-                            var ccTotalTooltip = item.CCAmt_Before_GST;
-                            var FCForwderTooltip = item.FCForwarder;
-                            var FCSTotalTooltip = item.FCSAmt_Before_GST;
-                            var FCATotalTooltip = item.FCAAMT_before_GST;
-                            var CFS_VendorTooltip = item.CFS_Vendor;
-                            var CFS_TotalTooltip = item.CFS_Amt_Before_GST;
-                            var TC_TransporterTooltip = item.TC_Transporter;
-                            var TC_TotalTooltip = item.TC_AMT_Before_GST;
-                            var AddTC_TransporterTooltip = item.AddTC_Transporter;
-                            var AddTC_TotalTooltip = item.AddTC_AMT_Before_GST;
-                            var COO_VendorTooltip = item.COO_Vendor;
-                            var COO_TotalTooltip = item.COO_Amt_Before_GST;
-                            var EIA_VendorTooltip = item.EIA_Vendor;
-                            var EIA_TotalTooltip = item.EIA_Amt_Before_GST;
-                            var Doc_ForwardedNoTooltip = item.Doc_ForwardedNo;
-                            var Doc_Sent_ThroughTooltip = item.Doc_Sent_Through;
-                            var Doc_DateTooltip = item.Doc_Date;
-                            var Doc_Submitted_Account_OnTooltip = item.Doc_Submitted_Account_On;
-                            var FinalTotalTooltip = item.FinalTotal;
-                            var TypeTooltip = item.Type;
-                            var NooffclTooltip = item.No_of_FCL;
-                            var finalsaveDisplay = item.finalsave ? 'Yes' : 'No';
-                            //    var runfor = item.runfor;
-                            var avgcostpersqmTooltip = item.AvgCostPerSQM;
-                            var avgcostperfclTooltip = item.AvgCostPerFCL;
-                            var total = 0;
-                            const runfor = parseInt(item.runfor);
-                            let rowClass = '';
-
-                            if (runfor === 1) {
-                                rowClass = 'tr-yellow';
-                            } else if (runfor === 3) {
-                                rowClass = 'tr-green';
-                            }
-
-                            rows += `<tr class="${rowClass}" data-obj='${JSON.stringify(item).replace(/'/g, '&#39;')}'>`;
-                            rows += '<td  class="sticky-left-header"  title="">' + item.SrNo + '</td>';
-                            rows += '<td  class="sticky-left-header" style = "text-align: center;white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px;"  title="' + DivisionTooltip + '">' + item.Division + '</td>';
-                            rows += '<td  class="sticky-left-header" style="text-align: start;white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 98px;" title="' + M_TTooltip + '">' + item.Mfr_Out + '</td>';
-                            rows += '<td  class="sticky-left-header" title="' + Invoice_NoTooltip + '">' + item.Invoice_No + '</td>';
-                            rows += '<td  class="sticky-left-header" style = "text-align: center;white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 75px;" title="' + InvDateTooltip + '">' + item.InvDate + '</td>';
-                            rows += '<td  class="sticky-left-header" style="border-right: 2px solid #918989; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 10rem;"  title="' + Bill_To_NameTooltip + '">' + item.Bill_to_Name + '</td>';
-                            rows += '<td  style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 10rem;"class="" title="' + Ship_to_NameTooltip + '">' + item.Ship_to_Name + '</td>';
-                            rows += '<td class="" title="' + Shipping_Bill_NoTooltip + '">' + item.Shipping_Bill_No + '</td>';
-                            rows += '<td   style = "text-align: center;white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px;"title="' + Shipping_Bill_DateTooltip + '">' + item.Shipping_Bill_Date + '</td>';
-                            rows += '<td class="" title="' + EPCG_Licence_NoTooltip + '">' + item.EPCG_Licence_No + '</td>';
-                            rows += '<td class="" title="' + CurrencyTooltip + '">' + item.Currency + '</td>';
-                            rows += '<td class=""  style="text-align: end;white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px;" title="' + Basic_Amt_ChargesTooltip + '">' + item.Basic_Amt_Charges + '</td>';
-                            rows += '<td class=""   style="text-align: end;white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px;"title="' + Sea_Freight_Air_FreightTooltip + '">' + item.Sea_Freight_Air_Freight + '</td>';
-                            rows += '<td class=""   style="text-align: end;white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px;"title="' + Insurarnce_chargedTooltip + '">' + item.Insurarnce_charged + '</td>';
-                            rows += '<td class=""   style="text-align: end;white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px;"title="' + Other_chargedTooltip + '">' + item.Other_Charges + '</td>';
-                            rows += '<td class=""   style="text-align: end;white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px;" title="' + Invoice_ValueTooltip + '">' + item.Invoice_Value + '</td>';
-                            rows += '<td class=""   style="text-align: end;white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px;" title="' + Quntity_SQMTooltip + '">' + item.Quntity_SQM + '</td>';
-                            rows += '<td style="text-align: start;white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px;" class="" title="' + AirWay_BillNo_Bill_of_LodingNoTooltip + '">' + item.AirWay_BillNo_Bill_of_LodingNo + '</td>';
-                            rows += '<td style = "text-align: center;white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px;" title="' + AirWay_BillDate_Bill_of_LodingDateTooltip + '">' + item.AirWay_BillDate_Bill_of_LodingDate + '</td>';
-                            rows += '<td  style = "text-align: center;white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px;"class="" title="' + Clearing_PointTooltip + '">' + item.Clearing_Point + '</td>';
-                            rows += '<td class=""  style="text-align: start;white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px;" title="' + Port_of_LoadingTooltip + '">' + item.Port_of_Loading + '</td>';
-                            rows += '<td  style="text-align: start;white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px;"class="" title="' + Port_of_DischargeTooltip + '">' + item.Port_of_Discharge + '</td>';
-                            rows += '<td  class="" style="text-align: start;white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px;" title="' + Mode_of_DishchargeTooltip + '">' + item.Mode + '</td>';
-                            rows += '<td  class="" style="text-align: start;white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px;" title="' + TypeTooltip + '">' + item.Type + '</td>';
-                            rows += '<td  class="" style="text-align: end;white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px;" title="' + NooffclTooltip + '">' + item.No_of_FCL + '</td>';
-                            rows += '<td class="" style="text-align: end;white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px;" title="' + CountryTooltip + '">' + item.Country + '</td>';
-                            rows += '<td class="" title="' + Inco_TermsTooltip + '">' + item.Inco_Terms + '</td>';
-                            rows += '<td class="" title="' + Payment_MethodTooltip + '">' + item.Payment_Method + '</td>';
-                            rows += '<td class="" title="' + Payment_TermsTooltip + '">' + item.Payment_Terms + '</td>';
-                            rows += '<td class="" title="' + RemarksTooltip + '">' + item.Remarks + '</td>';
-                            rows += '<td class="" style="text-align: start;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;max-width: 70px;border-left: 2px solid #918989;"title="' + (ccAgentnameTooltip || '') + '">' + (item.CCClearance_Agent_Name || '') + '</td>';
-                            rows += '<td   style = "text-align: end;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;border-right: 2px solid #918989;"class="" title="' + (ccTotalTooltip || '') + '">' + (item.CCAmt_Before_GST || '') + '</td>';
-                            rows += '<td   style = "text-align: start;white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 20px"class="" title="' + (FCForwderTooltip || '') + '">' + (item.FCForwarder || '') + '</td>';
-                            rows += '<td style = "text-align: end;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" class="" title="' + (FCSTotalTooltip || '') + '">' + (item.FCSAmt_Before_GST || '') + '</td>';
-                            rows += '<td  style = "text-align: end;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;border-right: 2px solid #918989;"class="" title="' + (FCATotalTooltip || '') + '">' + (item.FCAAMT_before_GST || '') + '</td>';
-                            rows += '<td style = "text-align: start;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;max-width: 70px;" class="" title="' + (TC_TransporterTooltip || '') + '">' + (item.TC_Transporter || '') + '</td>';
-                            rows += '<td style = "text-align: end;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;border-right: 2px solid #918989;"class="" title="' + (TC_TotalTooltip || '') + '">' + (item.TC_AMT_Before_GST || '') + '</td>';
-                            rows += '<td  style = "text-align: start;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;max-width: 70px;"class="" title="' + (CFS_VendorTooltip || '') + '">' + (item.CFS_Vendor || '') + '</td>';
-                            rows += '<td style = "text-align: end;white-space: nowrap; overflow: hidden; text-overflow: ellipsis; border-right: 2px solid #918989;" class="" title="' + (CFS_TotalTooltip || '') + '">' + (item.CFS_Amt_Before_GST || '') + '</td>';
-                            rows += '<td style = "text-align: start;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;max-width: 70px;" class="" title="' + (AddTC_TransporterTooltip || '') + '">' + (item.AddTC_Transporter || '') + '</td>';
-                            rows += '<td style = "text-align: end;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;border-right: 2px solid #918989;"class="" title="' + (AddTC_TotalTooltip || '') + '">' + (item.AddTC_AMT_Before_GST || '') + '</td>';
-
-                            rows += '<td style = "text-align: start;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;max-width: 70px;"class="" title="' + (COO_VendorTooltip || '') + '">' + (item.COO_Vendor || '') + '</td>';
-                            rows += '<td style = "text-align: end;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;border-right: 2px solid #918989;"class="" title="' + (COO_TotalTooltip || '') + '">' + (item.COO_Amt_Before_GST || '') + '</td>';
-                            rows += '<td style = "text-align: start;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;max-width: 70px;"class="" title="' + (EIA_VendorTooltip || '') + '">' + (item.EIA_Vendor || '') + '</td>';
-                            rows += '<td style = "text-align: end;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;border-right: 2px solid #918989;"class="" title="' + (EIA_TotalTooltip || '') + '">' + (item.EIA_Amt_Before_GST || '') + '</td>';
-
-                         /*   total += parseFloat(item.CC_total) || 0;
-                            total += parseFloat(item.FCSTotal) || 0;
-                            total += parseFloat(item.FCATotal) || 0;
-                            total += parseFloat(item.TC_Total) || 0;
-                            total += parseFloat(item.CFS_Total) || 0;
-                            total += parseFloat(item.AddTC_Total) || 0;
-                            total += parseFloat(item.COO_Total) || 0;
-                            total += parseFloat(item.EIA_Total) || 0;*/
-                            console.log(maxOtherChargesCount);
-
-                            for (var c = 0; c < maxOtherChargesCount; c++) {
-                                
-                                var item2 = otherCharges[c];
-
-                                if (item2) {
-
-                                    var mergedVendorTooltip = item2.OC_Vendor || '';
-                                    var mergedTotalTooltip = item2.OC_Amt_Before_GST || '';
-
-                                    rows += '<td style="text-align: start; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px;" title="' + mergedVendorTooltip + '">' + mergedVendorTooltip + '</td>';
-
-                                    rows += '<td style="text-align: end; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; border-right: 2px solid #918989;" title="' + mergedTotalTooltip + '">' + (item2.OC_Total || '') + '</td>';
-
-                                }
-                                else {
-
-                                    rows += '<td></td>';
-
-                                    rows += '<td style="border-right: 2px solid #918989;"></td>';
-                                }
-                            }
-
-                            rows += '<td  style="text-align: end;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;border-right: 2px solid #918989;"class="" title="' + FinalTotalTooltip + '">' + item.FinalTotal + '</td>';
-                            rows += '<td  style="text-align: end;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;border-right: 2px solid #918989;"class="" title="' + avgcostpersqmTooltip + '">' + item.AvgCostPerSQM + '</td>';
-                            rows += '<td  style="text-align: end;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;border-right: 2px solid #918989;"class="" title="' + avgcostperfclTooltip + '">' + item.AvgCostPerFCL + '</td>';
-                            rows += '<td style = "text-align: start;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;max-width: 70px;"class="" title="' + (Doc_ForwardedNoTooltip || '') + '">' + (item.Doc_ForwardedNo || '') + '</td>';
-                            rows += '<td style = "text-align: start;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;max-width: 70px;"class="" title="' + (Doc_Sent_ThroughTooltip || '') + '">' + (item.Doc_Sent_Through || '') + '</td>';
-                            rows += '<td style = "text-align: start;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"class="" title="' + (Doc_DateTooltip || '') + '">' + (item.Doc_Date || '') + '</td>';
-                            rows += '<td style = "text-align: start;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;max-width: 70px;border-right: 2px solid #918989;"class="" title="' + (Doc_Submitted_Account_OnTooltip || '') + '">' + (item.Doc_Submitted_Account_On || '') + '</td>';
-
-                            rows += '</tr>';
-                        }
-
-
-                        $('.ExportInfotbody').html(rows);
-                        $('#loadingMessage1').hide();
-                        $('#TblExportTrackerInfo').show();
-
-                        var table1 = $('#TblExportTrackerInfo').DataTable({
-                            paging: true,
-                            searching: true,
-
-
-                            autoWidth: false,
-                            responsive: true,
-                            pageLength: 15,
-                            lengthMenu: [15, 25, 50, 100],
-
-                            language: {
-                                emptyTable: "No Data Found"
-                            },
-
-                            initComplete: function () {
-                                moveLengthDropdown();
-                            }
-
-                        });
-
-                        function moveLengthDropdown() {
-
-                            $('#TblExportTrackerInfo_filter').hide();
-
-
-                            var $length = $('#TblExportTrackerInfo_wrapper').find('#TblExportTrackerInfo_length');
-                            var $target = $('#Accountpage');
-                            if ($length.length && $target.length) {
-                                $target.find('#TblExportTrackerInfo_length').remove();
-
-                                $length.appendTo($target).css({
-                                    'margin-top': '-3px',
-                                    'text-align': 'end',
-                                    'display': 'inline-block'
-                                });
-                            } else {
-                                console.warn("Either #TblExportTrackerInfo_length or #Accountpage is missing.");
-                            }
-                        }
-
-                        $('#TblExportTrackerInfo thead').on('keyup change', '.column-search', function () {
-
-                            var columnIndex = $(this).data('column');
-                            var searchValue = this.value;
-                            table1.column(columnIndex).search(searchValue).draw();
-                        });
-
-                    }
-
+        var selectedYear = $('#ExportDropDownYear').val();
+
+        // Prepare request params - include page info for server if it supports paging.
+        var requestData = {
+            SearchType: selectedSearchType,
+            ExportDropDownYear: selectedYear,
+            PageNumber: pageNumber,
+            PageSize: pageSize
+        };
+
+        $.ajax({
+            url: urlRequest1,
+            type: 'GET',
+            data: requestData,
+            success: function (response) {
+
+                // Normalize response: server may return array or an object { Data: [], TotalRecords: n }
+                var dataArray = [];
+                var totalRecords = 0;
+
+                if (Array.isArray(response)) {
+                    // Legacy: full dataset
+                    dataArray = response;
+                    totalRecords = dataArray.length;
+                } else if (response && response.Data && Array.isArray(response.Data)) {
+                    // Preferred: paged response
+                    dataArray = response.Data;
+                    totalRecords = parseInt(response.TotalRecords || response.TotalCount || dataArray.length, 10);
+                } else {
+                    // Fallback: empty
+                    dataArray = [];
+                    totalRecords = 0;
                 }
-            });
 
-                $('[data-toggle="tooltip"]').tooltip();
+                if (!dataArray || dataArray.length === 0) {
+                    $('#loadingMessage1').hide();
+                    // Show friendly message
+                    $('#TblExportTrackerInfo tbody').html('');
+                    // Update info area
+                    $('#TblExportTrackerInfo_info').text('Showing 0 to 0 of 0 entries');
+                    return alert("No data available");
+                }
 
-        $('#TblExportTrackerInfo tbody').on('dblclick', 'tr', function () {
+                // Calculate paging display values
+                var pageLength = pageSize || 15;
+                var startRecord = ((pageNumber - 1) * pageLength) + 1;
+                var endRecord = startRecord + dataArray.length - 1;
+                if (endRecord > totalRecords) endRecord = totalRecords;
 
+                var totalPages = Math.ceil(totalRecords / pageLength);
 
+                buildPagination(totalPages, pageNumber);
+
+                $('#TblExportTrackerInfo_info').text('Showing ' + startRecord + ' to ' + endRecord + ' of ' + totalRecords + ' entries');
+
+                // Clean up any existing datatable instance
+                if ($.fn.dataTable.isDataTable('#TblExportTrackerInfo')) {
+                    $('#TblExportTrackerInfo').DataTable().destroy();
+                }
+
+                $('.dynamic-other-main').remove();
+                $('.dynamic-other-column').remove();
+                $('.dynamic-other-search').remove();
+
+                // ==========================================
+                // DYNAMIC OTHER CHARGES COUNT
+                // ==========================================
+                var maxOtherChargesCount = 0;
+                for (var x = 0; x < dataArray.length; x++) {
+                    var oc = dataArray[x].OtherCharges || [];
+                    if (oc.length > maxOtherChargesCount) {
+                        maxOtherChargesCount = oc.length;
+                    }
+                }
+
+                var mainHeaderHtml = '';
+                for (var h = 0; h < maxOtherChargesCount; h++) {
+                    mainHeaderHtml += `
+                        <th class="dynamic-other-main"
+                            colspan="2"
+                            rowspan="2"
+                            style="border-right: 2px solid #918989;
+                                   border-top: 2px solid #918989;
+                                   border-left: 2px solid #918989;
+                                   border-bottom: 2px solid #918989;
+                                   text-align: center;
+                                   font-weight: bold;
+                                   background-color: #f0f0f0;">
+                            Other Charges (IF ANY)
+                        </th>
+                    `;
+                }
+
+                $('#dynamicmainheaderothercharges').after(mainHeaderHtml);
+
+                // ==========================================
+                // COLUMN HEADER
+                // ==========================================
+                var columnHeaderHtml = '';
+                for (var h = 0; h < maxOtherChargesCount; h++) {
+                    columnHeaderHtml += `
+                        <th class="dynamic-other-column" title="Vendor"><b>Vendor</b></th>
+                        <th class="dynamic-other-column" style="border-right: 2px solid #918989;" title="Total"><b>Total</b></th>
+                    `;
+                }
+
+                $('#dynamicsubothercharges').after(columnHeaderHtml);
+
+                // ==========================================
+                // DYNAMIC SEARCH HEADER
+                // ==========================================
+                var searchHeaderHtml = '';
+                for (var h = 0; h < maxOtherChargesCount; h++) {
+                    searchHeaderHtml += `
+                        <th class="dynamic-other-search">
+                            <input type="text" class="column-search dynamic-vendor-search" style="width:10rem">
+                        </th>
+                        <th class="dynamic-other-search">
+                            <input type="text" class="column-search dynamic-total-search" style="width:5rem">
+                        </th>
+                    `;
+                }
+
+                // Insert dynamic search columns after the fixed column index (same as previous logic)
+                $('.comb th').eq(42).after(searchHeaderHtml);
+
+                // Reset column-search data-column attributes for dynamic columns
+                $('#TblExportTrackerInfo thead tr.comb th').each(function (index) {
+                    if (index >= 42) {
+                        $(this).find('.column-search').attr('data-column', index);
+                    }
+                });
+
+                // Build rows HTML (same ordering as original design)
+                var rows = '';
+                for (var i = 0; i < dataArray.length; i++) {
+                    var item = dataArray[i];
+                    var otherCharges = item.OtherCharges || [];
+                    const runfor = parseInt(item.runfor || 0, 10);
+                    var rowClass = '';
+                    if (runfor === 1) {
+                        rowClass = 'tr-yellow';
+                    } else if (runfor === 3) {
+                        rowClass = 'tr-green';
+                    }
+
+                    // ensure safe JSON encoding for data-obj
+                    var dataObjAttr = '';
+                    try {
+                        dataObjAttr = JSON.stringify(item).replace(/'/g, '&#39;');
+                    } catch (e) {
+                        dataObjAttr = '{}';
+                    }
+
+                    rows += `<tr class="${rowClass}" data-obj='${dataObjAttr}'>`;
+                    rows += '<td  class="sticky-left-header"  title="">' + (item.SrNo || '') + '</td>';
+                    rows += '<td  class="sticky-left-header" style="text-align: center;white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px;"  title="' + (item.Division || '') + '">' + (item.Division || '') + '</td>';
+                    rows += '<td  class="sticky-left-header" style="text-align: start;white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 98px;" title="' + (item.Mfr_Out || '') + '">' + (item.Mfr_Out || '') + '</td>';
+                    rows += '<td  class="sticky-left-header" title="' + (item.Invoice_No || '') + '">' + (item.Invoice_No || '') + '</td>';
+                    rows += '<td  class="sticky-left-header" style="text-align: center;white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 75px;" title="' + (item.InvDate || '') + '">' + (item.InvDate || '') + '</td>';
+                    rows += '<td  class="sticky-left-header" style="border-right: 2px solid #918989; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 10rem;"  title="' + (item.Bill_to_Name || '') + '">' + (item.Bill_to_Name || '') + '</td>';
+                    rows += '<td  style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 10rem;" title="' + (item.Ship_to_Name || '') + '">' + (item.Ship_to_Name || '') + '</td>';
+                    rows += '<td title="' + (item.Shipping_Bill_No || '') + '">' + (item.Shipping_Bill_No || '') + '</td>';
+                    rows += '<td style="text-align: center;white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px;" title="' + (item.Shipping_Bill_Date || '') + '">' + (item.Shipping_Bill_Date || '') + '</td>';
+                    rows += '<td title="' + (item.EPCG_Licence_No || '') + '">' + (item.EPCG_Licence_No || '') + '</td>';
+                    rows += '<td title="' + (item.Currency || '') + '">' + (item.Currency || '') + '</td>';
+                    rows += '<td style="text-align: end;white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px;" title="' + (item.Basic_Amt_Charges || '') + '">' + (item.Basic_Amt_Charges || '') + '</td>';
+                    rows += '<td style="text-align: end;white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px;" title="' + (item.Sea_Freight_Air_Freight || '') + '">' + (item.Sea_Freight_Air_Freight || '') + '</td>';
+                    rows += '<td style="text-align: end;white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px;" title="' + (item.Insurarnce_charged || '') + '">' + (item.Insurarnce_charged || '') + '</td>';
+                    rows += '<td style="text-align: end;white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px;" title="' + (item.Other_Charges || '') + '">' + (item.Other_Charges || '') + '</td>';
+                    rows += '<td style="text-align: end;white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px;" title="' + (item.Invoice_Value || '') + '">' + (item.Invoice_Value || '') + '</td>';
+                    rows += '<td style="text-align: end;white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px;" title="' + (item.Quntity_SQM || '') + '">' + (item.Quntity_SQM || '') + '</td>';
+                    rows += '<td style="text-align: start;white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px;" title="' + (item.AirWay_BillNo_Bill_of_LodingNo || '') + '">' + (item.AirWay_BillNo_Bill_of_LodingNo || '') + '</td>';
+                    rows += '<td style="text-align: center;white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px;" title="' + (item.AirWay_BillDate_Bill_of_LodingDate || '') + '">' + (item.AirWay_BillDate_Bill_of_LodingDate || '') + '</td>';
+                    rows += '<td style="text-align: center;white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px;" title="' + (item.Clearing_Point || '') + '">' + (item.Clearing_Point || '') + '</td>';
+                    rows += '<td style="text-align: start;white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px;" title="' + (item.Port_of_Loading || '') + '">' + (item.Port_of_Loading || '') + '</td>';
+                    rows += '<td style="text-align: start;white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px;" title="' + (item.Port_of_Discharge || '') + '">' + (item.Port_of_Discharge || '') + '</td>';
+                    rows += '<td style="text-align: start;white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px;" title="' + (item.Mode || '') + '">' + (item.Mode || '') + '</td>';
+                    rows += '<td style="text-align: start;white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px;" title="' + (item.Type || '') + '">' + (item.Type || '') + '</td>';
+                    rows += '<td style="text-align: end;white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px;" title="' + (item.No_of_FCL || '') + '">' + (item.No_of_FCL || '') + '</td>';
+                    rows += '<td style="text-align: end;white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px;" title="' + (item.Country || '') + '">' + (item.Country || '') + '</td>';
+                    rows += '<td title="' + (item.Inco_Terms || '') + '">' + (item.Inco_Terms || '') + '</td>';
+                    rows += '<td title="' + (item.Payment_Method || '') + '">' + (item.Payment_Method || '') + '</td>';
+                    rows += '<td title="' + (item.Payment_Terms || '') + '">' + (item.Payment_Terms || '') + '</td>';
+                    rows += '<td title="' + (item.Remarks || '') + '">' + (item.Remarks || '') + '</td>';
+                    rows += '<td style="text-align: start;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;max-width: 70px;border-left: 2px solid #918989;" title="' + (item.CCClearance_Agent_Name || '') + '">' + (item.CCClearance_Agent_Name || '') + '</td>';
+                    rows += '<td style="text-align: end;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;border-right: 2px solid #918989;" title="' + (item.CCAmt_Before_GST || '') + '">' + (item.CCAmt_Before_GST || '') + '</td>';
+                    rows += '<td style="text-align: start;white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 20px" title="' + (item.FCForwarder || '') + '">' + (item.FCForwarder || '') + '</td>';
+                    rows += '<td style="text-align: end;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="' + (item.FCSAmt_Before_GST || '') + '">' + (item.FCSAmt_Before_GST || '') + '</td>';
+                    rows += '<td style="text-align: end;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;border-right: 2px solid #918989;" title="' + (item.FCAAMT_before_GST || '') + '">' + (item.FCAAMT_before_GST || '') + '</td>';
+                    rows += '<td style="text-align: start;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;max-width: 70px;" title="' + (item.TC_Transporter || '') + '">' + (item.TC_Transporter || '') + '</td>';
+                    rows += '<td style="text-align: end;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;border-right: 2px solid #918989;" title="' + (item.TC_AMT_Before_GST || '') + '">' + (item.TC_AMT_Before_GST || '') + '</td>';
+                    rows += '<td style="text-align: start;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;max-width: 70px;" title="' + (item.CFS_Vendor || '') + '">' + (item.CFS_Vendor || '') + '</td>';
+                    rows += '<td style="text-align: end;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;border-right: 2px solid #918989;" title="' + (item.CFS_Amt_Before_GST || '') + '">' + (item.CFS_Amt_Before_GST || '') + '</td>';
+                    rows += '<td style="text-align: start;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;max-width: 70px;" title="' + (item.AddTC_Transporter || '') + '">' + (item.AddTC_Transporter || '') + '</td>';
+                    rows += '<td style="text-align: end;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;border-right: 2px solid #918989;" title="' + (item.AddTC_AMT_Before_GST || '') + '">' + (item.AddTC_AMT_Before_GST || '') + '</td>';
+                    rows += '<td style="text-align: start;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;max-width: 70px;" title="' + (item.COO_Vendor || '') + '">' + (item.COO_Vendor || '') + '</td>';
+                    rows += '<td style="text-align: end;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;border-right: 2px solid #918989;" title="' + (item.COO_Amt_Before_GST || '') + '">' + (item.COO_Amt_Before_GST || '') + '</td>';
+                    rows += '<td style="text-align: start;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;max-width: 70px;" title="' + (item.EIA_Vendor || '') + '">' + (item.EIA_Vendor || '') + '</td>';
+                    rows += '<td style="text-align: end;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;border-right: 2px solid #918989;" title="' + (item.EIA_Amt_Before_GST || '') + '">' + (item.EIA_Amt_Before_GST || '') + '</td>';
+
+                    // dynamic other charges columns
+                    for (var c = 0; c < maxOtherChargesCount; c++) {
+                        var item2 = otherCharges[c];
+                        if (item2) {
+                            var mergedVendorTooltip = item2.OC_Vendor || '';
+                            var mergedTotalTooltip = item2.OC_Amt_Before_GST || '';
+
+                            rows += '<td style="text-align: start; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px;" title="' + mergedVendorTooltip + '">' + mergedVendorTooltip + '</td>';
+                            rows += '<td style="text-align: end; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; border-right: 2px solid #918989;" title="' + mergedTotalTooltip + '">' + (item2.OC_Total || '') + '</td>';
+                        } else {
+                            rows += '<td></td>';
+                            rows += '<td style="border-right: 2px solid #918989;"></td>';
+                        }
+                    }
+
+                    rows += '<td style="text-align: end;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;border-right: 2px solid #918989;" title="' + (item.FinalTotal || '') + '">' + (item.FinalTotal || '') + '</td>';
+                    rows += '<td style="text-align: end;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;border-right: 2px solid #918989;" title="' + (item.AvgCostPerSQM || '') + '">' + (item.AvgCostPerSQM || '') + '</td>';
+                    rows += '<td style="text-align: end;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;border-right: 2px solid #918989;" title="' + (item.AvgCostPerFCL || '') + '">' + (item.AvgCostPerFCL || '') + '</td>';
+                    rows += '<td style="text-align: start;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;max-width: 70px;" title="' + (item.Doc_ForwardedNo || '') + '">' + (item.Doc_ForwardedNo || '') + '</td>';
+                    rows += '<td style="text-align: start;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;max-width: 70px;" title="' + (item.Doc_Sent_Through || '') + '">' + (item.Doc_Sent_Through || '') + '</td>';
+                    rows += '<td style="text-align: start;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="' + (item.Doc_Date || '') + '">' + (item.Doc_Date || '') + '</td>';
+                    rows += '<td style="text-align: start;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;max-width: 70px;border-right: 2px solid #918989;" title="' + (item.Doc_Submitted_Account_On || '') + '">' + (item.Doc_Submitted_Account_On || '') + '</td>';
+                    rows += '</tr>';
+                }
+
+                // Inject rows
+                $('.ExportInfotbody').html(rows);
+                $('#loadingMessage1').hide();
+                $('#TblExportTrackerInfo').show();
+
+                // Recreate DataTable (client-side paging of whatever dataArray contains)
+                var table1 = $('#TblExportTrackerInfo').DataTable({
+                    paging: false,
+                    info: false,
+                    searching: true,
+                    autoWidth: false,
+                    responsive: true,
+                    language: {
+                        emptyTable: "No Data Found"
+                    },
+                    initComplete: function () {
+                        moveLengthDropdown();
+                    }
+                });
+
+                // Update event handlers for row double-click and selection remain same as original flow
+            },
+            error: function (xhr, status, err) {
+                $('#loadingMessage1').hide();
+                $('#TblExportTrackerInfo').show();
+                console.error('Error fetching grid details:', err);
+                alert('An error occurred while fetching data.');
+            }
+        });
+
+        // Re-initialize tooltips and row click handlers (ensure these are delegated where possible)
+        $('[data-toggle="tooltip"]').tooltip();
+
+        $('#TblExportTrackerInfo tbody').off('dblclick').on('dblclick', 'tr', function () {
             autoClickTab('#lnkDetail');
 
             var table = $('#TblExportTrackerInfo').DataTable();
-    var dr = table.row(this).data();
-      var row = $(this).closest('tr');
-
+            var dr = table.row(this);
             var json = $(this).attr('data-obj');
-            var d = JSON.parse(json.replace(/&#39;/g, "'"));
+            var d = {};
+            try {
+                d = JSON.parse(json.replace(/&#39;/g, "'"));
+            } catch (e) {
+                d = {};
+            }
 
             $('#invoiceDropdown').val(d.Invoice_No);
             loadInvoiceDetails(d.Invoice_No);
-////            $('#Date1').val(d.InvDate);
-////            $('#Division').val(d.Division);
-////            $('#Mfr_Out').val(d.Mfr_Out);
-////            $('#Bill_to_Name').val(d.Bill_to_Name);
-////            $('#Ship_to_Name').val(d.Ship_to_Name);
-////            $('#Shipping_Bill_No').val(d.Shipping_Bill_No);
-////            $('#Date2').val(d.Shipping_Bill_Date);
-////            $('#EPCG_Licence_No').val(d.EPCG_Licence_No);
-////            $('#Currency').val(d.Currency);
-////            $('#Basic_Amt_Charges').val(d.Basic_Amt_Charges);
-////            $('#Sea_Freight_Air_Freight').val(d.Sea_Freight_Air_Freight);
-////            $('#Insurarnce_charged').val(d.Insurarnce_charged);
-////            $('#Other_Charges').val(d.Other_Charges);
-////            $('#Invoice_Value').val(d.Invoice_Value);
-////            $('#AirWay_BillNo_Bill_of_LodingNo').val(d.AirWay_BillNo_Bill_of_LodingNo);
-////            $('#AirWay_BillDate_Bill_of_LodingDate').val(d.AirWay_BillDate_Bill_of_LodingDate);
-////            $("#Clearing_Point option").filter(function () {
-////                return $(this).text() === d.Clearing_Point;
-////            }).prop("selected", true);
-////            /*$('#Clearing_Point').val(d.Clearing_Point);*/
-////            $('#Port_of_Loading').val(d.Port_of_Loading);
-////            $('#Port_of_Discharge').val(d.Port_of_Discharge);
-////            $('#Mode').val(d.Mode);
-////         //   var mode = d.Mode;
-////            //if (!d.Type) {
-////            //    if (mode) {
-////            //        loadFCLByMode(mode);
-////            //    } else {
-////            //        $('#Type').empty().append($('<option>').val('').text('-- Select --'));
-////            //    }
-////            //}
-////            $('#Country').val(d.Country);
-////            /*  $('#Inco_Terms').val(d.Inco_Terms);*/
-////            $("#Inco_Terms option").filter(function () {
-////                return $(this).text() === d.Inco_Terms;
-////            }).prop("selected", true);
-////            $('#Payment_Terms').val(d.Payment_Terms);
-////            $('#Remarks').val(d.Remarks);
-
-////            // CCC
-////            $('#CCClearance_Agent_Name').val(d.CCClearance_Agent_Name);
-////            $('#CCInvoice_No').val(d.CCInvoice_No);
-////            $('#Date3').val(d.CCInvDate);
-////            $('#CCClearance_agency_charges').val(d.CCClearance_agency_charges);
-////            $('#CCClearance_Agency_chargesGST').val(d.CCClearance_Agency_chargesGST);
-////            $('#CCClearance_Agency_chargesGSTAmount').val(d.CCClearance_Agency_chargesGSTAmount);
-////            $('#CCClearance_Agency_charges_Total').val(d.CCClearance_Agency_charges_Total);
-
-////            $('#CCEDI_Xeam_charges').val(d.CCEDI_Xeam_charges);
-////            $('#CCEdi_Xeam_ChargesGST').val(d.CCEdi_Xeam_ChargesGST);
-////            $('#CCEdi_Xeam_ChargesGSTAmount').val(d.CCEdi_Xeam_ChargesGSTAmount);
-////            $('#CCEdi_Xeam_Charges_Total').val(d.CCEdi_Xeam_Charges_Total);
-
-////            $('#CCVGM').val(d.CCVGM);
-////            $('#CCVGMGST').val(d.CCVGMGST);
-////            $('#CCVGMGSTAmount').val(d.CCVGMGSTAmount);
-////            $('#CCVGM_Total').val(d.CCVGM_Total);
-
-////            $('#CCGSEC').val(d.CCGSEC);
-////            $('#CCGSECGST').val(d.CCGSECGST);
-////            $('#CCGSECGSTAmount').val(d.CCGSECGSTAmount);
-////            $('#CCGSEC_Total').val(d.CCGSEC_Total);
-
-////            $('#CCCOO').val(d.CCCOO);
-////            $('#CCCOOGST').val(d.CCCOOGST);
-////            $('#CCCOOGSTAmount').val(d.CCCOOGSTAmount);
-////            $('#CCCOO_Total').val(d.CCCOO_Total);
-
-////            $('#CCExamination_CFS').val(d.CCExamination_CFS);
-////            $('#CCExamination_CFSGST').val(d.CCExamination_CFSGST);
-////            $('#CCExamination_CFSGSTAmount').val(d.CCExamination_CFSGSTAmount);
-////            $('#CCExamination_CFS_Total').val(d.CCExamination_CFS_Total);
-
-////            $('#CCLift_on_Lift_off').val(d.CCLift_on_Lift_off);
-////            $('#CCLift_on_Lift_offGST').val(d.CCLift_on_Lift_offGST);
-////            $('#CCLift_on_Lift_offGSTAmount').val(d.CCLift_on_Lift_offGSTAmount);
-////            $('#CCLift_on_Lift_off_Total').val(d.CCLift_on_Lift_off_Total);
-
-////            $('#CCOthers').val(d.CCOthers);
-////            $('#CCOthersGST').val(d.CCOthersGST);
-////            $('#CCOthersGSTAmount').val(d.CCOthersGSTAmount);
-////            $('#CCOthers_Total').val(d.CCOthers_Total);
-////            $('#CCAmt_Before_GST').val(d.CCAmt_Before_GST);
-////            $('#CCGST').val(d.CCGST);
-////            $('#CC_total').val(d.CC_total);
-
-////            // ================= FCS =================
-////            $('#FCForwarder').val(d.FCForwarder);
-////            $('#FCInvoice_No').val(d.FCInvoice_No);
-////            $('#FCInvDate').val(d.FCInvDate);
-////            $('#FCSFreight').val(d.FCSFreight);
-////            $('#FCSFreight_GST').val(d.FCSFreight_GST);
-////            $('#FCSFreight_GSTAmount').val(d.FCSFreight_GSTAmount);
-////            $('#FCSFreight_Total').val(d.FCSFreight_Total);
-
-////            $('#FCSTHC').val(d.FCSTHC);
-////            $('#FCSTHC_GST').val(d.FCSTHC_GST);
-////            $('#FCSTHC_GSTAmount').val(d.FCSTHC_GSTAmount);
-////            $('#FCSTHC_Total').val(d.FCSTHC_Total);
-
-////            $('#FCSBL').val(d.FCSBL);
-////            $('#FCSBL_GST').val(d.FCSBL_GST);
-////            $('#FCSBL_GSTAmount').val(d.FCSBL_GSTAmount);
-////            $('#FCSBL_Total').val(d.FCSBL_Total);
-
-////            $('#FCSSeal').val(d.FCSSeal);
-////            $('#FCSSEAL_GST').val(d.FCSSEAL_GST);
-////            $('#FCSSEAL_GSTAmount').val(d.FCSSEAL_GSTAmount);
-////            $('#FCSSEAL_Total').val(d.FCSSEAL_Total);
-
-////            $('#FCSVGM').val(d.FCSVGM);
-////            $('#FCSVGM_GST').val(d.FCSVGM_GST);
-////            $('#FCSVGM_GSTAmount').val(d.FCSVGM_GSTAmount);
-////            $('#FCSVGM_Total').val(d.FCSVGM_Total);
-
-////            $('#FCSMUC').val(d.FCSMUC);
-////            $('#FCSMUC_GST').val(d.FCSMUC_GST);
-////            $('#FCSMUC_GSTAmount').val(d.FCSMUC_GSTAmount);
-////            $('#FCSMUC_Total').val(d.FCSMUC_Total);
-
-////            $('#FCSITHC').val(d.FCSITHC);
-////            $('#FCSITHC_GST').val(d.FCSITHC_GST);
-////            $('#FCSITHC_GSTAmount').val(d.FCSITHC_GSTAmount);
-////            $('#FCSITHC_Total').val(d.FCSITHC_Total);
-
-////            $('#FCSDry_Port_charges').val(d.FCSDry_Port_charges);
-////            $('#FCSDry_Port_charges_GST').val(d.FCSDry_Port_charges_GST);
-////            $('#FCSDry_Port_charges_GSTAmount').val(d.FCSDry_Port_charges_GSTAmount);
-////            $('#FCSDry_Port_charges_Total').val(d.FCSDry_Port_charges_Total);
-
-////            $('#FCSAdministrative_charges').val(d.FCSAdministrative_charges);
-////            $('#FCSAdministrative_charges_GST').val(d.FCSAdministrative_charges_GST);
-////            $('#FCSAdministrative_charges_GSTAmount').val(d.FCSAdministrative_charges_GSTAmount);
-////            $('#FCSAdministrative_charges_Total').val(d.FCSAdministrative_charges_Total);
-
-////            $('#FCSSecurity_filling_fees').val(d.FCSSecurity_filling_fees);
-////            $('#FCSSecurity_filling_fees_GST').val(d.FCSSecurity_filling_fees_GST);
-////            $('#FCSSecurity_filling_fees_GSTAmount').val(d.FCSSecurity_filling_fees_GSTAmount);
-////            $('#FCSSecurity_filling_fees_Total').val(d.FCSSecurity_filling_fees_Total);
-
-////            $('#FCSOther').val(d.FCSOther);
-////            $('#FCSOther_GST').val(d.FCSOther_GST);
-////            $('#FCSOther_GSTAmount').val(d.FCSOther_GSTAmount);
-////            $('#FCSOther_Total').val(d.FCSOther_Total);
-
-////            $('#FCSAmt_Before_GST').val(d.FCSAmt_Before_GST);
-////            $('#FCSGST').val(d.FCSGST);
-////            $('#FCSTotal').val(d.FCSTotal);
-
-////            // ================= FCA =================
-////            $('#FCAAir_Freight').val(d.FCAAir_Freight);
-////            $('#FCAAir_Freight_GST').val(d.FCAAir_Freight_GST);
-////            $('#FCAAir_Freight_GSTAmount').val(d.FCAAir_Freight_GSTAmount);
-////            $('#FCAAir_Freight_Total').val(d.FCAAir_Freight_Total);
-
-////            $('#FCAMCC').val(d.FCAMCC);
-////            $('#FCAMCC_GST').val(d.FCAMCC_GST);
-////            $('#FCAMCC_GSTAmount').val(d.FCAMCC_GSTAmount);
-////            $('#FCAMCC_Total').val(d.FCAMCC_Total);
-
-////            $('#FCAX_Ray').val(d.FCAX_Ray);
-////            $('#FCAX_Ray_GST').val(d.FCAX_Ray_GST);
-////            $('#FCAX_Ray_GSTAmount').val(d.FCAX_Ray_GSTAmount);
-////            $('#FCAX_Ray_Total').val(d.FCAX_Ray_Total);
-
-////            $('#FCAMYC_Fuel').val(d.FCAMYC_Fuel);
-////            $('#FCAMYC_Fuel_GST').val(d.FCAMYC_Fuel_GST);
-////            $('#FCAMYC_Fuel_GSTAmount').val(d.FCAMYC_Fuel_GSTAmount);
-////            $('#FCAMYC_Fuel_Total').val(d.FCAMYC_Fuel_Total);
-
-////            $('#FCAAMS').val(d.FCAAMS);
-////            $('#FCAAMS_GST').val(d.FCAAMS_GST);
-////            $('#FCAAMS_GSTAmount').val(d.FCAAMS_GSTAmount);
-////            $('#FCAAMS_Total').val(d.FCAAMS_Total);
-
-////            $('#FCAAWB').val(d.FCAAWB);
-////            $('#FCAAWB_GST').val(d.FCAAWB_GST);
-////            $('#FCAAWB_GSTAmount').val(d.FCAAWB_GSTAmount);
-////            $('#FCAAWB_Total').val(d.FCAAWB_Total);
-
-////            $('#FCAPCA').val(d.FCAPCA);
-////            $('#FCAPCA_GST').val(d.FCAPCA_GST);
-////            $('#FCAPCA_GSTAmount').val(d.FCAPCA_GSTAmount);
-////            $('#FCAPCA_Total').val(d.FCAPCA_Total);
-
-////            $('#FCAOthers').val(d.FCAOthers);
-////            $('#FCAOthers_GST').val(d.FCAOthers_GST);
-////            $('#FCAOthers_GSTAmount').val(d.FCAOthers_GSTAmount);
-////            $('#FCAOthers_Total').val(d.FCAOthers_Total);
-
-////            $('#FCAAMT_before_GST').val(d.FCAAMT_before_GST);
-////            $('#FCAGST').val(d.FCAGST);
-////            $('#FCATotal').val(d.FCATotal);
-
-
-////            // TC
-////            $('#TC_Transporter').val(d.TC_Transporter);
-////            $('#TC_Invoice_No').val(d.TC_Invoice_No);
-////            $('#TC_InvDate').val(d.TC_InvDate);
-////            $('#TC_Charges').val(d.TC_Charges);
-////            $('#TCChargesGST').val(d.TCChargesGST);
-////            $('#TCChargesGSTAmount').val(d.TCChargesGSTAmount);
-////            $('#TCCharges_Total').val(d.TCCharges_Total);
-
-////            $('#TC_VGM').val(d.TC_VGM);
-////            $('#TCVGMGST').val(d.TCVGMGST);
-////            $('#TCVGMGSTAmount').val(d.TCVGMGSTAmount);
-////            $('#TCVGM_Total').val(d.TCVGM_Total);
-
-////            $('#TC_Other').val(d.TC_Other);
-////            $('#TCOtherGST').val(d.TCOtherGST);
-////            $('#TCOtherGSTAmount').val(d.TCOtherGSTAmount);
-////            $('#TCOther_Total').val(d.TCOther_Total);
-////            $('#TC_AMT_Before_GST').val(d.TC_AMT_Before_GST);
-////            $('#TC_GST').val(d.TC_GST);
-////            $('#TC_Total').val(d.TC_Total);
-////            // CFS
-////            $('#CFS_Vendor').val(d.CFS_Vendor);
-////            $('#CFS_Invoice_No').val(d.CFS_Invoice_No);
-////            $('#CFS_InvDate').val(d.CFS_InvDate);
-////            $('#CFS_Particulars').val(d.CFS_Particulars);
-////            $('#CFS_Amt_Before_GST').val(d.CFS_Amt_Before_GST);
-////            $('#CFS_GST').val(d.CFS_GST);
-////            $('#CFS_Total').val(d.CFS_Total);
-////            // AddTC
-////            $('#AddTC_Transporter').val(d.AddTC_Transporter);
-////            $('#AddTC_Invoice_No').val(d.AddTC_Invoice_No);
-////            $('#AddTC_InvDate').val(d.AddTC_InvDate);
-////            $('#AddTC_Charges').val(d.AddTC_Charges);
-////            $('#AddTCChargesGST').val(d.AddTCChargesGST);
-////            $('#AddTCChargesGSTAmount').val(d.AddTCChargesGSTAmount);
-////            $('#AddTCCharges_Total').val(d.AddTCCharges_Total);
-
-////            $('#AddTC_VGM').val(d.AddTC_VGM);
-////            $('#AddTCVGMGST').val(d.AddTCVGMGST);
-////            $('#AddTCVGMGSTAmount').val(d.AddTCVGMGSTAmount);
-////            $('#AddTCVGM_Total').val(d.AddTCVGM_Total);
-
-////            $('#AddTC_Other').val(d.AddTC_Other);
-////            $('#AddTCOtherGST').val(d.AddTCOtherGST);
-////            $('#AddTCOtherGSTAmount').val(d.AddTCOtherGSTAmount);
-////            $('#AddTCOther_Total').val(d.AddTCOther_Total);
-
-////            $('#AddTC_AMT_Before_GST').val(d.AddTC_AMT_Before_GST);
-////            $('#AddTC_GST').val(d.AddTC_GST);
-////            $('#AddTC_Total').val(d.AddTC_Total);
-
-////            // COO
-////            $('#COO_Vendor').val(d.COO_Vendor);
-////            $('#COO_Invoice_No').val(d.COO_Invoice_No);
-////            $('#COO_InvDate').val(d.COO_InvDate);
-////            $('#COO_Particulars').val(d.COO_Particulars);
-////            $('#COO_Amt_Before_GST').val(d.COO_Amt_Before_GST);
-////            $('#COOGSTPercentage').val(d.COOGSTPercentage);
-////            $('#COO_GST').val(d.COO_GST);
-////            $('#COO_Total').val(d.COO_Total);
-
-////            // EIA
-////            $('#EIA_Vendor').val(d.EIA_Vendor);
-////            $('#EIA_Invoice_No').val(d.EIA_Invoice_No);
-////            $('#EIA_InvDate').val(d.EIA_InvDate);
-////            $('#EIA_Particulars').val(d.EIA_Particulars);
-////            $('#EIA_Amt_Before_GST').val(d.EIA_Amt_Before_GST);
-////            $('#EIAGSTPercentage').val(d.EIAGSTPercentage);
-////            $('#EIA_GST').val(d.EIA_GST);
-////            $('#EIA_Total').val(d.EIA_Total);
-
-////            // Document info
-////            $('#Doc_ForwardedNo').val(d.Doc_ForwardedNo);
-////            $('#Doc_Sent_Through').val(d.Doc_Sent_Through);
-////            $('#Doc_Date').val(d.Doc_Date);
-////            $('#Doc_Submitted_Account_On').val(d.Doc_Submitted_Account_On);
-////            $('#Weight').val(d.Weight);
-////            $('#Quntity_SQM').val(d.Quntity_SQM);
-////            if (!d.Mode || d.Mode.trim() === "" || d.Mode==="ROAD") {
-////                $('#Type').prop('disabled', true);
-////                $('#Type').addClass("readonly");
-////                $('#Type').css({ "filter": "grayscale(1)", "background-color": "#e9ecef" });
-////            } else {
-////                $('#Type').prop('disabled', false);
-////                $('#Type').removeClass("readonly");
-////                $('#Type').css({ "filter": "none", "background-color": "" });
-////            }
-
-////            if (d.Type || d.Type.trim() !== "") {
-////                if (d.Type === "COURIER" || d.Type === "CONSIGNMENT") {
-////                    $('#Type').prop('disabled', true).addClass("readonly").css({
-////                        "filter": "grayscale(1)",
-////                        "background-color": "#e9ecef"
-////                    });
-////                }
-
-////                $("#Type option").filter(function () {
-////                    return $(this).text().trim() === d.Type.trim();
-////                }).prop("selected", true);
-////                $('#Type').closest('.form-group').find('span.required-startype').show();
-////            }
-////            else {
-////            if (d.Mode && d.Mode.trim().toUpperCase() === "ROAD") {
-////                d.Type = "";
-////                var typeDropdown = $('#Type');
-////                typeDropdown.empty();// force null/empty value
-////                typeDropdown.append($('<option>').val('').text(''));
-////                $('#Type').closest('.form-group').find('span.required-startype').hide();
-////            }
-////                else {
-////                loadFCLByMode(d.Mode);
-////                $('#Type').closest('.form-group').find('span.required-startype').show();
-////                }
-////                }
-
-
-////            // $('#Type').val(d.Type);
-////            if (d.Type && d.Type.trim() === "FCL") {
-////                $('#No_of_FCL').prop('disabled', false);        // enable the field
-////                $('#No_of_FCL').removeClass("readonly");        // remove readonly styling
-////                $('#No_of_FCL').css({ "filter": "none", "background-color": "" }); // reset styles
-////                $('#No_of_FCL').closest('.form-group').find('span.required-star').show();
-////            } else {
-////                $('#No_of_FCL').prop('disabled', true);         // disable if not FCL
-////                $('#No_of_FCL').addClass("readonly");
-////                $('#No_of_FCL').css({ "filter": "grayscale(1)", "background-color": "#e9ecef" });
-////                $('#No_of_FCL').closest('.form-group').find('span.required-star').hide();
-////            }
-////            $('#No_of_FCL').val(d.No_of_FCL);
-////            let finalSaveValue = d.finalsave;
-
-////            let isFinalSave = String(finalSaveValue).toLowerCase() === "true";
-////     function toggleFieldBasedOnValue(selector) {
-
-////         if ($(selector).val() === "" || $(selector).val() === undefined || $(selector).val() === null ) {
-
-////                    $(selector).prop('disabled', false);
-////                    $(selector).removeClass("readonly");
-////                    $(selector).css({ "filter": "none", "background-color": "" });
-////                } else {
-
-////                    $(selector).prop('disabled', true);
-////                    $(selector).addClass("readonly");
-////                 $(selector).css({
-////                     "filter": "grayscale(1)", "background-color": "#e9ecef" });
-////                }
-////            }
-
-
-
-
-
-
-////                toggleFieldBasedOnValue('#EPCG_Licence_No');
-////                toggleFieldBasedOnValue('#invoiceDropdown');
-////                toggleFieldBasedOnValue('#Shipping_Bill_No');
-////                toggleFieldBasedOnValue('#Date2');
-////                toggleFieldBasedOnValue('#AirWay_BillNo_Bill_of_LodingNo');
-////                toggleFieldBasedOnValue('#AirWay_BillDate_Bill_of_LodingDate');
-
-////                toggleFieldBasedOnValue('#Port_of_Loading');
-////                toggleFieldBasedOnValue('#Port_of_Discharge');
-////                toggleFieldBasedOnValue('#Inco_Terms');
-////                toggleFieldBasedOnValue('#Remarks');
-////                toggleFieldBasedOnValue('#Clearing_Point');
-
-
-////            let otherChargesArray = d.OtherCharges || [];
-////            let tbody = $('#chargesTable tbody');
-////            tbody.empty(); // Clear previous
-////            if (otherChargesArray.length === 0) {
-////                // If otherChargesArray is empty, add one blank row
-////                let row = `
-////<tr style="font-size: 15px;">
-////    <td class="sr-no">1</td>
-////    <td><input type="text" class="form-control oc-vendor" name="OtherCharges[0].OC_Vendor" value="" /></td>
-////    <td><input type="text" class="form-control oc-invoice-no" name="OtherCharges[0].OC_Invoice_No" value="" /></td>
-////    <td><input type="text" class="form-control oc-invdate" name="OtherCharges[0].OC_InvDate" value="" placeholder="dd/mm/yy" /></td>
-////    <td><input type="text" class="form-control oc-particulars" name="OtherCharges[0].OC_Particulars" value="" /></td>
-////    <td><input type="text" class="form-control oc-amt-before-gst" name="OtherCharges[0].OC_Amt_Before_GST" style = "text-align:right;" value="0.00" placeholder="0.00" /></td>
-////    <td><input type="text" class="form-control oc-gstPercentage" name="OtherCharges[0].OC_GSTPercentage" value="0.00" style = "text-align:right;" placeholder="0.00" /></td>
-////    <td><input type="text" class="form-control oc-gstAmount" name="OtherCharges[0].OC_GSTAmount" value="0.00" style = "text-align:right;" readonly placeholder="0.00" /></td>
-////    <td><input type="text" class="form-control oc-total" name="OtherCharges[0].OC_Total" value="0.00" style = "text-align:right;" readonly placeholder="0.00" /></td>
-////    <td style="display: none;"><input type="text" class="form-control oc-rowid" name="OtherCharges[0].OC_RowId" value="" readonly /></td>
-////    <td><button type="button" class="btn btn-danger" onclick="removeRow(this)"><i class="fa fa-minus" style="margin-left:0;"></i></button></td>
-////</tr>`;
-////                tbody.append(row);
-////            } else {
-////                // Dynamically build rows
-////                otherChargesArray.forEach(function (item, index) {
-////                                      let row = `
-////<tr style="font-size: 15px;">
-////    <td class="sr-no">${index + 1}</td>
-////    <td><input type="text" class="form-control oc-vendor" name="OtherCharges[${index}].OC_Vendor" value="${item.OC_Vendor || ''}" /></td>
-////    <td><input type="text" class="form-control oc-invoice-no" name="OtherCharges[${index}].OC_Invoice_No" value="${item.OC_Invoice_No || ''}" /></td>
-////    <td><input type="text" class="form-control oc-invdate" name="OtherCharges[${index}].OC_InvDate" value="${item.OC_InvDate || ''}" placeholder="dd/mm/yy" /></td>
-////    <td><input type="text" class="form-control oc-particulars" name="OtherCharges[${index}].OC_Particulars" value="${item.OC_Particulars || ''}" /></td>
-////    <td><input type="text" class="form-control oc-amt-before-gst" name="OtherCharges[${index}].OC_Amt_Before_GST" style = "text-align:right;" value="${item.OC_Amt_Before_GST || ''}" placeholder="0.00" /></td>
-////    <td><input type="text" class="form-control oc-gstPercentage" name="OtherCharges[${index}].OC_GSTPercentage" value="${item.OC_GSTPercentage || ''}" style = "text-align:right;" placeholder="0.00" /></td>
-////    <td><input type="text" class="form-control oc-gstAmount" name="OtherCharges[${index}].OC_GSTAmount" value="${item.OC_GSTAmount || ''}" style = "text-align:right;" readonly placeholder="0.00" /></td>
-////    <td><input type="text" class="form-control oc-total" name="OtherCharges[${index}].OC_Total"  style = "text-align:right;" value="${item.OC_Total || ''}" readonly placeholder="0.00" /></td>
-////    <td style="display:none;"><input type="text" class="form-control oc-rowid" name="OtherCharges[${index}].OC_RowId" value="${item.OC_RowId || ''}" readonly /></td>
-////    <td><button type="button" class="btn btn-danger" onclick="removeRow(this)"><i class="fa fa-minus" style="margin-left:0;"></i></button></td>
-////</tr>`;
-////                    tbody.append(row);
-
-////                });
-////            }
-////            let cfsotherChargesArray = (d.CFSOtherCharges && Array.isArray(d.CFSOtherCharges)) ? d.CFSOtherCharges : [];
-////            // ================= OTHER CHARGES TABLE =================
-////            let tbody1 = $('#CfschargesTable tbody');
-////            tbody1.empty();
-
-////            let fixedServices = [
-////                "Other/Private Yard LoLo Charges",
-////                "Terminal Handling Charges",
-////                "Rail Freight Charges",
-////                "Others Support Ser.Infrastructure & Devel.Charges"
-////            ];
-
-////            if (cfsotherChargesArray.length === 0) {
-////                tbody1.empty();
-////                fixedServices.forEach(function (serviceName, index) {
-////                    let row1 = `
-////<tr >
-////    <td class="sr-no">${index + 1}</td>
-////    <td><input class="form-control cfs-nature_of_service" name="CFSOtherCharges[0].Nature_of_Service"  value="${serviceName}" /></td>
-////    <td><input class="form-control cfs_amtbeforegst" name="CFSOtherCharges[0].AmtBeforeGST"  style = "text-align:right;" placeholder="0.00" /></td>
-////    <td><input class="form-control cfs_gstpercentage" name="CFSOtherCharges[0].GstPercentage" style = "text-align:right;" placeholder="0" /></td>
-////    <td><input class="form-control cfs_gstAmount" name="CFSOtherCharges[0].GstAmount" style = "text-align:right;" placeholder="0.00" readonly /></td>
-////    <td><input class="form-control cfs_total" name="CFSOtherCharges[0].Total" style = "text-align:right;" placeholder="0.00" readonly /></td>
-////    <td style="display:none"><input class="form-control cfs_rowid" name="CFSOtherCharges[0].Cfs_RowId" readonly /></td>
-////    <td><button type="button" class="btn btn-danger" onclick="removeRow2(this)" ><i class="fa fa-minus" style="margin-left:0;"></i></button></td>
-////</tr>
-////`;
-////                    tbody1.append(row1);
-////                });
-////                let grandTotalRow = `
-////<tr >
-////    <td></td>
-////    <td>Grand Total</td>
-////    <td><input class="form-control" id="CFS_Amt_Before_GST" name="CFS_Amt_Before_GST" readonly style="text-align:right;" placeholder="0.00" value="0.00" /></td>
-////    <td></td>
-////    <td><input class="form-control" id="CFS_GST" name="CFS_GST" readonly style="text-align:right;" placeholder="0.00" value="0.00" /></td>
-////    <td><input class="form-control" id="CFS_Total" name="CFS_Total" readonly style="text-align:right;" placeholder="0.00" value="0.00" /></td>
-
-////    <td></td>
-////</tr>`;
-
-////                // Append Save Button Row
-////                let saveButtonRow = `
-////<tr>
-////    <td colspan="6" style="text-align:end;">
-////        <a href="#" id="lnkUpdateCfsOC" class="btn" style="font-size: 15px; background-color: #339be1; color: white; width: 7%;">
-////            <i class="fa fa-eraser"></i> Save
-////        </a>
-////    </td>
-////    <td></td>
-////</tr>`;
-////                tbody1.append(grandTotalRow);
-////                tbody1.append(saveButtonRow);
-////                calculateCfsGrandTotals();
-////            }
-////            else {
-////                if (cfsotherChargesArray.length > 0) {
-////                    tbody1.empty();
-////                    cfsotherChargesArray.forEach(function (item, index) {
-
-////                        let row1 = `
-////<tr >
-////    <td class="sr-no">${index + 1}</td>
-////    <td><input class="form-control cfs-nature_of_service" name="CFSOtherCharges[${index}].Nature_of_Service"   value="${item.Nature_of_Service || ''}" /></td>
-////    <td><input class="form-control cfs_amtbeforegst" name="CFSOtherCharges[${index}].AmtBeforeGST" style = "text-align:right;" placeholder="0.00" value="${item.AmtBeforeGST || ''}"/></td>
-////    <td><input class="form-control cfs_gstpercentage" name="CFSOtherCharges[${index}].GstPercentage" style = "text-align:right;" placeholder="0" value="${item.GstPercentage || ''}"/></td>
-////    <td><input class="form-control cfs_gstAmount" name="CFSOtherCharges[${index}].GstAmount" style = "text-align:right;" placeholder="0.00" readonly     value="${item.GstAmount || ''}"/></td>
-////    <td><input class="form-control cfs_total" name="CFSOtherCharges[${index}].Total"  style = "text-align:right;" placeholder="0.00" readonly  value="${item.Total || ''}"/></td>
-////    <td style="display:none"><input class="form-control cfs_rowid" name="CFSOtherCharges[${index}].Cfs_RowId" readonly   value="${item.Cfs_RowId || ''}"/></td>
-////    <td><button type="button" class="btn btn-danger" onclick="removeRow2(this)"><i class="fa fa-minus" style="margin-left:0;"></i></button></td>
-////</tr>`;
-////                        tbody1.append(row1);
-////                    });
-////                    let grandTotalRow = `
-////<tr>
-////    <td></td>
-////    <td>Grand Total</td>
-////    <td><input class="form-control" id="CFS_Amt_Before_GST" name="CFS_Amt_Before_GST" readonly style="text-align:right;" placeholder="0.00" value="0.00" /></td>
-////    <td></td>
-////    <td><input class="form-control" id="CFS_GST" name="CFS_GST" readonly style="text-align:right;" placeholder="0.00" value="0.00" /></td>
-////    <td><input class="form-control" id="CFS_Total" name="CFS_Total" readonly style="text-align:right;" placeholder="0.00" value="0.00" /></td>
-
-////    <td></td>
-////</tr>`;
-
-////                    // Append Save Button Row
-////                    let saveButtonRow = `
-////<tr>
-////    <td colspan="6" style="text-align:end;">
-////        <a href="#" id="lnkUpdateCfsOC" class="btn" style="font-size: 15px; background-color: #339be1; color: white; width: 7%;">
-////            <i class="fa fa-eraser"></i> Save
-////        </a>
-////    </td>
-////    <td></td>
-////</tr>`;
-////                    tbody1.append(grandTotalRow);
-////                    tbody1.append(saveButtonRow);
-////                    calculateCfsGrandTotals();
-////                }
-////            }
-////            initializeDatePickers();
-////            if (d.finalsave) {
-////                $('#Type').prop('disabled', true).addClass("readonly").css({
-////                    "filter": "grayscale(1)",
-////                    "background-color": "#e9ecef"
-////                });
-////                $('#No_of_FCL').prop('disabled', true).addClass("readonly").css({
-////                    "filter": "grayscale(1)",
-////                    "background-color": "#e9ecef"
-////                });
-////                // 1. Disable all form fields globally
-////                $('input[type="text"], input[type="date"], input[type="number"], select, textarea').prop('disabled', true);
-
-////                // 2. Loop through each panel
-////                document.querySelectorAll(".panel").forEach(panel => {
-////                    const isInvoicePanel = panel.id === "InvoiceDetailsPanel";
-////                    const content = panel.querySelector(".toggle-content");
-////                    const icon = panel.querySelector(".toggle-icon");
-
-////                    if (isInvoicePanel) {
-////                        // ✅ Keep this panel OPEN
-////                        if (content) content.style.display = "block"; // or "" depending on your CSS
-////                        if (icon) {
-////                            icon.classList.remove("fa-plus");
-////                            icon.classList.add("fa-minus");
-////                            icon.style.transform = "rotate(180deg)";
-////                        }
-////                    } else {
-////                        // ❌ Close all other panels
-////                        if (content) content.style.display = "none";
-////                        if (icon) {
-////                            icon.classList.remove("fa-minus");
-////                            icon.classList.add("fa-plus");
-////                            icon.style.transform = "rotate(0deg)";
-////                        }
-////                    }
-
-////                    // 3. Disable all fields inside each panel
-////                    panel.querySelectorAll("input, select, textarea, button").forEach(field => {
-////                        field.disabled = true;
-////                    });
-////                });
-////                    const panels = document.querySelectorAll(".panel");
-////                    panels.forEach(panel => {
-////                        const heading = panel.querySelector(".panel-heading span");
-////                        if (heading && heading.textContent.trim() === "Document Details") {
-////                            panel.querySelectorAll("input, select, textarea, button").forEach(field => {
-////                                field.disabled = false;
-////                            });
-
-////                            // Expand the panel
-////                            const icon = panel.querySelector(".toggle-icon");
-////                            if (icon) {
-////                                icon.classList.remove("fa-minus");
-////                                icon.classList.add("fa-plus");
-////                                icon.style.transform = "rotate(0deg)";
-////                            }
-////                        }
-
-////                });
-           // }
-});
-
-
-        $('#TblExportTrackerInfo tbody, TblAccountsInfo tbody').on('click', 'tr', function () {
-    var table = $(this).closest('table');
-    table.find('tbody tr').removeClass('selected');
-    $(this).addClass('selected');
-});
+        });
+
+        $('#TblExportTrackerInfo tbody, TblAccountsInfo tbody').off('click').on('click', 'tr', function () {
+            var table = $(this).closest('table');
+            table.find('tbody tr').removeClass('selected');
+            $(this).addClass('selected');
+        });
     }
+    function buildPagination(totalPages, currentPage) {
+
+        var html = '';
+
+        // Previous
+        if (currentPage > 1) {
+            html += '<button class="page-btn" data-page="' + (currentPage - 1) + '">&lt;</button>';
+        }
+
+        // Show limited page numbers (current page and surrounding pages)
+        var startPage = Math.max(1, currentPage - 2);
+        var endPage = Math.min(totalPages, currentPage + 2);
+
+        if (startPage > 1) {
+            html += '<button class="page-btn" data-page="1">1</button>';
+            if (startPage > 2) {
+                html += '<span style="margin: 0 5px;">...</span>';
+            }
+        }
+
+        for (var i = startPage; i <= endPage; i++) {
+            if (i == currentPage) {
+                html += '<button class="page-btn active" data-page="' + i + '">' + i + '</button>';
+            }
+            else {
+                html += '<button class="page-btn" data-page="' + i + '">' + i + '</button>';
+            }
+        }
+
+        if (endPage < totalPages) {
+            if (endPage < totalPages - 1) {
+                html += '<span style="margin: 0 5px;">...</span>';
+            }
+            html += '<button class="page-btn" data-page="' + totalPages + '">' + totalPages + '</button>';
+        }
+
+        // Next
+        if (currentPage < totalPages) {
+            html += '<button class="page-btn" data-page="' + (currentPage + 1) + '">&gt;</button>';
+        }
+
+        $('#paginationContainer').html(html);
+    }
+
+    // Use event delegation for pagination clicks (call once)
+    $(document).on('click', '#paginationContainer .page-btn', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var page = $(this).data('page');
+        if (page && !$(this).hasClass('active')) {
+            getgriddetails(page, 15);
+        }
+    });
     function initializeDatePickers() {
         $('.oc-invdate,.oc-advpaymenton,.oc-BLinvdate,.oc-paymentdate,oc-bladvpaymenton,oc-blpaymentdate').datepicker({
             dateFormat: 'dd/mm/yy',

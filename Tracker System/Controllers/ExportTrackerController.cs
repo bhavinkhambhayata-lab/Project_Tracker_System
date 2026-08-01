@@ -20,7 +20,7 @@ namespace Tracker_System.Controllers
     public class ExportTrackerController : Controller
     {
 
-      
+
         [HttpGet]
         public ActionResult Index()
         {
@@ -38,7 +38,7 @@ namespace Tracker_System.Controllers
             var model = new Shipmenttracker();
 
 
-           
+
 
             string employeeName = "";
             if (System.Web.HttpContext.Current.Session["UserName"] != null)
@@ -55,7 +55,7 @@ namespace Tracker_System.Controllers
             var model = new AdvanceTracker();
 
 
-           
+
 
             string employeeName = "";
             if (System.Web.HttpContext.Current.Session["UserName"] != null)
@@ -69,45 +69,47 @@ namespace Tracker_System.Controllers
         public ActionResult CreateExportTracker()
         {
             var mode = "";
-            var model = new Exporttracker(); 
+            var model = new Exporttracker();
 
-           
+
             model.OtherCharges = new List<Exporttracker_OtherCharges>();
-            
+
             model.OtherCharges.Add(new Exporttracker_OtherCharges());
             ClsExportTracker helper = new ClsExportTracker();
             model.lstInco_Terms = helper.GetAllListforIncoTerms();
-        
+
             model.lstCleringPoint = helper.GetAllListCleringPoint();
             model.lstFCL = helper.GetAllListFCL(mode);
             List<string> invoiceNumbers = helper.GetInvoiceNumbers(); // however you fetch it
             ViewBag.InvoiceList = invoiceNumbers;
             var searchTypes = new List<SelectListItem>
                     {
-                  
-  
+
+
                         new SelectListItem { Text = "Pending", Value = "Pending", Selected = true },
                       new SelectListItem { Text = "Completed", Value = "Completed" },
                                             new SelectListItem { Text = "All", Value = "All", Selected = true }
                     };
             ViewBag.SearchTypes = searchTypes;
 
-           string employeeName = "";
+            ViewBag.YearList = helper.GetYearList();
+
+            string employeeName = "";
             if (System.Web.HttpContext.Current.Session["UserName"] != null)
             {
-                employeeName =System.Web.HttpContext.Current.Session["UserName"].ToString();
+                employeeName = System.Web.HttpContext.Current.Session["UserName"].ToString();
             }
 
 
             return View(model);
         }
-  
+
         public JsonResult GetDataInsertdetails(Exporttracker rowsData)
         {
             try
             {
-                ClsExportTracker helper = new ClsExportTracker();    
-                bool isInserted = helper.GetDataInsertData(rowsData); 
+                ClsExportTracker helper = new ClsExportTracker();
+                bool isInserted = helper.GetDataInsertData(rowsData);
                 string status = isInserted ? "Inserted" : "Failed";
 
                 return Json(new
@@ -135,7 +137,7 @@ namespace Tracker_System.Controllers
                 ClsExportTracker helper = new ClsExportTracker();
                 var data = helper.GetColumnWiseSuggestions();
 
-               
+
                 var dict = data
                     .GroupBy(x => x.Key)
                     .ToDictionary(g => g.Key, g => g.Select(x => x.Value).ToList());
@@ -144,7 +146,7 @@ namespace Tracker_System.Controllers
                 {
                     if (!string.IsNullOrEmpty(term_value))
                     {
-               
+
                         values = values
                             .Where(v => v != null && v.IndexOf(term_value, StringComparison.OrdinalIgnoreCase) >= 0)
                             .Distinct()
@@ -164,18 +166,18 @@ namespace Tracker_System.Controllers
 
         public JsonResult CheckRecordExists(string invNo)
         {
-            ClsExportTracker helper = new ClsExportTracker();    
+            ClsExportTracker helper = new ClsExportTracker();
             bool exists = helper.RecordExists(invNo);
             return Json(new { exists });
         }
-    
-    
+
+
         public JsonResult GetDataUpdateClearance(Exporttracker rowsData)
         {
             try
             {
-                ClsExportTracker helper = new ClsExportTracker();    
-                bool isUpdated = helper.GetDataInsertClearanceData(rowsData); 
+                ClsExportTracker helper = new ClsExportTracker();
+                bool isUpdated = helper.GetDataInsertClearanceData(rowsData);
                 string status = isUpdated ? "Update" : "Failed";
 
                 return Json(new
@@ -194,7 +196,7 @@ namespace Tracker_System.Controllers
                 return Json(new { returnVal = false, MSG = $"Error inserting record: {ex.Message}" });
             }
         }
-   
+
         public JsonResult GetDataUpdateForwarderCharges(Exporttracker rowsDataList)
         {
             try
@@ -202,40 +204,40 @@ namespace Tracker_System.Controllers
                 ClsExportTracker helper = new ClsExportTracker();
                 List<object> resultRecords = new List<object>();
 
-               
-                    bool isUpdated = false;
-                    string methodUsed = "";
 
-                    if (rowsDataList.Forwarder_Details == "Sea")
-                    {
-                        isUpdated = helper.GetDataInsertForwarderSeaData(rowsDataList);
-                        methodUsed = "Sea Method";
-                    }
-                    else if (rowsDataList.Forwarder_Details == "Air")
-                    {
-                        isUpdated = helper.GetDataInsertForwarderAirData(rowsDataList);
-                        methodUsed = "Air Method";
-                    }
-                    else
-                    {
-                        resultRecords.Add(new
-                        {
-                            InvoiceNo = rowsDataList.Invoice_No,
-                            ForwarderType = rowsDataList.Forwarder_Details,
-                            Status = "Skipped - Unknown Forwarder Type"
-                        });
-                      
-                    }
+                bool isUpdated = false;
+                string methodUsed = "";
 
-                    string status = isUpdated ? "Update" : "Failed";
+                if (rowsDataList.Forwarder_Details == "Sea")
+                {
+                    isUpdated = helper.GetDataInsertForwarderSeaData(rowsDataList);
+                    methodUsed = "Sea Method";
+                }
+                else if (rowsDataList.Forwarder_Details == "Air")
+                {
+                    isUpdated = helper.GetDataInsertForwarderAirData(rowsDataList);
+                    methodUsed = "Air Method";
+                }
+                else
+                {
                     resultRecords.Add(new
                     {
                         InvoiceNo = rowsDataList.Invoice_No,
                         ForwarderType = rowsDataList.Forwarder_Details,
-                        Status = status,
-                        MethodUsed = methodUsed
+                        Status = "Skipped - Unknown Forwarder Type"
                     });
-                
+
+                }
+
+                string status = isUpdated ? "Update" : "Failed";
+                resultRecords.Add(new
+                {
+                    InvoiceNo = rowsDataList.Invoice_No,
+                    ForwarderType = rowsDataList.Forwarder_Details,
+                    Status = status,
+                    MethodUsed = methodUsed
+                });
+
 
                 return Json(new
                 {
@@ -248,13 +250,13 @@ namespace Tracker_System.Controllers
                 return Json(new { Status = false, MSG = $"Error inserting record: {ex.Message}" });
             }
         }
-  
+
         public JsonResult GetDataUpdateCFS(Exporttracker rowsData)
         {
             try
             {
-                ClsExportTracker helper = new ClsExportTracker();    
-                bool isUpdated = helper.GetDataInsertCFSData(rowsData); 
+                ClsExportTracker helper = new ClsExportTracker();
+                bool isUpdated = helper.GetDataInsertCFSData(rowsData);
                 string status = isUpdated ? "Update" : "Failed";
 
                 return Json(new
@@ -273,12 +275,12 @@ namespace Tracker_System.Controllers
                 return Json(new { returnVal = false, MSG = $"Error inserting record: {ex.Message}" });
             }
         }
-       
+
         public JsonResult GetDataUpdateTransportation(Exporttracker rowsData)
         {
             try
             {
-                ClsExportTracker helper = new ClsExportTracker();    
+                ClsExportTracker helper = new ClsExportTracker();
                 bool isUpdated = helper.GetDataInsertTCData(rowsData);
                 string status = isUpdated ? "Update" : "Failed";
 
@@ -298,13 +300,13 @@ namespace Tracker_System.Controllers
                 return Json(new { returnVal = false, MSG = $"Error inserting record: {ex.Message}" });
             }
         }
-     
+
         public JsonResult GetDataUpdateAddTransportation(Exporttracker rowsData)
         {
             try
             {
-                ClsExportTracker helper = new ClsExportTracker();    
-                bool isUpdated = helper.GetDataInsertAddTCData(rowsData); 
+                ClsExportTracker helper = new ClsExportTracker();
+                bool isUpdated = helper.GetDataInsertAddTCData(rowsData);
                 string status = isUpdated ? "Update" : "Failed";
 
                 return Json(new
@@ -323,13 +325,13 @@ namespace Tracker_System.Controllers
                 return Json(new { returnVal = false, MSG = $"Error inserting record: {ex.Message}" });
             }
         }
-      
+
         public JsonResult GetAllDataUpdate(Exporttracker rowsData)
         {
             try
             {
-                ClsExportTracker helper = new ClsExportTracker();    
-                bool isUpdated = helper.GetAllDataFinalSave(rowsData); 
+                ClsExportTracker helper = new ClsExportTracker();
+                bool isUpdated = helper.GetAllDataFinalSave(rowsData);
                 string status = isUpdated ? "Update" : "Failed";
 
                 return Json(new
@@ -376,8 +378,8 @@ namespace Tracker_System.Controllers
         {
             try
             {
-                ClsExportTracker helper = new ClsExportTracker();  
-                bool isUpdated = helper.GetDataInsertCOOCData(rowsData); 
+                ClsExportTracker helper = new ClsExportTracker();
+                bool isUpdated = helper.GetDataInsertCOOCData(rowsData);
                 string status = isUpdated ? "Update" : "Failed";
 
                 return Json(new
@@ -408,13 +410,13 @@ namespace Tracker_System.Controllers
                     foreach (var row in rowsData)
                     {
 
-                    
-                
+
+
                         bool isUpdated = false;
                         bool updated = ObjClsComTracker.GetShipmentDataUpdate(row);
                         isUpdated = true;
                         // Check if record exists first
-                      
+
                         result.Add(new
                         {
 
@@ -428,7 +430,7 @@ namespace Tracker_System.Controllers
                         Records = result
                     });
 
-                    
+
                 }
                 catch (Exception ex)
                 {
@@ -509,8 +511,8 @@ namespace Tracker_System.Controllers
         {
             try
             {
-                ClsExportTracker helper = new ClsExportTracker();    
-                bool isUpdated = helper.GetDataInsertEIACData(rowsData); 
+                ClsExportTracker helper = new ClsExportTracker();
+                bool isUpdated = helper.GetDataInsertEIACData(rowsData);
                 string status = isUpdated ? "Update" : "Failed";
 
                 return Json(new
@@ -561,14 +563,14 @@ namespace Tracker_System.Controllers
             }
         }
 
-        public JsonResult GetDataUpdateOtherCharges(Exporttracker rowsData) 
+        public JsonResult GetDataUpdateOtherCharges(Exporttracker rowsData)
         {
             try
             {
                 ClsExportTracker helper = new ClsExportTracker();
 
 
-              int insertedCount = helper.GetDataInsertOCData(rowsData);
+                int insertedCount = helper.GetDataInsertOCData(rowsData);
 
 
                 if (rowsData != null && rowsData.OtherCharges.Count > 0)
@@ -624,13 +626,13 @@ namespace Tracker_System.Controllers
 
 
                                 // ===== Table Rows =====
-                               
+
                                 Body += "<tr align='center'>";
-                                Body += "<td style='text-align: left; border:1px solid black;'>" + rowsData.Invoice_No+ "</td>";
-                                Body += "<td style='text-align: left;border:1px solid black;'>" + charge.OC_Vendor+ "</td>";
+                                Body += "<td style='text-align: left; border:1px solid black;'>" + rowsData.Invoice_No + "</td>";
+                                Body += "<td style='text-align: left;border:1px solid black;'>" + charge.OC_Vendor + "</td>";
                                 Body += "<td style='text-align: left;border:1px solid black;'>" + charge.OC_Invoice_No + "</td>";
                                 Body += "<td style='border:1px solid black;'>" + Convert.ToDateTime(charge.OC_InvDate).ToString("dd/MM/yy") + "</td>";
-                                  
+
                                 Body += "<td style='border:1px solid black;'>" + charge.OC_Particulars + "</td>";
                                 Body += "<td  style='text-align: right;border:1px solid black;'>" + charge.OC_Amt_Before_GST + "</td>";
                                 Body += "<td style='text-align: right;border:1px solid black;'>" + charge.OC_GSTPercentage + "</td>";
@@ -639,13 +641,13 @@ namespace Tracker_System.Controllers
                                 Body += "<td style='border:1px solid black;'>" + Convert.ToDateTime(charge.OC_BLAdvPaymenton).ToString("dd/MM/yy") + "</td>";
                                 Body += "<td style='border:1px solid black;'>" + Convert.ToDateTime(charge.OC_BLPaymentDate).ToString("dd/MM/yy") + "</td>";
                                 Body += "</tr>";
-                     
+
                                 Body += "</table>";
 
                                 Body += "<br><br>";
-                           
+
                                 Body += "Note: Please do not reply to this mail as it is a computer generated mail.";
-                             
+
                                 Body += "<br><br>";
                                 Body += "</div>";
                                 e_mail.Body = Body;
@@ -661,7 +663,7 @@ namespace Tracker_System.Controllers
                                 smtpClient.Send(e_mail);
                             }
                         }
-                   
+
                     }
                     catch (Exception ex)
                     {
@@ -677,10 +679,10 @@ namespace Tracker_System.Controllers
                 {
                     Status = insertedCount >= 0,
                     InsertedCount = insertedCount,
-                   Message = status
-              
+                    Message = status
+
                 });
-                
+
             }
             catch (Exception ex)
             {
@@ -749,8 +751,8 @@ namespace Tracker_System.Controllers
         {
             try
             {
-                ClsExportTracker helper = new ClsExportTracker();   
-                bool isUpdated = helper.GetDataInsertDCData(rowsData); 
+                ClsExportTracker helper = new ClsExportTracker();
+                bool isUpdated = helper.GetDataInsertDCData(rowsData);
                 string status = isUpdated ? "Update" : "Failed";
 
                 return Json(new
@@ -796,15 +798,22 @@ namespace Tracker_System.Controllers
             return dt;
         }
 
-        public ActionResult ExportReport(String SearchType = " ")
+        public ActionResult ExportReport(String SearchType = " ",int year = 0)
         {
             try
             {
+                if (year == 0)
+                {
+                    year = DateTime.Now.Year; // Default to current year if not provided
+                }
+
                 ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
                 CommonController ObjClsExportTracker = new CommonController();
-                var exportListResult = ObjClsExportTracker.GetExportGridList(SearchType) as JsonResult;
+                var jsonExportListResult = ObjClsExportTracker.GetExportGridList(SearchType, year, 1, 1000, "") as JsonResult;
 
-                var exportList = exportListResult?.Data as List<Exporttracker>;
+                var exportListResult = jsonExportListResult?.Data as ExportListPaginationResponse;
+
+                var exportList = exportListResult.Data;
 
                 int maxOtherChargesCount = exportList.Max(x => x.OtherCharges?.Count ?? 0);
 
@@ -1289,7 +1298,7 @@ namespace Tracker_System.Controllers
         }
         public ActionResult Download(string filetype, string file)
         {
-           // var mStream = TempData["ExcelFile"] as System.IO.MemoryStream;
+            // var mStream = TempData["ExcelFile"] as System.IO.MemoryStream;
             System.IO.MemoryStream mStream = new System.IO.MemoryStream();
             try
             {
@@ -1314,5 +1323,14 @@ namespace Tracker_System.Controllers
 
         //    return File(bytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
         //}
+
+        public JsonResult GetExportTrackerYearList()
+        {
+            ClsExportTracker exporttracker = new ClsExportTracker();
+
+            var list = exporttracker.GetYearList();
+
+            return Json(list);
+        }
     }
 }

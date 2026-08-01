@@ -1742,5 +1742,38 @@ string.IsNullOrEmpty(model.Port_of_Loading) ? "" : model.Port_of_Loading);
                 return DBNull.Value;
             }
         }
+
+        public List<YearModel> GetYearList()
+        {
+            connection();
+
+            List<YearModel> list = new List<YearModel>();
+
+            using (SqlCommand cmd = new SqlCommand(@"
+                        SELECT EYear AS Code, EYear AS Name
+                        FROM FYear
+                        WHERE Active = 1
+                        ORDER BY EYear DESC", con))
+            {
+                if (con.State != ConnectionState.Open)
+                    con.Open();
+
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        list.Add(new YearModel
+                        {
+                            Code = dr["Code"].ToString(),
+                            Name = dr["Name"].ToString()
+                        });
+                    }
+                }
+
+                con.Close();
+            }
+
+            return list;
+        }
     }
 }

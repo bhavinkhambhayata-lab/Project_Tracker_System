@@ -371,4 +371,10 @@ namespace Tracker_System.Models
     
     }
 
+    public class ExportListPaginationResponse
+    {
+        public List<Exporttracker> Data { get; set; }
+        public int TotalCount { get; set; }
+    }
+
 }
