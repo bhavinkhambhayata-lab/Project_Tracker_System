@@ -489,7 +489,7 @@ namespace Tracker_System.Controllers
 
             try
             {
-                DataSet dsMaster = ObjSQLHelper.SelectProcDataDS("Export_GetInvoiceListWithPagination_Test_Wind", cmdMaster);
+                DataSet dsMaster = ObjSQLHelper.SelectProcDataDS("Export_GetInvoiceListWithPagination", cmdMaster);
 
                 SqlCommand cmdOther = new SqlCommand();
                 cmdOther.Parameters.AddWithValue("@Mode", "OtherGet");
