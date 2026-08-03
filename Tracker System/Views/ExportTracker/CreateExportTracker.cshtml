@@ -27,20 +27,20 @@
         min-width: 30px;
     }
 
-    .page-btn:hover {
-        background-color: #f0f0f0;
-    }
+        .page-btn:hover {
+            background-color: #f0f0f0;
+        }
 
-    .page-btn.active {
-        background-color: #007bff;
-        color: white;
-        border-color: #007bff;
-    }
+        .page-btn.active {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
 
-    .page-btn:disabled {
-        background-color: #e9ecef;
-        cursor: not-allowed;
-    }
+        .page-btn:disabled {
+            background-color: #e9ecef;
+            cursor: not-allowed;
+        }
 </style>
 @using (Html.BeginForm())
 {
@@ -61,25 +61,98 @@
                 <div class="tab-content">
                     <div id="tabList" class="tab-pane active">
                         <div class="box">
-                            <div class="col-md-12 form-group" id="invoiceNoSearchSectionList" style="margin-top: 6px !important; ">
+                            <div class="col-md-12 form-group mt-2" id="invoiceNoSearchSectionList">
 
-                                <label for="searchType">@resourceSettings.getResourceLable("lblSearchType", "common", "Search Type")</label>
-                                @Html.DropDownListFor(model => model.SearchType, new SelectList(ViewBag.SearchTypes, "Value", "Text"), new { @class = "form-control", onchange = "getgriddetails()", @id = "searchType", style = "width: 100px;" })
+                                <div class="row align-items-end g-2">
 
-                                <select class="form-control" id="ExportDropDownYear" name="ExportDropDownYear" style="width: 100px;" onchange="getgriddetails(1, 15);">
-                                    <option value="">Select Year</option>
+                                    <!-- Search Type -->
+                                    <div class="col-md-2">
+                                        <label for="searchType" class="form-label">
+                                            @resourceSettings.getResourceLable("lblSearchType", "common", "Search Type")
+                                        </label>
 
-                                    @foreach (var item in ViewBag.YearList)
-                                    {
-                                        <option value="@item.Code" @(item.Code == "2026" ? "selected" : "")>@item.Name</option>
-                                    }
-                                </select>
-                                <a href="#" id="lnkExportToExcel" class="btn-cancel" style=" width: 14rem;">
-                                    <i class="fa fa-eraser"></i>
-                                    @resourceSettings.getResourceLable("lblExportToExcel", "common", "Export To Excel")
-                                </a>
+                                        @Html.DropDownListFor(model => model.SearchType,
+                                            new SelectList(ViewBag.SearchTypes, "Value", "Text"),
+                                            new
+                                            {
+                                                @class = "form-control",
+                                                @id = "searchType",
+                                                onchange = "getgriddetails(1, parseInt($('#ddlPageSize').val()));"
+                                            })
+                                    </div>
 
-                                <div id="Accountpage" style=" margin-top: -17px; margin-left: 131rem; text-align: end;"></div>
+                                    <!-- Year -->
+                                    <div class="col-md-2">
+                                        <label for="ExportDropDownYear" class="form-label">Year</label>
+
+                                        <select class="form-control"
+                                                id="ExportDropDownYear"
+                                                name="ExportDropDownYear"
+                                                onchange="getgriddetails(1, parseInt($('#ddlPageSize').val()));">
+
+                                            @foreach (var item in ViewBag.YearList)
+                                            {
+                                                <option value="@item.Code" @(item.Code == "2026" ? "selected" : "")>
+                                                    @item.Name
+                                                </option>
+                                            }
+                                        </select>
+                                    </div>
+
+                                    <!-- Search Invoice -->
+                                    <div class="col-md-3">
+                                        <label for="searchInvoiceNo" class="form-label">Invoice No</label>
+
+                                        <input type="text"
+                                               id="searchInvoiceNo"
+                                               class="form-control"
+                                               placeholder="Search Invoice No" />
+                                    </div>
+
+                                    <!-- Search Button -->
+                                    <div class="col-md-2">
+                                        <button type="button"
+                                                id="SearchBtnInvoiceNo"
+                                                class="btn btn-primary w-100">
+                                            <i class="fa fa-search"></i> Search
+                                        </button>
+                                    </div>
+
+                                    <!-- Show -->
+                                    <div class="col-md-1">
+                                        <label for="PageLimitExporttrackerList" class="form-label">Show</label>
+
+                                        <select id="PageLimitExporttrackerList"
+                                                class="form-control"
+                                                onchange="getgriddetails(1, parseInt(this.value));">
+                                            <option value="10">10</option>
+                                            <option value="15" selected>15</option>
+                                            <option value="25">25</option>
+                                            <option value="50">50</option>
+                                            <option value="100">100</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Export -->
+                                    <div class="col-md-2">
+                                        <label class="form-label">&nbsp;</label>
+
+                                        <a href="#"
+                                           id="lnkExportToExcel"
+                                           class="btn btn-success w-100">
+                                            <i class="fa fa-file-excel-o"></i>
+                                            Export Excel
+                                        </a>
+                                    </div>
+
+                                </div>
+
+                                <div class="row mt-3">
+                                    <div class="col text-end">
+                                        <div id="Accountpage"></div>
+                                    </div>
+                                </div>
+
                             </div>
                             <div class="clearfix"></div>
                             <div class="form-group"></div>
@@ -2059,6 +2132,7 @@
                                                         </div>
 
                                                     </div>
+
                                                     <!--<div class="col-md-12 form-group text-end">
                                                     <a href="#" id="lnkUpdateDocDetails" style="margin-top: 3px; width: 5%; height: 95%; font-size: 15px; background-color: #339be1; align-items: end; color: white; /* text-align: end; */ margin-left: 50rem; " class="btn">
                                                         <i class="fa fa-eraser" style="margin-left:0;"></i> @resourceSettings.getResourceLable("lblSave", "common", "Save")
@@ -6129,21 +6203,23 @@ var allowedUsers = [2044, 2928, 363, 344,1093,332];
         }
 
     });
-     function getgriddetails(pageNumber = 1, pageSize = 15) {
+     function getgriddetails(pageNumber = 1, pageSize = 15,seachInNo="") {
         var urlRequest1 = '@Url.Action("GetExportGridList", "Common")';
 
         $('#loadingMessage1').show();
         $('#TblExportTrackerInfo').hide();
 
         var selectedSearchType = $('#searchType').val();
-        var selectedYear = $('#ExportDropDownYear').val();
+         var selectedYear = $('#ExportDropDownYear').val();
+        var searchInvNo = $('#searchInvNo').val();
 
         // Prepare request params - include page info for server if it supports paging.
         var requestData = {
             SearchType: selectedSearchType,
             ExportDropDownYear: selectedYear,
             PageNumber: pageNumber,
-            PageSize: pageSize
+            PageSize: pageSize,
+            SearchInvNo: searchInvNo
         };
 
         $.ajax({
@@ -6371,7 +6447,7 @@ var allowedUsers = [2044, 2928, 363, 344,1093,332];
                 var table1 = $('#TblExportTrackerInfo').DataTable({
                     paging: false,
                     info: false,
-                    searching: true,
+                    searching: false,
                     autoWidth: false,
                     responsive: true,
                     language: {
@@ -6470,6 +6546,17 @@ var allowedUsers = [2044, 2928, 363, 344,1093,332];
         if (page && !$(this).hasClass('active')) {
             getgriddetails(page, 15);
         }
+    });
+    $(document).on('click', '#SearchBtnInvoiceNo', function (e) {
+        var invNo = $('#searchInvNo').val();
+        var pageSize = parseInt($('#PageLimitExporttrackerList').val(), 10) || 15;
+        getgriddetails(1, pageSize, invNo);
+    });
+    $(document).on('change', '#PageLimitExporttrackerList', function (e) {
+        var invNo = $('#searchInvNo').val();
+        var pageSize = parseInt($('#PageLimitExporttrackerList').val(), 10) || 15;
+
+        getgriddetails(1, pageSize, invNo);
     });
     function initializeDatePickers() {
         $('.oc-invdate,.oc-advpaymenton,.oc-BLinvdate,.oc-paymentdate,oc-bladvpaymenton,oc-blpaymentdate').datepicker({

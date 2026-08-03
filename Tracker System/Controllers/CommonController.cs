@@ -459,7 +459,7 @@ namespace Tracker_System.Controllers
             }
             return string.Empty;
         }
-        public JsonResult GetExportGridList(String SearchType = "All", int Year = 2026, int PageNumber = 1, int PageSize = 20, string ExportDropDownYear = "")
+        public JsonResult GetExportGridList(String SearchType = "All", int Year = 2026, int PageNumber = 1, int PageSize = 20, string ExportDropDownYear = "", string SearchInvNo = "")
         {
             // Use dropdown year if provided, otherwise use Year parameter
             if (!string.IsNullOrEmpty(ExportDropDownYear))
@@ -484,6 +484,7 @@ namespace Tracker_System.Controllers
             cmdMaster.Parameters.AddWithValue("@PageNumber", PageNumber);
             cmdMaster.Parameters.AddWithValue("@Limit", PageSize);
             cmdMaster.Parameters.AddWithValue("@SearchType", SearchType);
+            cmdMaster.Parameters.AddWithValue("@SearchInvNo", SearchInvNo);
 
 
             try
