@@ -101,10 +101,10 @@
 
                                     <!-- Search Invoice -->
                                     <div class="col-md-3">
-                                        <label for="searchInvoiceNo" class="form-label">Invoice No</label>
+                                        <label for="TxtSearchInvoiceNo" class="form-label">Invoice No</label>
 
                                         <input type="text"
-                                               id="searchInvoiceNo"
+                                               id="TxtSearchInvoiceNo"
                                                class="form-control"
                                                placeholder="Search Invoice No" />
                                     </div>
@@ -6203,7 +6203,7 @@ var allowedUsers = [2044, 2928, 363, 344,1093,332];
         }
 
     });
-     function getgriddetails(pageNumber = 1, pageSize = 15,seachInNo="") {
+    function getgriddetails(pageNumber = 1, pageSize = 15, SearchInvNo ="") {
         var urlRequest1 = '@Url.Action("GetExportGridList", "Common")';
 
         $('#loadingMessage1').show();
@@ -6211,7 +6211,7 @@ var allowedUsers = [2044, 2928, 363, 344,1093,332];
 
         var selectedSearchType = $('#searchType').val();
          var selectedYear = $('#ExportDropDownYear').val();
-        var searchInvNo = $('#searchInvNo').val();
+        
 
         // Prepare request params - include page info for server if it supports paging.
         var requestData = {
@@ -6219,7 +6219,7 @@ var allowedUsers = [2044, 2928, 363, 344,1093,332];
             ExportDropDownYear: selectedYear,
             PageNumber: pageNumber,
             PageSize: pageSize,
-            SearchInvNo: searchInvNo
+            SearchInvNo: SearchInvNo
         };
 
         $.ajax({
@@ -6548,12 +6548,12 @@ var allowedUsers = [2044, 2928, 363, 344,1093,332];
         }
     });
     $(document).on('click', '#SearchBtnInvoiceNo', function (e) {
-        var invNo = $('#searchInvNo').val();
+        var invNo = $('#TxtSearchInvoiceNo').val();
         var pageSize = parseInt($('#PageLimitExporttrackerList').val(), 10) || 15;
         getgriddetails(1, pageSize, invNo);
     });
     $(document).on('change', '#PageLimitExporttrackerList', function (e) {
-        var invNo = $('#searchInvNo').val();
+        var invNo = $('#TxtSearchInvoiceNo').val();
         var pageSize = parseInt($('#PageLimitExporttrackerList').val(), 10) || 15;
 
         getgriddetails(1, pageSize, invNo);
