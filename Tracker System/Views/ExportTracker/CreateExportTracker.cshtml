@@ -41,6 +41,12 @@
             background-color: #e9ecef;
             cursor: not-allowed;
         }
+    #lnkExportToExcel {
+        height: 32px;
+        font-weight: 200;
+        border-radius: 6px;
+        font-size: 14px;
+    }
 </style>
 @using (Html.BeginForm())
 {
@@ -66,7 +72,7 @@
                                 <div class="row align-items-end g-2">
 
                                     <!-- Search Type -->
-                                    <div class="col-md-2">
+                                    <div class="col-md-1">
                                         <label for="searchType" class="form-label">
                                             @resourceSettings.getResourceLable("lblSearchType", "common", "Search Type")
                                         </label>
@@ -82,7 +88,7 @@
                                     </div>
 
                                     <!-- Year -->
-                                    <div class="col-md-2">
+                                    <div class="col-md-1">
                                         <label for="ExportDropDownYear" class="form-label">Year</label>
 
                                         <select class="form-control"
@@ -100,7 +106,7 @@
                                     </div>
 
                                     <!-- Search Invoice -->
-                                    <div class="col-md-3">
+                                    <div class="col-md-1">
                                         <label for="TxtSearchInvoiceNo" class="form-label">Invoice No</label>
 
                                         <input type="text"
@@ -110,7 +116,7 @@
                                     </div>
 
                                     <!-- Search Button -->
-                                    <div class="col-md-2">
+                                    <div class="col-md-1">
                                         <button type="button"
                                                 id="SearchBtnInvoiceNo"
                                                 class="btn btn-primary w-100">
@@ -134,13 +140,11 @@
                                     </div>
 
                                     <!-- Export -->
-                                    <div class="col-md-2">
-                                        <label class="form-label">&nbsp;</label>
-
+                                    <div class="col-md-1">
                                         <a href="#"
                                            id="lnkExportToExcel"
                                            class="btn btn-success w-100">
-                                            <i class="fa fa-file-excel-o"></i>
+                                            <i class="fa fa-file-excel-o me-2"></i>
                                             Export Excel
                                         </a>
                                     </div>
