@@ -1752,8 +1752,8 @@ string.IsNullOrEmpty(model.Port_of_Loading) ? "" : model.Port_of_Loading);
             using (SqlCommand cmd = new SqlCommand(@"
                         SELECT EYear AS Code, EYear AS Name
                         FROM FYear
-                        WHERE Active = 1
-                        ORDER BY EYear DESC", con))
+                        WHERE Active = 1 AND EYear >= 2025
+                        ORDER BY EYear ASC", con))
             {
                 if (con.State != ConnectionState.Open)
                     con.Open();

@@ -468,8 +468,8 @@ namespace Tracker_System.Controllers
             }
 
             // Financial Year Dates
-            DateTime fromDate = new DateTime(Year - 1, 4, 1);
-            DateTime toDate = new DateTime(Year, 3, 31);
+            DateTime fromDate = new DateTime(Year, 4, 1);
+            DateTime toDate = new DateTime(Year + 1, 3, 31);
 
             string sortDefault = "";
             //int PageSize = 859;
