@@ -1078,6 +1078,7 @@ string.IsNullOrEmpty(model.Port_of_Loading) ? "" : model.Port_of_Loading);
             com.Parameters.AddWithValue("@BL_Express", model.BL_Express ?? (object)DBNull.Value);
       
             com.Parameters.AddWithValue("@Login_DateTime", DateTime.Now);
+            com.Parameters.AddWithValue("@BookingNo", model.BookingNo ?? (object)DBNull.Value);
             int employeeRowId = 0;
             if (System.Web.HttpContext.Current.Session["EmplRowId"] != null)
             {

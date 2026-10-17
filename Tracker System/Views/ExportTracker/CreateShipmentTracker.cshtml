@@ -56,6 +56,7 @@
                                                     <th title="Lading Port /Airport"><b>Lading Port / <br />Airport</b></th>
                                                     <th title="Port /Airport "><b>Port / <br />Airport </b></th>
                                                     @*<th title="Select All"><b>select All</b></th>*@
+                                                    <th title="Booking No"><b>Booking No </b></th>
                                                     <th title="Vessel/Airlines"><b>Vessel / Airlines </b></th>
                                                     <th title="ETD"><b>ETD</b></th>
                                                     <th title="ETA"><b>ETA</b></th>
@@ -84,12 +85,13 @@
                                                     <th><input type="text" class="column-search Port_of_discharge-search" data-column="6" style="width: 4rem;"></th>
                                                     <th><input type="text" class="column-search Mode_of_Dishcharge-search" data-column="7" style="width: 8rem;"></th>
                                                     <th><input type="text" class="column-search Type-search" data-column="8" style="width: 9rem"></th>
+                                                    <th><input type="text" class="column-search Type-search" data-column="9" style="width: 15rem"></th>
                                                     @*<th><input type="text" class="column-search Type-search" data-column="9" style="width: 3rem"></th>*@
-                                                    <th><input type="text" class="column-search Type-search" data-column="9" style="width: 19rem"></th>
-                                                    <th><input type="text" class="column-search Type-search" data-column="10" style="width: 6rem"></th>
+                                                    <th><input type="text" class="column-search Type-search" data-column="10" style="width: 19rem"></th>
                                                     <th><input type="text" class="column-search Type-search" data-column="11" style="width: 6rem"></th>
                                                     <th><input type="text" class="column-search Type-search" data-column="12" style="width: 6rem"></th>
-                                                    <th><input type="text" class="column-search Type-search" data-column="13" style="width: 12rem"></th>
+                                                    <th><input type="text" class="column-search Type-search" data-column="13" style="width: 6rem"></th>
+                                                    <th><input type="text" class="column-search Type-search" data-column="14" style="width: 12rem"></th>
                                                     <th><input type="text" class="column-search Country-search" data-column="15" style=" width: 5rem;"></th>
                                                     <th><input type="text" class="column-search Country-search" data-column="16" style=" width: 9rem;"></th>
                                                     <th><input type="text" class="column-search Inco_Terms-search" data-column="17" style=" width: 8rem;"></th>
@@ -265,7 +267,7 @@ $(document).ready(function () {
     const $btn = $(this);
     const $row = $btn.closest('tr');
 
-    if ($btn.hasClass('editing')) {
+        if ($btn.hasClass('editing')) {
         // ---- SAVE MODE ----
         const updatedData = {
             Invoice_No: $row.find('.InvoiceNo').text().trim(),
@@ -275,7 +277,8 @@ $(document).ready(function () {
             Transit_Time: $row.find('.cc-transit').length
                 ? $row.find('.cc-transit').text().trim()
                 : $row.find('.CO_Transit_Time').text().trim(),
-            BL_Express: $row.find('.CO_BL_Express input').val().trim()
+            BL_Express: $row.find('.CO_BL_Express input').val().trim(),
+            BookingNo: $row.find('.CO_BookingNo input').val().trim() // Add BookingNo to updatedData
         };
 
         $.ajax({
@@ -292,6 +295,7 @@ $(document).ready(function () {
                 $row.find('.CO_ETA').text(updatedData.ETA);
                 $row.find('.CO_Transit_Time').text(updatedData.Transit_Time);
                 $row.find('.CO_BL_Express').text(updatedData.BL_Express);
+                $row.find('.CO_BookingNo').text(updatedData.BookingNo); // Update BookingNo cell
 
                 // Remove save/cancel buttons and restore edit icon
                 $row.find('.edit-btn, .cancel-btn').closest('td').remove();
@@ -321,7 +325,7 @@ $(document).ready(function () {
         }
 
         // ---- Editable fields setup ----
-        $row.find('.CO_Vessel_Airlines, .CO_ETD, .CO_ETA, .CO_BL_Express').each(function () {
+        $row.find('.CO_Vessel_Airlines, .CO_ETD, .CO_ETA, .CO_BL_Express , .CO_BookingNo').each(function () {
             const $cell = $(this);
             const text = $cell.text().trim();
             $cell.data('original', text);
@@ -351,15 +355,24 @@ $(document).ready(function () {
                     }
                 });
 
-            // ✅ Vessel Airlines (228px)
-            } else if ($cell.hasClass('CO_Vessel_Airlines')) {
+            }
+                // ✅ CO_BookingNo (90px)
+            else if ($cell.hasClass('CO_BookingNo')) {
+                $cell.html(`
+                    <input type="text"
+                        class="form-control form-control-sm text-center"
+                        value="${text}" style="width:150px;">
+                `);
+            }
+                // ✅ Vessel Airlines (228px)
+            else if ($cell.hasClass('CO_Vessel_Airlines')) {
                 $cell.html(`
                     <input type="text"
                         class="form-control form-control-sm text-center"
                         value="${text}" style="width:228px;">
                 `);
 
-            // ✅ BL_Express (90px)
+                // ✅ BL_Express (90px)
             } else if ($cell.hasClass('CO_BL_Express')) {
                 $cell.html(`
                     <input type="text"
@@ -367,6 +380,7 @@ $(document).ready(function () {
                         value="${text}" style="width:90px;">
                 `);
             }
+            
         });
 
         // ---- Transit display ----
@@ -484,8 +498,8 @@ $(document).ready(function () {
     $('#TblshipmenttrackerInfo').on('click', '.cancel-btn', function (e) {
         e.preventDefault();
         const $row = $(this).closest('tr');
-        debugger
-        $row.find('.CO_Vessel_Airlines, .CO_ETD, .CO_ETA, .CO_Transit_Time, .CO_BL_Express').each(function () {
+        
+        $row.find('.CO_Vessel_Airlines, .CO_ETD, .CO_ETA, .CO_Transit_Time, .CO_BL_Express ,.CO_BookingNo').each(function () {
             const $cell = $(this);
             const original = $cell.data('original');
             const $input = $cell.find('input.datepicker');
@@ -839,6 +853,7 @@ $('#TblshipmenttrackerInfo').on('click', '.cancel-btn', function(e) {
                             var BL_ExpressTooltip = item.BL_Express;
                             var Doc_DateTooltip = item.Doc_Date;
                             var Doc_Submitted_Account_OnTooltip = item.Doc_Submitted_Account_On;
+                            var BookingNoTooltip = item.BookingNo;
 
                             var NooffclTooltip = item.No_of_FCL;
 
@@ -861,6 +876,7 @@ $('#TblshipmenttrackerInfo').on('click', '.cancel-btn', function(e) {
 
                            // rows += '<td style="text-align: center;"><input type="checkbox" Id="CheckboxPre" class="row-checkbox All-CheckedFacyPre"  /></td>';
 
+                            rows += '<td style="text-align: center;" class="CO_BookingNo" title="' + BookingNoTooltip + '">' + (item.BookingNo || '<input type="text" style="width: 150px; text-align: center;" id="CCO_Booking_No" class="input-box TextSize" />') + '</td>';
 
                             rows += '<td  style="text-align: center;" class="CO_Vessel_Airlines" title="' + Vessel_AirlinesTooltip + '">' + (item.Vessel_Airlines || '<input type="text" style="width: 198px;  text-align: center;" id="CCO_Vessel_Airlines" class="input-box TextSize "  />') + '</td>';
                             //rows += '<td style="text-align: center;" class="CO_ETD" title="' + ETDTooltip + '">' +

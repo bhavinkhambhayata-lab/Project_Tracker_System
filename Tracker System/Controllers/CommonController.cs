@@ -931,6 +931,7 @@ namespace Tracker_System.Controllers
                             BL_Express = GetValueOrDefault(row, "BL_Express"),
                             Doc_Date = GetValueOrDefault(row, "DocDate"),
                             Doc_Submitted_Account_On = GetValueOrDefault(row, "DocSubmittedAccountOn"),
+                            BookingNo = GetValueOrDefault(row, "BookingNo"),
                         };
 
                         exportList.Add(export);

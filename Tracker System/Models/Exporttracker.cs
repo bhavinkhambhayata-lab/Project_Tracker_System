@@ -251,7 +251,7 @@ namespace Tracker_System.Models
         public string Doc_Submitted_Account_On { get; set; }
         public List<Exporttracker_OtherCharges> OtherCharges { get; set; }
         public List<ExportCFSChargeDetails> CFSOtherCharges { get; set; }
-   
+
         public List<InvoiceLogDetail> ExporttrackerLogDetails { get; set; } = new List<InvoiceLogDetail>();
 
         public string UserName { get; set; }
@@ -278,7 +278,7 @@ namespace Tracker_System.Models
         public string SrNo { get; set; }
         public string Division { get; set; }
         public string Invoice_No { get; set; }
-   
+
         public string FCForwarder { get; set; }
         public string FCInvoiceNo { get; set; }
         public string Inco_Terms { get; set; }
@@ -316,9 +316,10 @@ namespace Tracker_System.Models
         public string SearchType { get; set; }
         public int runfor { get; set; }
         public bool SelectPreMarketing { get; set; }
+        public string BookingNo { get; set; } = string.Empty;
     }
 
-   
+
     public class InvoiceLogDetail
     {
         public string SectionName { get; set; }
@@ -368,7 +369,7 @@ namespace Tracker_System.Models
         public string GstPercentage { get; set; }
         public string GstAmount { get; set; }
         public string Total { get; set; }
-    
+
     }
 
     public class ExportListPaginationResponse
