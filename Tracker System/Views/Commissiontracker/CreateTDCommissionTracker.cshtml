@@ -1702,6 +1702,34 @@
                debugger
            });
 
+           // Credit Note Prepared No Validation
+           var invalidCreditNote = rowsData.filter(function (item) {
+
+               return item.CreditNotePreparedNo == null ||
+                   item.CreditNotePreparedNo.toString().trim() == "" ||
+                   isNaN(Number(item.CreditNotePreparedNo)) ||
+                   Number(item.CreditNotePreparedNo) <= 0;
+
+           });
+
+           if (invalidCreditNote.length > 0) {
+
+               var errorMessage = "Please enter valid Credit Note Prepared No for below selected records:\n\n";
+
+               invalidCreditNote.forEach(function (item, index) {
+
+                   errorMessage += (index + 1) +
+                       ". Vendor Code: " + item.Vendor_Code +
+                       " | From No: " + item.FromNo + "\n";
+
+               });
+
+               alert(errorMessage);
+
+               return false;
+           }
+
+
            if (!isValid) {
                return;   // <-- Controller will NOT be called
            }

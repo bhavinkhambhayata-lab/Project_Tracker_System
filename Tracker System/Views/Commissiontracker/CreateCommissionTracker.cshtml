@@ -1343,6 +1343,33 @@
                     };
                     rowsData.push(rowData);
                 });
+
+                // Actual Commission Validation
+                var invalidCommissions = rowsData.filter(function (item) {
+
+                    return item.ActualCommission == null ||
+                        item.ActualCommission.toString().trim() == "" ||
+                        isNaN(Number(item.ActualCommission)) ||
+                        Number(item.ActualCommission) <= 0;
+
+                });
+
+                if (invalidCommissions.length > 0) {
+
+                    var errorMessage = "Please enter valid Actual Commission for below selected records:\n\n";
+
+                    invalidCommissions.forEach(function (item, index) {
+
+                        errorMessage += (index + 1) +
+                            " Invoice No: " + item.Invoice_No + "\n";
+
+                    });
+
+                    alert(errorMessage);
+
+                    return false;
+                }
+
                 var urlRequest = '@Url.Action("GetDataUpadateCommercial", "Commissiontracker")';
                 $.ajax({
                     url: urlRequest,
@@ -1669,6 +1696,33 @@
                     rowsData.push(rowData);
                     debugger
                 });
+
+                // Credit Note Prepared No Validation
+                var invalidCreditNote = rowsData.filter(function (item) {
+
+                    return item.CreditNotePreparedNo == null ||
+                        item.CreditNotePreparedNo.toString().trim() == "" ||
+                        isNaN(Number(item.CreditNotePreparedNo)) ||
+                        Number(item.CreditNotePreparedNo) <= 0;
+
+                });
+
+                if (invalidCreditNote.length > 0) {
+
+                    var errorMessage = "Please enter valid Credit Note Prepared No for below selected records:\n\n";
+
+                    invalidCreditNote.forEach(function (item, index) {
+
+                        errorMessage += (index + 1) +
+                            ". Vendor Code: " + item.Vendor_Code +
+                            " | From No: " + item.FromNo + "\n";
+
+                    });
+
+                    alert(errorMessage);
+
+                    return false;
+                }
 
                 //if (!isValid) {
                 //    return;   // <-- Controller will NOT be called
