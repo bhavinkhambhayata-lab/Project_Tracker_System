@@ -1705,16 +1705,16 @@
            // Credit Note Prepared No Validation
            var invalidCreditNote = rowsData.filter(function (item) {
 
-               return item.CreditNotePreparedNo == null ||
-                   item.CreditNotePreparedNo.toString().trim() == "" ||
-                   isNaN(Number(item.CreditNotePreparedNo)) ||
-                   Number(item.CreditNotePreparedNo) <= 0;
+               var value = item.CreditNotePreparedNo;
+
+               return value == null ||
+                   value.toString().trim() === "";
 
            });
 
            if (invalidCreditNote.length > 0) {
 
-               var errorMessage = "Please enter valid Credit Note Prepared No for below selected records:\n\n";
+               var errorMessage = "Please enter valid Credit Note No for below selected records:\n\n";
 
                invalidCreditNote.forEach(function (item, index) {
 
